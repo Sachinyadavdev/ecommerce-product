@@ -1,0 +1,25 @@
+[dotenv@17.3.1] injecting env (0) from .env.local -- tip: ⚙️  suppress all logs with { quiet: true }
+[dotenv@17.3.1] injecting env (8) from .env -- tip: ⚙️  enable debug logging with { debug: true }
+Checking for 'career' page in pages table...
+Pages: [
+  {
+    id: 'career-page',
+    title: 'Careers | Besmak India',
+    slug: 'career',
+    isActive: 1
+  }
+]
+
+Checking page_sections for pageId = career-page
+Sections for career page:
+- ID: career-section-1, Type: career-section, IsActive: 1, SortOrder: 1
+  Content: {
+  description: 'Join our team at Besmak India. We are always looking for talented individuals to help us innovate and grow.'
+}
+
+Searching for any career sections globally in page_sections:
+Global career sections:
+- ID: career-section-1, PageId: career-page, Type: career-section, IsActive: 1, SortOrder: 1
+  Content: {
+  description: 'Join our team at Besmak India. We are always looking for talented individuals to help us innovate and grow.'
+}

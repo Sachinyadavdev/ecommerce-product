@@ -1,0 +1,26 @@
+interface AboutProps {
+  content?: {
+    title?: string;
+    description?: string;
+  };
+}
+
+export default function About({ content }: AboutProps) {
+  const {
+    title = "About Besmak India",
+    description = "We are a leading manufacturer specializing in industrial parts with over 20 years of experience. Our commitment to quality and precision makes us the preferred partner for businesses worldwide.",
+  } = content || {};
+
+  return (
+    <section className="pt-10 pb-20 md:pt-16 md:pb-28 bg-white">
+      <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-[1400px]">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-3xl font-bold text-gray-800 mb-4">{title}</h2>
+          <p className="text-gray-600 leading-relaxed whitespace-pre-line">
+            {description}
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}

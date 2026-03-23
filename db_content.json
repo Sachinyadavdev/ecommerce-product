@@ -1,0 +1,25 @@
+{
+  "image": "https://fohffyjhcwci6coi.public.blob.vercel-storage.com/machinery-besmak.jpg",
+  "items": [
+    {
+      "size": "30,000 sq. ft.",
+      "title": "Plant 1",
+      "location": "Orgadam, Chennai"
+    },
+    {
+      "size": "40,000 sq. ft.",
+      "title": "Plant 2",
+      "location": "Sanand, Gujarat"
+    },
+    {
+      "size": "30,000 sq. ft.",
+      "title": "Plant 3 (Upcoming)",
+      "location": "Orgadam, Chennai (April 2025)"
+    }
+  ],
+  "title": "Infrastructure & Facilities",
+  "techTitle": "Advanced Machinery",
+  "description": "Our manufacturing infrastructure includes modern, fully equipped facilities strategically located across India's industrial hubs.",
+  "item1Location": "Chennai, Tamil Nadu",
+  "techDescription": "Modern horizontal and vertical molding machines ranging from 40 to 450 tons, equipped with 3-Axis robots supporting dual-side access for rapid part handling."
+}
