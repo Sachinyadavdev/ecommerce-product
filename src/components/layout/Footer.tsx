@@ -393,7 +393,7 @@ export function Footer({ settings }: FooterProps) {
           <div className="flex items-center gap-1.5">
             <span>Crafted by</span>
             <Link
-              href="https://imaginetventures.com"
+              href="#"
               target="_blank"
               className="font-semibold hover:text-white transition-colors"
             >
