@@ -1,5 +1,5 @@
 "use client";
-
+// Comment 
 import { motion } from "framer-motion";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import Link from "next/link";
@@ -22,11 +22,11 @@ export default function CNHMouldsCTA({ content }: CNHMouldsCTAProps) {
   } = content || {};
 
   return (
-    <section className="py-24 relative overflow-hidden bg-slate-900 site-content">
+    <section className="py-10 md:py-16 relative overflow-hidden bg-linear-to-br from-[#284B8C] to-[#1a3668] site-content">
       {/* Dynamic Background Elements */}
       <div className="absolute inset-0 z-0">
-         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/20 blur-[130px] rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none" />
-         <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-primary/10 blur-[150px] rounded-full -translate-x-1/2 translate-y-1/2 pointer-events-none" />
+         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-white/10 blur-[130px] rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none" />
+         <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-white/5 blur-[150px] rounded-full -translate-x-1/2 translate-y-1/2 pointer-events-none" />
       </div>
 
       <div className="container mx-auto px-4 max-w-5xl relative z-10 text-center">
@@ -34,8 +34,8 @@ export default function CNHMouldsCTA({ content }: CNHMouldsCTAProps) {
            initial={{ opacity: 0, y: 30 }}
            whileInView={{ opacity: 1, y: 0 }}
            viewport={{ once: true, margin: "-50px" }}
-           transition={{ duration: 0.8, ease: "easeOut" }}
-           className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-10 md:p-16 shadow-2xl relative overflow-hidden group"
+           transition={{ duration: 0.8, ease: "easeOut" as const }}
+           className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-10 md:p-16 shadow-2xl relative overflow-hidden group"
         >
           {/* Subtle grid pattern inside card */}
           <div 
@@ -73,7 +73,7 @@ export default function CNHMouldsCTA({ content }: CNHMouldsCTAProps) {
              transition={{ delay: 0.5, type: "spring", bounce: 0.4 }}
           >
             <Link href={buttonLink} target="_blank" rel="noopener noreferrer">
-               <button className="group/btn relative inline-flex items-center justify-center gap-3 bg-primary hover:bg-primary-dark text-white text-lg md:text-xl font-bold py-5 px-10 rounded-full transition-all duration-300 overflow-hidden shadow-[0_0_40px_-10px_rgba(var(--primary-rgb),0.5)] hover:shadow-[0_0_60px_-10px_rgba(var(--primary-rgb),0.8)] hover:-translate-y-1">
+               <button className="group/btn relative inline-flex items-center justify-center gap-3 bg-white text-primary hover:bg-slate-50 text-lg md:text-xl font-bold py-5 px-10 rounded-[20px] transition-all duration-300 overflow-hidden shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_-10px_rgba(255,255,255,0.5)] hover:-translate-y-1">
                  {/* Shine effect */}
                  <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/20 to-transparent group-hover/btn:animate-[shimmer_1.5s_infinite]" />
                  

@@ -13,9 +13,10 @@ interface FormField {
   id: string;
   label: string;
   name: string;
-  type: "text" | "email" | "tel" | "textarea" | "file";
+  type: "text" | "email" | "tel" | "textarea" | "file" | "select";
   placeholder: string;
   required: boolean;
+  options?: string[];
 }
 
 interface CareerFormProps {
@@ -30,6 +31,15 @@ const DEFAULT_FIELDS: FormField[] = [
   { id: "f2", label: "Last Name", name: "lastName", type: "text", placeholder: "Doe", required: true },
   { id: "f3", label: "Email Address", name: "email", type: "email", placeholder: "john@example.com", required: true },
   { id: "f4", label: "Phone Number", name: "phone", type: "tel", placeholder: "+91 9XXXX XXXXX", required: true },
+  { 
+    id: "f7", 
+    label: "How did you hear about us?", 
+    name: "source", 
+    type: "select", 
+    placeholder: "Select an option", 
+    required: true,
+    options: ["LinkedIn", "Google Search", "Word of Mouth", "Advertisement", "Other"]
+  },
   { id: "f5", label: "Message", name: "message", type: "textarea", placeholder: "Tell us about yourself...", required: true },
   { id: "f6", label: "Resume / Portfolio", name: "file", type: "file", placeholder: "", required: false },
 ];
@@ -72,7 +82,7 @@ export default function CareerForm({ content }: CareerFormProps) {
   }, []);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -127,52 +137,88 @@ export default function CareerForm({ content }: CareerFormProps) {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {fields.map((field) => (
-                <div key={field.id} className={`space-y-2 ${field.type === "textarea" || field.type === "file" ? "md:col-span-2" : ""}`}>
+                <div key={field.id} className={`space-y-2 ${field.type === "textarea" || field.type === "file" || (field.name === "source" && formData[field.name] === "Other") ? "md:col-span-2" : ""}`}>
                   <label className="text-xs font-bold text-gray-700 uppercase tracking-wide ml-1">
                     {field.label} {field.required ? "*" : ""}
                   </label>
                   
-                  {field.type === "textarea" ? (
-                    <textarea
-                      required={field.required}
-                      name={field.name}
-                      value={formData[field.name] || ""}
-                      onChange={handleChange}
-                      rows={4}
-                      className="w-full px-5 py-3.5 bg-white border border-gray-200 rounded-2xl focus:ring-4 focus:ring-primary/5 focus:border-primary outline-none transition-all resize-none text-black placeholder:text-gray-400"
-                      placeholder={field.placeholder}
-                    />
-                  ) : field.type === "file" ? (
-                    <div className="relative">
-                      <input
-                        type="file"
-                        onChange={(e) => handleFileChange(field.name, e)}
-                        className="hidden"
-                        id={`file-${field.id}`}
-                        accept=".pdf,.doc,.docx,.png,.jpg"
+                  <div className={(field.name === "source" && formData[field.name] === "Other") ? "grid grid-cols-1 md:grid-cols-2 gap-4 items-end" : ""}>
+                    {field.type === "textarea" ? (
+                      <textarea
                         required={field.required}
+                        name={field.name}
+                        value={formData[field.name] || ""}
+                        onChange={handleChange}
+                        rows={4}
+                        className="w-full px-5 py-3.5 bg-white border border-gray-200 rounded-2xl focus:ring-4 focus:ring-primary/5 focus:border-primary outline-none transition-all resize-none text-black placeholder:text-gray-400"
+                        placeholder={field.placeholder}
                       />
-                      <label 
-                        htmlFor={`file-${field.id}`}
-                        className="w-full flex items-center gap-3 px-5 py-4 bg-white border-2 border-dashed border-gray-200 rounded-2xl cursor-pointer hover:bg-gray-50 focus-within:border-primary transition-colors"
-                      >
-                        <Paperclip className="w-5 h-5 text-gray-400" />
-                        <span className="text-sm text-primary/80 font-medium truncate">
-                          {files[field.name] ? files[field.name].name : field.placeholder || "Click to attach a file..."}
-                        </span>
-                      </label>
-                    </div>
-                  ) : (
-                    <input
-                      required={field.required}
-                      type={field.type}
-                      name={field.name}
-                      value={formData[field.name] || ""}
-                      onChange={handleChange}
-                      className="w-full px-5 py-3.5 bg-white border border-gray-200 rounded-2xl focus:ring-4 focus:ring-primary/5 focus:border-primary outline-none transition-all text-black placeholder:text-gray-400"
-                      placeholder={field.placeholder}
-                    />
-                  )}
+                    ) : field.type === "select" ? (
+                      <div className="w-full relative">
+                        <select
+                          required={field.required}
+                          name={field.name}
+                          value={formData[field.name] || ""}
+                          onChange={handleChange}
+                          className="w-full px-5 py-3.5 bg-white border border-gray-200 rounded-2xl focus:ring-4 focus:ring-primary/5 focus:border-primary outline-none transition-all text-black appearance-none cursor-pointer"
+                        >
+                          <option value="" disabled>{field.placeholder}</option>
+                          {field.options?.map(opt => (
+                            <option key={opt} value={opt}>{opt}</option>
+                          ))}
+                        </select>
+                        <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none opacity-40">
+                          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </div>
+                      </div>
+                    ) : field.type === "file" ? (
+                      <div className="relative w-full">
+                        <input
+                          type="file"
+                          onChange={(e) => handleFileChange(field.name, e)}
+                          className="hidden"
+                          id={`file-${field.id}`}
+                          accept=".pdf,.doc,.docx,.png,.jpg"
+                          required={field.required}
+                        />
+                        <label 
+                          htmlFor={`file-${field.id}`}
+                          className="w-full flex items-center gap-3 px-5 py-4 bg-white border-2 border-dashed border-gray-200 rounded-2xl cursor-pointer hover:bg-gray-50 focus-within:border-primary transition-colors"
+                        >
+                          <Paperclip className="w-5 h-5 text-gray-400" />
+                          <span className="text-sm text-primary/80 font-medium truncate">
+                            {files[field.name] ? files[field.name].name : field.placeholder || "Click to attach a file..."}
+                          </span>
+                        </label>
+                      </div>
+                    ) : (
+                      <input
+                        required={field.required}
+                        type={field.type}
+                        name={field.name}
+                        value={formData[field.name] || ""}
+                        onChange={handleChange}
+                        className="w-full px-5 py-3.5 bg-white border border-gray-200 rounded-2xl focus:ring-4 focus:ring-primary/5 focus:border-primary outline-none transition-all text-black placeholder:text-gray-400"
+                        placeholder={field.placeholder}
+                      />
+                    )}
+
+                    {field.name === "source" && formData[field.name] === "Other" && (
+                      <div className="animate-in fade-in slide-in-from-left-2 duration-500 w-full">
+                        <input
+                          required
+                          type="text"
+                          name="otherSource"
+                          value={formData.otherSource || ""}
+                          onChange={handleChange}
+                          className="w-full px-5 py-3.5 bg-white border border-gray-200 rounded-2xl focus:ring-4 focus:ring-primary/5 focus:border-primary outline-none transition-all text-black placeholder:text-gray-400"
+                          placeholder="Please specify..."
+                        />
+                      </div>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>

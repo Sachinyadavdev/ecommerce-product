@@ -83,7 +83,7 @@ export default function AboutCapabilities({ content }: AboutCapabilitiesProps) {
   };
 
   return (
-    <section className="py-16 bg-[#284b8c] text-white w-full">
+    <section className="py-10 md:py-16 bg-[#284b8c] text-white w-full">
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
           {/* Left Column */}
@@ -91,7 +91,7 @@ export default function AboutCapabilities({ content }: AboutCapabilitiesProps) {
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            transition={{ duration: 0.6, ease: "easeOut" as const }}
             className="flex flex-col"
           >
             <div className="flex items-center gap-4 mb-6">
@@ -123,7 +123,7 @@ export default function AboutCapabilities({ content }: AboutCapabilitiesProps) {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" as const }}
             className="flex flex-col"
           >
             <div className="flex items-center gap-4 mb-6">

@@ -102,7 +102,7 @@ export default function StampingInfrastructure({ content }: StampingInfrastructu
 
   return (
     <section 
-      className="relative py-24 md:py-32 bg-slate-950 text-white site-content overflow-hidden bg-cover bg-center bg-fixed"
+      className="relative py-10 md:py-16 bg-slate-950 text-white site-content overflow-hidden bg-cover bg-center bg-fixed"
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       {/* Premium Dark Glassmorphic Overlay */}
@@ -112,12 +112,12 @@ export default function StampingInfrastructure({ content }: StampingInfrastructu
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-full bg-[radial-gradient(ellipse_at_center,var(--color-primary)_0%,transparent_70%)] opacity-10 pointer-events-none z-0 mix-blend-screen" />
 
       <div className="container mx-auto px-4 max-w-7xl relative z-10">
-        <div className="max-w-3xl mb-16 md:mb-20">
+        <div className="max-w-3xl mb-12 md:mb-16">
           <motion.h2 
             initial={{ opacity: 0, x: -20, filter: "blur(10px)" }}
             whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
+            transition={{ duration: 0.7, ease: "easeOut" as const }}
             className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 tracking-tight leading-tight text-white drop-shadow-md"
           >
             {title}
@@ -127,7 +127,7 @@ export default function StampingInfrastructure({ content }: StampingInfrastructu
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
+            transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" as const }}
             className="text-xl md:text-2xl text-white font-light leading-relaxed drop-shadow-sm"
           >
             {description}

@@ -253,7 +253,7 @@ export default function ContactAddress({ content }: ContactAddressProps) {
         {/* Bottom Slide-down Map */}
         <motion.div
           animate={{ height: showBottomMap ? 400 : 0, opacity: showBottomMap ? 1 : 0 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
+          transition={{ duration: 0.5, ease: "easeInOut" as const }}
           className="overflow-hidden rounded-[2.5rem] bg-slate-100"
         >
           <iframe

@@ -29,6 +29,7 @@ export async function GET(req: Request) {
     const limit = parseInt(searchParams.get('limit') || '20');
     const queryTerm = searchParams.get('q') || '';
     const showUnused = searchParams.get('unused') === 'true';
+    const typeFilter = searchParams.get('type') || 'all';
     const offset = (page - 1) * limit;
 
     let whereConditions: string[] = [];
@@ -37,6 +38,12 @@ export async function GET(req: Request) {
     if (queryTerm) {
       whereConditions.push("filename LIKE ?");
       queryParams.push(`%${queryTerm}%`);
+    }
+
+    if (typeFilter === 'image') {
+      whereConditions.push("contentType LIKE 'image/%'");
+    } else if (typeFilter === 'video') {
+      whereConditions.push("contentType LIKE 'video/%'");
     }
 
     if (showUnused) {

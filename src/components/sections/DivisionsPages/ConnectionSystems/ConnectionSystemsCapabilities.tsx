@@ -14,6 +14,7 @@ interface ConnectionSystemsCapabilitiesProps {
     title?: string;
     subtitle?: string;
     capabilities?: Capability[];
+    [key: string]: any;
   };
 }
 
@@ -50,11 +51,32 @@ const iconMap: any = {
 };
 
 export default function ConnectionSystemsCapabilities({ content }: ConnectionSystemsCapabilitiesProps) {
-  const {
-    title = "Core Capabilities",
-    subtitle = "Leveraging advanced manufacturing technologies and decades of engineering expertise to deliver superior precision components.",
-    capabilities = defaultCapabilities,
-  } = content || {};
+  const title = content?.title || "Core Capabilities";
+  const subtitle = content?.subtitle || "Leveraging advanced manufacturing technologies and decades of engineering expertise to deliver superior precision components.";
+
+  // Build capabilities strictly from flattened CMS variables, fallback to defaults
+  let capabilities = content?.capabilities || defaultCapabilities;
+  
+  if (content && Object.keys(content).some(key => key.startsWith("cap"))) {
+    const overrideCaps: Capability[] = [];
+    for (let i = 1; i <= 5; i++) {
+        const t = content[`cap${i}Title`];
+        const d = content[`cap${i}Description`];
+        const ic = content[`cap${i}Icon`];
+        
+        // Only push if the title is strictly not an empty string (allows hiding capabilities)
+        if (t !== "") {
+            overrideCaps.push({
+                title: t || defaultCapabilities[i - 1]?.title,
+                description: d || defaultCapabilities[i - 1]?.description,
+                icon: ic || defaultCapabilities[i - 1]?.icon,
+            });
+        }
+    }
+    if (overrideCaps.length > 0) {
+        capabilities = overrideCaps;
+    }
+  }
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -67,7 +89,7 @@ export default function ConnectionSystemsCapabilities({ content }: ConnectionSys
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 40 },
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
@@ -76,18 +98,18 @@ export default function ConnectionSystemsCapabilities({ content }: ConnectionSys
   };
 
   return (
-    <section className="py-24 md:py-32 bg-slate-50 relative overflow-hidden">
+    <section className="py-10 md:py-16 bg-slate-50 relative overflow-hidden">
       {/* Technical Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-primary/5 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2" />
         <div className="absolute bottom-0 left-0 w-[50%] h-[50%] bg-primary/5 blur-[120px] rounded-full -translate-x-1/2 translate-y-1/2" />
-        <div className="absolute inset-0 opacity-[0.03]" 
-             style={{ backgroundImage: 'linear-gradient(var(--primary) 1px, transparent 1px), linear-gradient(90deg, var(--primary) 1px, transparent 1px)', backgroundSize: '50px 50px' }} 
+        <div className="absolute inset-0 opacity-[0.03]"
+          style={{ backgroundImage: 'linear-gradient(var(--primary) 1px, transparent 1px), linear-gradient(90deg, var(--primary) 1px, transparent 1px)', backgroundSize: '50px 50px' }}
         />
       </div>
 
       <div className="container mx-auto px-4 relative z-10 max-w-7xl">
-        <div className="max-w-3xl mb-16 md:mb-24">
+        <div className="max-w-3xl mb-12 md:mb-16">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -98,7 +120,7 @@ export default function ConnectionSystemsCapabilities({ content }: ConnectionSys
             <span className="text-primary font-bold tracking-[0.3em] text-xs uppercase">Manufacturing Powerhouse</span>
           </motion.div>
 
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -106,8 +128,8 @@ export default function ConnectionSystemsCapabilities({ content }: ConnectionSys
           >
             {title}
           </motion.h2>
-          
-          <motion.p 
+
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -118,7 +140,7 @@ export default function ConnectionSystemsCapabilities({ content }: ConnectionSys
           </motion.p>
         </div>
 
-        <motion.div 
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -131,7 +153,7 @@ export default function ConnectionSystemsCapabilities({ content }: ConnectionSys
               <motion.div
                 key={idx}
                 variants={itemVariants}
-                whileHover={{ y: -10, transition: { duration: 0.3 } }}
+                whileHover={{ y: -10 }}
                 className="group relative"
               >
                 {/* Modern Card */}
@@ -157,7 +179,7 @@ export default function ConnectionSystemsCapabilities({ content }: ConnectionSys
                     0{idx + 1}
                   </div>
                 </div>
-                
+
                 {/* Accent shadow/glow */}
                 <div className="absolute inset-x-10 bottom-0 h-4 bg-primary/5 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </motion.div>

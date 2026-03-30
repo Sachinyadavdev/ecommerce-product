@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { HeartPulse, Activity, Crosshair, CheckCircle2, ArrowRight, HelpingHand, ShieldCheck, Stethoscope, Droplets, Laptop, Heart, ChevronLeft, ChevronRight } from "lucide-react";
+import { HeartPulse, Activity, Crosshair, CheckCircle2, ArrowRight, HelpingHand, ShieldCheck, Stethoscope, Droplets, Laptop, Heart, ChevronLeft, ChevronRight, HandHeart, Handshake } from "lucide-react";
 
 interface CSRHealthcareProps {
   content?: {
@@ -49,7 +49,9 @@ export default function CSRHealthcare({ content }: CSRHealthcareProps) {
   const healthcareImages = [
     "https://fohffyjhcwci6coi.public.blob.vercel-storage.com/Medical-Camp-images.png",
     "https://fohffyjhcwci6coi.public.blob.vercel-storage.com/Medical-Camp-image.png",
-    "https://fohffyjhcwci6coi.public.blob.vercel-storage.com/Medicalcamp-%20images.png"
+    "https://fohffyjhcwci6coi.public.blob.vercel-storage.com/Medicalcamp-%20images.png",
+    "https://fohffyjhcwci6coi.public.blob.vercel-storage.com/Medical-Camp-blood.png",
+    "https://fohffyjhcwci6coi.public.blob.vercel-storage.com/Dialysis%20machine.png"
   ];
 
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -111,13 +113,13 @@ export default function CSRHealthcare({ content }: CSRHealthcareProps) {
                viewport={{ once: true }}
                className="space-y-6"
             >
-              <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-white shadow-sm rounded-2xl border border-slate-100">
+              <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-white shadow-sm rounded-[10px] border border-slate-100">
                 <div className="relative">
-                   <div className="absolute inset-0 bg-red-400 rounded-full animate-ping opacity-20" />
-                   <Heart className="text-red-500 relative" size={16} fill="currentColor" />
+                   <div className="absolute inset-0 bg-blue-400 rounded-full animate-ping opacity-20" />
+                   <Handshake className="text-blue-500 relative" size={16} fill="currentColor" />
                 </div>
                 <span className="text-[11px] font-black uppercase tracking-[0.3em] text-slate-500">
-                  CSR IMPACT REPORT
+                  Supporting better health
                 </span>
               </div>
               
@@ -137,7 +139,7 @@ export default function CSRHealthcare({ content }: CSRHealthcareProps) {
               {/* Branding Image Slider with Float */}
               <motion.div 
                  animate={{ y: [0, -10, 0] }}
-                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" as const }}
                  className="relative w-full max-w-[500px] mx-auto aspect-[5/7] rounded-3xl overflow-hidden shadow-2xl border-4 border-white mt-12 group/slider"
               >
                 <AnimatePresence mode="wait">
@@ -196,7 +198,7 @@ export default function CSRHealthcare({ content }: CSRHealthcareProps) {
               <motion.div
                 key={i}
                 variants={itemVariants}
-                whileHover={{ y: -10, transition: { duration: 0.3 } }}
+                whileHover={{ y: -10 }}
                 className={`group relative bg-white border border-slate-100 p-10 md:p-14 rounded-[4rem] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.03)] transition-all duration-500 ${item.glow}`}
               >
                 <div className="flex flex-col md:flex-row gap-8 items-start relative z-10">
@@ -239,14 +241,6 @@ export default function CSRHealthcare({ content }: CSRHealthcareProps) {
                  </div>
                </div>
 
-               <div className="flex items-center gap-6">
-                  <div className="flex -space-x-4">
-                     {[1,2,3].map(n => (
-                        <div key={n} className="w-12 h-12 rounded-full border-4 border-white bg-slate-200" />
-                     ))}
-                  </div>
-                  <p className="text-sm font-bold text-slate-400">Community <br/> Participation</p>
-               </div>
             </motion.div>
           </motion.div>
 

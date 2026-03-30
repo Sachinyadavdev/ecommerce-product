@@ -30,7 +30,11 @@ export default async function ProductCategoryListPage({
 }) {
   const q = searchParams?.q;
   const searchQuery = typeof q === 'string' ? q : Array.isArray(q) ? q[0] : "";
-  
+
+  // 1. Get Page Banner from MySQL
+  const pageResult = await dbQuery<any[]>("SELECT bannerImage FROM pages WHERE slug = 'products' AND isActive = 1 LIMIT 1");
+  const bannerImage = pageResult[0]?.bannerImage;
+
   if (searchQuery) {
     const keywords = searchQuery.split(" ").filter(Boolean);
     let whereClause = "1=1";
@@ -45,9 +49,9 @@ export default async function ProductCategoryListPage({
           CAST(p.specifications AS CHAR) LIKE ?
         )`;
       }).join(" AND ");
-      
+
       whereClause += ` AND (${keywordConditions})`;
-      
+
       keywords.forEach(keyword => {
         const match = `%${keyword}%`;
         queryParams.push(match, match, match, match);
@@ -59,9 +63,9 @@ export default async function ProductCategoryListPage({
       FROM product p 
       JOIN category c ON p.categoryId = c.id 
       WHERE ${whereClause}
-      ORDER BY p.name ASC
+      ORDER BY CASE WHEN p.specifications->>'$.Series' = '090' OR p.specifications->>'$.series' = '090' THEN 0 WHEN p.specifications->>'$.Series' IS NULL AND p.specifications->>'$.series' IS NULL THEN 2 ELSE 1 END ASC, COALESCE(p.specifications->>'$.Series', p.specifications->>'$.series') ASC, p.name ASC
     `;
-    
+
     const rawProducts = await dbQuery<any[]>(productsSql, queryParams);
     const products = rawProducts.map(p => ({
       ...p,
@@ -75,13 +79,14 @@ export default async function ProductCategoryListPage({
       <div className="bg-[#fcfdfe] min-h-screen pb-12">
         <PageHeader
           title=""
+          backgroundImg={bannerImage}
           breadcrumbs={[
             { label: "Home", href: "/" },
             { label: "Products", href: "/products" },
             { label: "Search" }
           ]}
         />
-        
+
         <div className="container mx-auto px-6 pb-12 max-w-7xl mt-2 relative z-40">
           {products.length > 0 ? (
             <div className="space-y-6">
@@ -91,9 +96,9 @@ export default async function ProductCategoryListPage({
               <ProductGrid products={products} />
             </div>
           ) : (
-            <div className="bg-white border border-slate-100 rounded-[3rem] p-24 text-center shadow-sm">
+            <div className="bg-white border border-slate-100 rounded-4xl p-24 text-center shadow-sm">
               <div className="max-w-md mx-auto space-y-6">
-                <div className="w-24 h-24 bg-slate-50 rounded-[2rem] flex items-center justify-center mx-auto mb-8">
+                <div className="w-24 h-24 bg-slate-50 rounded-4xl flex items-center justify-center mx-auto mb-8">
                   <X className="h-12 w-12 text-slate-200" />
                 </div>
                 <h3 className="text-3xl font-black text-slate-800 tracking-tight">No products found</h3>
@@ -107,10 +112,37 @@ export default async function ProductCategoryListPage({
       </div>
     );
   }
-  const sections = await getPageSections();
+
+  const rawSections = await getPageSections();
+  const hasHeader = rawSections.some((s: any) => s.type === "page-header");
+
+  const sections = rawSections.map((s: any) => {
+    if (s.type === "page-header") {
+      return {
+        ...s,
+        content: {
+          ...s.content,
+          backgroundImg: bannerImage || s.content?.backgroundImg,
+        },
+      };
+    }
+    return s;
+  });
 
   return (
     <div className="min-h-screen bg-[#f8fafc]">
+      {/* Standalone Header only if no-header section is present (fallback) */}
+      {!hasHeader && (
+        <PageHeader
+          title=""
+          backgroundImg={bannerImage}
+          breadcrumbs={[
+            { label: "Home", href: "/" },
+            { label: "Products" }
+          ]}
+        />
+      )}
+      
       {sections.length > 0 ? (
         <div className="flex flex-col">
           {sections.map((section: any) => (

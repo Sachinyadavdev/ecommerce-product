@@ -71,7 +71,7 @@ export default function PartnershipsIntro({ content }: PartnershipsIntroProps) {
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            transition={{ duration: 0.8, ease: "easeOut" as const }}
           >
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -142,7 +142,7 @@ export default function PartnershipsIntro({ content }: PartnershipsIntroProps) {
               {/* Floating Badge */}
               <motion.div
                 animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" as const }}
                 className="absolute bottom-8 right-8 bg-white/90 backdrop-blur-md p-6 rounded-3xl shadow-xl border border-white/20"
               >
                 <div className="flex items-center gap-4">

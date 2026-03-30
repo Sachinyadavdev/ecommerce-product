@@ -95,7 +95,7 @@ export default function OurPresence({ content }: OurPresenceProps) {
   } as const;
 
   return (
-    <section className="bg-slate-50 py-24 px-6 md:px-12 lg:px-20 overflow-hidden relative">
+    <section className="bg-slate-50 py-10 md:py-16 px-6 md:px-12 lg:px-20 overflow-hidden relative">
       {/* Background Decorative Element */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-100/30 rounded-full blur-[120px] -z-10 -translate-y-1/2 translate-x-1/2" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-emerald-100/40 rounded-full blur-[120px] -z-10 translate-y-1/2 -translate-x-1/2" />

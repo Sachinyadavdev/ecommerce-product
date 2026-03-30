@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 interface PartnershipsHeroProps {
   content?: {
@@ -14,18 +14,16 @@ export default function PartnershipsHero({ content }: PartnershipsHeroProps) {
     breadcrumbs = [
       { label: "Home", url: "/" },
       { label: "Discover Us" },
-      { label: "Partnerships" }
+      { label: "Partnerships" },
     ],
-    bgImage = "https://images.unsplash.com/photo-1521295121683-b7d7293b0dfb?q=80&w=2000&auto=format&fit=crop"
+    bgImage = "https://images.unsplash.com/photo-1521295121683-b7d7293b0dfb?q=80&w=2000&auto=format&fit=crop",
   } = content || {};
 
   return (
     <div
-      className="w-full h-[400px] flex items-end pb-[60px] relative bg-cover bg-center bg-no-repeat"
+      className="w-full h-[400px] flex items-center relative bg-cover bg-center bg-no-repeat mt-[85px]"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
-      <div className="absolute inset-0 z-0 bg-black/40"></div>
-
       <div className="container mx-auto px-4 md:px-6 max-w-7xl relative z-10">
         <div className="text-[16px] mb-2 flex items-center gap-2">
           {breadcrumbs.map((crumb, index) => (
@@ -39,7 +37,9 @@ export default function PartnershipsHero({ content }: PartnershipsHeroProps) {
                   {crumb.label}
                 </Link>
               ) : (
-                <span className="text-[#ffffff] font-medium">{crumb.label}</span>
+                <span className="text-[#ffffff] font-medium">
+                  {crumb.label}
+                </span>
               )}
             </span>
           ))}

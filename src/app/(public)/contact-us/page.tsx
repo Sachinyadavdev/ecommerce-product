@@ -2,11 +2,6 @@ import SectionRenderer from "@/components/sections/SectionRenderer";
 import { query } from "@/lib/db";
 import { Metadata } from "next";
 import { getPageMetadata } from "@/lib/metadata";
-import ContactHero from "@/components/sections/contact/ContactHero";
-import ContactAddress from "@/components/sections/contact/ContactAddress";
-import ContactInfo from "@/components/sections/contact/ContactInfo";
-import ContactForm from "@/components/sections/contact/ContactForm";
-
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -44,31 +39,23 @@ export default async function ContactPage() {
   };
 
   return (
-    <>
-      <ContactHero content={{}} />
-      <div className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <ContactAddress />
-          <ContactInfo />
-          <ContactForm />
+    <div className="flex flex-col min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+      />
+      {sections.length > 0 ? (
+        sections.map((section: any) => (
+          <SectionRenderer key={section.id} section={section} />
+        ))
+      ) : (
+        // Fallback or empty state if no sections in DB yet
+        <div className="py-20 text-center text-slate-400">
+          No content found for this page.
         </div>
-      </div>
-      <div className="flex flex-col min-h-screen">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
-        />
-        {sections.length > 0 ? (
-          sections.map((section: any) => (
-            <SectionRenderer key={section.id} section={section} />
-          ))
-        ) : (
-          // Fallback or empty state if no sections in DB yet
-          <div className="py-20 text-center text-slate-400">
-            No content found for this page.
-          </div>
-        )}
-      </div>
-    </>
+      )}
+    </div>
   );
 }
+
+

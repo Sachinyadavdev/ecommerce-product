@@ -108,7 +108,7 @@ export default function ConnectionSystemsInfrastructure({ content }: ConnectionS
   };
 
   return (
-    <section className="py-24 md:py-32 bg-white relative overflow-hidden site-content">
+    <section className="py-10 md:py-16 bg-white relative overflow-hidden site-content">
       {/* Texture & Decorative Background */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03]" 
            style={{ backgroundImage: 'radial-gradient(var(--primary) 1px, transparent 1px)', backgroundSize: '40px 40px' }} 

@@ -72,7 +72,7 @@ export default function ConnectionSystemsAchievements({ content }: ConnectionSys
   };
 
   return (
-    <section className="py-24 md:py-32 bg-white relative overflow-hidden site-content">
+    <section className="py-10 md:py-16 bg-white relative overflow-hidden site-content">
       {/* Light Texture Gradient Background */}
       <div className="absolute inset-0 pointer-events-none select-none opacity-40 z-0" 
            style={{ 
@@ -104,7 +104,7 @@ export default function ConnectionSystemsAchievements({ content }: ConnectionSys
             >
               <div className="flex items-center gap-4 mb-6">
                 <div className="h-[2px] w-12 bg-primary rounded-full shadow-[0_0_10px_var(--primary)]" />
-                <span className="text-primary font-black tracking-[0.3em] text-xs uppercase bg-white/80 backdrop-blur-sm px-4 py-1.5 rounded-full shadow-sm">Global Recognition</span>
+                <span className="text-primary font-black tracking-[0.3em] text-xs uppercase bg-white/80 backdrop-blur-sm px-4 py-1.5 rounded-[10px] shadow-sm">Global Recognition</span>
               </div>
               <h2 className="text-4xl md:text-6xl font-black text-[#0A1A3F] mb-8 tracking-tight leading-tight">
                 {title}
@@ -150,7 +150,7 @@ export default function ConnectionSystemsAchievements({ content }: ConnectionSys
             >
               <motion.div 
                 animate={{ y: [0, -20, 0] }}
-                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" as const }}
                 className="relative z-10 rounded-4xl overflow-hidden shadow-[0_32px_64px_-16px_rgba(10,26,63,0.2)] border-12 border-white"
               >
                 <img 

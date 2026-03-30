@@ -34,7 +34,7 @@ const BlurText = ({
               filter: "blur(0px)",
               opacity: 1,
               scale: 1,
-              transition: { duration: 0.8, ease: "easeOut" },
+              transition: { duration: 0.8, ease: "easeOut" as const },
             },
           }}
           className="mr-[0.25em] inline-block"
@@ -46,23 +46,6 @@ const BlurText = ({
   );
 };
 
-const ShinyText = ({
-  text,
-  className = "",
-}: {
-  text: string;
-  className?: string;
-}) => {
-  return (
-    <motion.span
-      className={`inline-block text-transparent bg-clip-text bg-[linear-gradient(110deg,#4ade80,45%,#ffffff,55%,#4ade80)] bg-size-[250%_100%] ${className}`}
-      animate={{ backgroundPosition: ["200% 0", "-200% 0"] }}
-      transition={{ repeat: Infinity, duration: 4, ease: "linear" }}
-    >
-      {text}
-    </motion.span>
-  );
-};
 // ------------------------------------- //
 
 export interface NewsItem {
@@ -78,12 +61,17 @@ interface NewsHighlightsProps {
   backgroundImage?: string;
 }
 
-export default function NewsHighlights({ title, newsItems, featuredBoxText, backgroundImage }: NewsHighlightsProps) {
+export default function NewsHighlights({
+  title,
+  newsItems,
+  featuredBoxText,
+  backgroundImage,
+}: NewsHighlightsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"]
+    offset: ["start end", "end start"],
   });
 
   const y = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
@@ -94,12 +82,15 @@ export default function NewsHighlights({ title, newsItems, featuredBoxText, back
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-10%" }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      className="w-full rounded-[3rem] bg-linear-to-br from-[#1e3a8a] via-[#172554] to-[#0f172a] py-10 px-8 md:py-16 md:px-12 text-white relative overflow-hidden shadow-[0_20px_50px_rgba(23,37,84,0.3)] ring-1 ring-white/10"
+      transition={{ duration: 0.8, ease: "easeOut" as const }}
+      className="w-full rounded-[3rem] bg-linear-to-br from-[#3B66B8] via-[#284B8C] to-[#162D5A] py-10 px-8 md:py-16 md:px-12 text-white relative overflow-hidden shadow-[0_20px_50px_rgba(40,75,140,0.3)] ring-1 ring-white/10"
     >
-      {/* Parallax Background Image */}
+      {/* Parallax Background Image - Hidden on mobile to show gradient */}
       {backgroundImage && (
-        <motion.div style={{ y }} className="absolute inset-0 w-[110%] h-[130%] -top-[15%] -left-[5%] pointer-events-none z-0">
+        <motion.div
+          style={{ y }}
+          className="absolute inset-0 w-[110%] h-[130%] -top-[15%] -left-[5%] pointer-events-none z-0 hidden md:block"
+        >
           <Image
             src={backgroundImage}
             alt="Background"
@@ -116,7 +107,6 @@ export default function NewsHighlights({ title, newsItems, featuredBoxText, back
       <div className="absolute inset-0 bg-linear-to-t from-[#0f172a]/50 via-[#0f172a]/15 to-transparent pointer-events-none z-0" />
 
       <div className="relative z-10 w-full flex flex-col lg:flex-row gap-8 lg:gap-10 items-center lg:items-start justify-between">
-        
         {/* Title Area */}
         <div className="lg:w-1/3 flex flex-col items-center lg:items-start text-center lg:text-left">
           <motion.div
@@ -127,10 +117,9 @@ export default function NewsHighlights({ title, newsItems, featuredBoxText, back
             className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-8 shadow-[inset_0_1px_4px_rgba(255,255,255,0.3)]"
           >
             <Sparkles className="w-4 h-4 text-[#00a758] animate-pulse" />
-            <ShinyText
-              text="Besmak Excellence"
-              className="text-xs font-bold tracking-[0.2em] uppercase"
-            />
+            <span className="text-xs font-bold tracking-[0.2em] uppercase text-[#00a758]">
+              Besmak Excellence
+            </span>
           </motion.div>
 
           <h2 className="text-4xl md:text-5xl lg:text-6xl leading-[1.1] font-black tracking-tight drop-shadow-md">
@@ -159,7 +148,9 @@ export default function NewsHighlights({ title, newsItems, featuredBoxText, back
             whileInView="visible"
             viewport={{ once: true, margin: "-10%" }}
             variants={{
-              visible: { transition: { staggerChildren: 0.15, delayChildren: 0.2 } },
+              visible: {
+                transition: { staggerChildren: 0.15, delayChildren: 0.2 },
+              },
               hidden: {},
             }}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-3"
@@ -198,7 +189,6 @@ export default function NewsHighlights({ title, newsItems, featuredBoxText, back
             ))}
           </motion.div>
         </div>
-
       </div>
     </motion.div>
   );

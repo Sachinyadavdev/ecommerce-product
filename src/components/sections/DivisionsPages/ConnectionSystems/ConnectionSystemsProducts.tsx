@@ -82,7 +82,7 @@ export default function ConnectionSystemsProducts({ content }: ConnectionSystems
   };
 
   return (
-    <section ref={sectionRef} className="py-24 md:py-32 relative overflow-hidden site-content">
+    <section ref={sectionRef} className="py-10 md:py-16 relative overflow-hidden site-content">
       {/* Background Image Layer */}
       {backgroundImage && (
         <motion.div 
@@ -173,9 +173,9 @@ export default function ConnectionSystemsProducts({ content }: ConnectionSystems
             >
               <div className="flex items-center gap-4 mb-6">
                 <div className="h-[2px] w-12 bg-primary rounded-full shadow-[0_0_12px_var(--primary)]" />
-                <span className="text-primary font-black tracking-[0.3em] text-xs uppercase bg-white/80 backdrop-blur-sm px-3 py-1 rounded-full shadow-sm">Innovative Engineering</span>
+                <span className="text-primary font-black tracking-[0.3em] text-xs uppercase bg-white/80 backdrop-blur-sm px-3 py-1 rounded-[10px] shadow-sm">Innovative Engineering</span>
               </div>
-              <h2 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tight leading-tight mb-8">
+              <h2 className="text-5xl md:text-7xl font-black whitespace-pre-line tracking-tight leading-tight mb-8">
                 {title}
               </h2>
             </motion.div>
@@ -212,13 +212,13 @@ export default function ConnectionSystemsProducts({ content }: ConnectionSystems
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as any }}
-              className="relative p-10 md:p-14 rounded-[3rem] bg-[#051635] shadow-2xl overflow-hidden group border border-white/5"
+              className="relative p-10 md:p-14 rounded-[3rem] bg-linear-to-br from-[#284B8C] to-[#1A325E] shadow-2xl overflow-hidden group border border-white/10"
             >
               {/* Animated Glow */}
               <div className="absolute -top-24 -right-24 w-80 h-80 bg-primary/25 rounded-full blur-[100px] transition-all duration-1000 group-hover:bg-primary/35" />
               
               <div className="relative z-10">
-                <div className="p-4 bg-primary rounded-2xl inline-flex items-center justify-center text-white mb-8 shadow-lg shadow-primary/30">
+                <div className="p-4 bg-white/20 backdrop-blur-md border border-white/20 rounded-2xl inline-flex items-center justify-center text-white mb-8 shadow-lg">
                    <Factory size={36} />
                 </div>
                 
@@ -235,8 +235,8 @@ export default function ConnectionSystemsProducts({ content }: ConnectionSystems
                     {['2-Wheelers', '4-Wheelers', 'EV Segments', 'Industrial'].map((tag, i) => (
                       <motion.span 
                         key={i} 
-                        whileHover={{ scale: 1.1, backgroundColor: 'rgba(255,255,255,0.15)', borderColor: 'rgba(var(--primary-rgb), 0.5)' }}
-                        className="px-6 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs font-black text-blue-200/50 tracking-widest uppercase transition-all hover:text-white cursor-default"
+                        whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.25)', borderColor: 'rgba(255,255,255,0.4)' }}
+                        className="px-6 py-2.5 rounded-xl bg-white/15 border border-white/20 text-xs font-black text-white tracking-widest uppercase transition-all cursor-default shadow-sm"
                       >
                         {tag}
                       </motion.span>

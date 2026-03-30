@@ -164,102 +164,13 @@ export default function ValuesGovernanceAwardsQuality({ content }: ValuesGoverna
   };
 
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
+    <section className="py-10 md:py-16 bg-white relative overflow-hidden">
       <div className="absolute top-0 right-0 w-[40%] h-[40%] rounded-full bg-primary/4 blur-[120px] pointer-events-none" />
 
       <div className="container mx-auto px-4 max-w-7xl relative z-10 space-y-28">
 
         {/* ── Awards ────────────────────────────────────────────────────── */}
-        <div className="grid lg:grid-cols-2 gap-14 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, type: "spring", bounce: 0.2 }}
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest mb-6 border border-primary/20">
-              <Award className="w-3.5 h-3.5" />
-              {awardsTagline}
-            </div>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-5">
-              {awardsTitle}
-            </h2>
-            <p className="text-base text-slate-600 leading-relaxed mb-8">{awardsDescription}</p>
-            <ul className="space-y-4 mb-8">
-              {awards.map((award, idx) => (
-                <motion.li
-                  key={idx}
-                  initial={{ opacity: 0, x: -16 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: 0.1 * idx }}
-                  className="flex items-start gap-3 group"
-                >
-                  <span className="mt-1 shrink-0 w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
-                    <Award className="w-3.5 h-3.5 text-primary group-hover:text-white transition-colors duration-300" />
-                  </span>
-                  <span className="text-slate-600 text-base leading-relaxed group-hover:text-slate-900 transition-colors duration-300">{award}</span>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Right — animated award images slider */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.2, type: "spring", bounce: 0.2 }}
-            className="w-full aspect-square md:aspect-4/3 rounded-4xl overflow-hidden shadow-2xl relative border-4 border-white group"
-          >
-            <AnimatePresence mode="wait">
-              <motion.img
-                key={currentAwardImageIdx}
-                src={awardImages[currentAwardImageIdx]}
-                alt={`Award Recognition ${currentAwardImageIdx + 1}`}
-                initial={{ opacity: 0, scale: 1.05 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
-                onClick={() => setIsAwardLightboxOpen(true)}
-                className="absolute inset-0 w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform duration-700"
-              />
-            </AnimatePresence>
-            
-            <div className="absolute inset-0 bg-linear-to-t from-slate-900/60 via-transparent to-transparent opacity-80 pointer-events-none" />
-
-            {/* Navigation Controls */}
-            {/* Left/Right Arrows */}
-            <button
-              onClick={prevAwardImage}
-              className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white flex items-center justify-center hover:bg-primary hover:border-primary transition-all duration-300 group/btn shadow-lg z-20"
-              aria-label="Previous image"
-            >
-              <ChevronLeft className="w-6 h-6 group-hover/btn:-translate-x-0.5 transition-transform" />
-            </button>
-            
-            <button
-              onClick={nextAwardImage}
-              className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white flex items-center justify-center hover:bg-primary hover:border-primary transition-all duration-300 group/btn shadow-lg z-20"
-              aria-label="Next image"
-            >
-              <ChevronRight className="w-6 h-6 group-hover/btn:translate-x-0.5 transition-transform" />
-            </button>
-
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2.5 z-20">
-              {awardImages.map((_, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setCurrentAwardImageIdx(idx)}
-                  className={`h-2.5 rounded-full transition-all duration-300 ${
-                    idx === currentAwardImageIdx ? "w-8 bg-primary" : "w-2.5 bg-white/50 hover:bg-white/80"
-                  }`}
-                  aria-label={`Go to image ${idx + 1}`}
-                />
-              ))}
-            </div>
-          </motion.div>
-        </div>
+        
 
         {/* ── Quality Policy ──────────────────────────────────────────────── */}
         <div>
@@ -270,7 +181,7 @@ export default function ValuesGovernanceAwardsQuality({ content }: ValuesGoverna
               viewport={{ once: true }}
               transition={{ duration: 0.7, type: "spring", bounce: 0.2 }}
             >
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest mb-6 border border-primary/20">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-[10px] bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest mb-6 border border-primary/20">
                 <BadgeCheck className="w-3.5 h-3.5" />
                 {qualityTagline}
               </div>
@@ -333,63 +244,7 @@ export default function ValuesGovernanceAwardsQuality({ content }: ValuesGoverna
           </div>
 
           {/* Certifications Carousel */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.2, type: "spring" }}
-            className="mt-20 relative w-full overflow-hidden"
-          >
-            <h3 className="text-3xl font-extrabold text-slate-900 mb-10 text-center">{certsTitle}</h3>
-            
-            {/* Left and right fade gradients for a smooth carousel effect */}
-            <div className="absolute left-0 top-0 bottom-0 w-32 bg-linear-to-r from-white to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-32 bg-linear-to-l from-white to-transparent z-10 pointer-events-none" />
-
-            <div className="flex overflow-hidden">
-              <motion.div
-                animate={{ x: ["0%", "-50%"] }}
-                transition={{
-                  repeat: Infinity,
-                  ease: "linear",
-                  duration: 20, // Adjust speed here
-                }}
-                className="flex gap-6 min-w-max"
-              >
-                {/* Render the array multiple times to create the infinite loop */}
-                {[...certs, ...certs, ...certs].map((cert, idx) => {
-                  const realIdx = idx % certs.length;
-                  
-                  return (
-                    <div
-                      key={idx}
-                      onClick={() => {
-                        setCurrentCertIdx(realIdx);
-                        setIsCertLightboxOpen(true);
-                      }}
-                      className="w-80 shrink-0 bg-white border border-slate-100 rounded-3xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)] hover:border-primary/30 transition-all duration-500 group cursor-pointer flex flex-col hover:-translate-y-1"
-                    >
-                      {/* Image section */}
-                      <div className="w-full aspect-4/3 bg-slate-100 overflow-hidden relative">
-                        <img 
-                          src={cert.image} 
-                          alt={cert.name} 
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                        />
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
-                      </div>
-                      
-                      {/* Text section */}
-                      <div className="p-6 flex flex-col flex-1 space-y-2 relative bg-white">
-                        <p className="text-xl font-extrabold text-slate-900 group-hover:text-primary transition-colors duration-300">{cert.name}</p>
-                        <p className="text-sm text-slate-500 leading-relaxed font-medium">{cert.label}</p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </motion.div>
-            </div>
-          </motion.div>
+         
         </div>
       </div>
 

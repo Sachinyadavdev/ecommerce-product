@@ -12,9 +12,11 @@ import {
   CheckCircle2,
   AlertCircle,
   Eye,
+  Image as ImageIcon,
 } from "lucide-react";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 export default function EditPageAdmin() {
   const router = useRouter();
@@ -26,6 +28,7 @@ export default function EditPageAdmin() {
     slug: "",
     description: "",
     keywords: "",
+    bannerImage: "",
     isActive: true,
   });
 
@@ -40,6 +43,7 @@ export default function EditPageAdmin() {
           slug: data.slug || "",
           description: data.description || "",
           keywords: data.keywords || "",
+          bannerImage: data.bannerImage || "",
           isActive: data.isActive === 1 || data.isActive === true,
         });
       } catch (error: any) {
@@ -179,6 +183,52 @@ export default function EditPageAdmin() {
                   {formData.slug === "home" && (
                     <p className="text-[9px] text-amber-600 font-bold uppercase tracking-wider ml-1 mt-1">System protected</p>
                   )}
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 mb-5">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-2.5 bg-blue-50 text-blue-600 rounded-lg">
+                  <ImageIcon className="h-5 w-5" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-gray-800">Page Hero Banner</h3>
+                  <p className="text-[10px] text-gray-500 font-medium">This banner will appear at the top of the {formData.title || "page"}</p>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                {formData.bannerImage ? (
+                  <div className="group relative rounded-xl overflow-hidden aspect-[21/9] bg-gray-50 border border-gray-200 shadow-sm">
+                    <Image src={formData.bannerImage} alt="Banner Preview" fill className="object-cover" />
+                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center">
+                      <button
+                        type="button"
+                        onClick={() => setFormData(p => ({ ...p, bannerImage: "" }))}
+                        className="bg-red-500 text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-xl shadow-xl hover:bg-red-600 transition-all"
+                      >
+                        Remove Banner
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="aspect-[21/9] flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-gray-100 bg-gray-50">
+                    <ImageIcon className="h-8 w-8 text-gray-200 mb-2" />
+                    <p className="text-[10px] font-black text-gray-300 uppercase tracking-widest">No Banner Selected</p>
+                  </div>
+                )}
+                
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-gray-700 ml-1">Banner Image URL</label>
+                  <input
+                    name="bannerImage"
+                    value={formData.bannerImage}
+                    onChange={handleInputChange}
+                    placeholder="/images/banners/my-banner.jpg"
+                    className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:bg-white outline-none transition-all font-medium text-gray-900 text-sm"
+                  />
+                  <p className="text-[9px] text-gray-400 mt-1 ml-1">Paste the URL of the banner image. Reusable across sections.</p>
                 </div>
               </div>
             </div>

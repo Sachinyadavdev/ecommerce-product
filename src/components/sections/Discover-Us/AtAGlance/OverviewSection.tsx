@@ -56,7 +56,7 @@ export default function OverviewSection({ content }: OverviewSectionProps) {
   };
 
   return (
-    <section className="w-full py-20 bg-white overflow-hidden">
+    <section className="w-full py-10 md:py-16 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-6">
         {/* Row 1: Image & Title Content */}
         <div className="flex flex-col lg:flex-row items-center gap-12 mb-16">
@@ -145,7 +145,7 @@ export default function OverviewSection({ content }: OverviewSectionProps) {
             whileHover={{ y: -10, boxShadow: "0 20px 25px -5px rgba(26, 79, 160, 0.1), 0 8px 10px -6px rgba(26, 79, 160, 0.1)" }}
           >
             <div className="flex items-center gap-3 mb-4">
-              <span className="bg-[#00B259] text-white text-xs font-black px-4 py-1.5 rounded-full tracking-[0.1em] uppercase shadow-sm">
+              <span className="bg-[#00B259] text-white text-xs font-black px-4 py-1.5 rounded-[10px] tracking-[0.1em] uppercase shadow-sm">
                 {missionBadge}
               </span>
             </div>

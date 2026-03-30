@@ -48,7 +48,7 @@ export default function ConnectionSystemsWhyChooseUs({ content }: ConnectionSyst
   } = content || {};
 
   return (
-    <section className="py-24 bg-primary text-white relative overflow-hidden">
+    <section className="py-10 md:py-16 bg-primary text-white relative overflow-hidden">
       {/* Decorative patterns */}
       <div className="absolute top-0 right-0 w-full h-full opacity-5 pointer-events-none">
         <div className="grid grid-cols-10 h-full">

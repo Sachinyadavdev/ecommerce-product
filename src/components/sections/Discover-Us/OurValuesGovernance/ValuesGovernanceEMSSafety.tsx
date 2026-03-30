@@ -84,7 +84,7 @@ export default function ValuesGovernanceEMSSafety({ content }: ValuesGovernanceE
   const wellbeingItems = defaultWellbeingItems.map((def, i) => (content as any)?.[`wellbeingItem${i + 1}`] || def);
 
   return (
-    <section className="py-24 bg-slate-50 relative overflow-hidden">
+    <section className="py-10 md:py-16 bg-slate-50 relative overflow-hidden">
       <div className="absolute top-0 left-0 w-[50%] h-[50%] rounded-full bg-primary/5 blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-[40%] h-[40%] rounded-full bg-primary/5 blur-[100px] pointer-events-none" />
 
@@ -97,7 +97,7 @@ export default function ValuesGovernanceEMSSafety({ content }: ValuesGovernanceE
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest mb-6 border border-primary/20 hover:bg-primary/20 transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-[10px] bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest mb-6 border border-primary/20 hover:bg-primary/20 transition-colors"
           >
             <Leaf className="w-3.5 h-3.5" />
             {heroTagline}

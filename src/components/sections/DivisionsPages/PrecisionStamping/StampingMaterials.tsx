@@ -99,13 +99,13 @@ export default function StampingMaterials({ content }: StampingMaterialsProps) {
   };
 
   return (
-    <section className="py-24 md:py-32 bg-slate-50 site-content relative overflow-hidden">
+    <section className="py-10 md:py-16 bg-slate-50 site-content relative overflow-hidden">
       {/* Decorative Background Elements */}
       <div className="absolute top-0 right-0 w-1/3 h-full bg-linear-to-b from-primary/5 to-transparent skew-x-12 z-0 opacity-50" />
       <div className="absolute bottom-0 left-0 w-1/4 h-1/2 bg-linear-to-t from-primary/5 to-transparent -skew-x-12 z-0 opacity-30" />
 
       <div className="container mx-auto px-4 max-w-7xl relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
+        <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -120,7 +120,7 @@ export default function StampingMaterials({ content }: StampingMaterialsProps) {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
+            transition={{ duration: 0.7, ease: "easeOut" as const }}
             className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight leading-tight"
           >
             {title}
@@ -130,7 +130,7 @@ export default function StampingMaterials({ content }: StampingMaterialsProps) {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
+            transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" as const }}
             className="text-xl md:text-2xl text-slate-500 font-light leading-relaxed"
           >
             {description}

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Share2, Settings, Zap, Layers, ArrowRight } from "lucide-react";
 
@@ -59,6 +59,27 @@ export default function ContactForm({ content }: ContactFormProps) {
     initialRotate: (i % 3 === 0 ? 10 : i % 3 === 1 ? -10 : 0) + (Math.random() * 10 - 5),
     delay: i * 0.1
   }));
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    mobile: "",
+    address: "",
+    source: "",
+    otherSource: "",
+    message: ""
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Form submitted:", formData);
+    // In a real app, this would call an API
+    alert("Enquiry sent successfully!");
+  };
 
   return (
     <div className="w-full py-10">
@@ -96,13 +117,13 @@ export default function ContactForm({ content }: ContactFormProps) {
                     y: {
                       duration: 3 + (index % 3),
                       repeat: Infinity,
-                      ease: "easeInOut",
+                      ease: "easeInOut" as const,
                       delay: img.delay
                     },
                     rotate: {
                       duration: 4 + (index % 2),
                       repeat: Infinity,
-                      ease: "easeInOut",
+                      ease: "easeInOut" as const,
                       delay: img.delay
                     },
                     opacity: { duration: 0.5, delay: img.delay },
@@ -137,7 +158,7 @@ export default function ContactForm({ content }: ContactFormProps) {
             viewport={{ once: true }}
             className="bg-white border border-slate-100 p-10 md:p-12 rounded-sm shadow-xl"
           >
-            <form className="space-y-8">
+            <form onSubmit={handleSubmit} className="space-y-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold tracking-widest text-slate-400 uppercase">
@@ -145,6 +166,10 @@ export default function ContactForm({ content }: ContactFormProps) {
                   </label>
                   <input
                     type="text"
+                    name="name"
+                    required
+                    value={formData.name}
+                    onChange={handleChange}
                     placeholder="Full name"
                     className="w-full bg-white border border-slate-200 px-4 py-4 text-sm focus:border-green-500 focus:outline-none transition-colors"
                   />
@@ -155,6 +180,10 @@ export default function ContactForm({ content }: ContactFormProps) {
                   </label>
                   <input
                     type="email"
+                    name="email"
+                    required
+                    value={formData.email}
+                    onChange={handleChange}
                     placeholder="you@company.com"
                     className="w-full bg-white border border-slate-200 px-4 py-4 text-sm focus:border-green-500 focus:outline-none transition-colors"
                   />
@@ -165,6 +194,10 @@ export default function ContactForm({ content }: ContactFormProps) {
                   </label>
                   <input
                     type="text"
+                    name="subject"
+                    required
+                    value={formData.subject}
+                    onChange={handleChange}
                     placeholder="Product / enquiry type"
                     className="w-full bg-white border border-slate-200 px-4 py-4 text-sm focus:border-green-500 focus:outline-none transition-colors"
                   />
@@ -175,6 +208,10 @@ export default function ContactForm({ content }: ContactFormProps) {
                   </label>
                   <input
                     type="text"
+                    name="mobile"
+                    required
+                    value={formData.mobile}
+                    onChange={handleChange}
                     placeholder="+91 XXXXX XXXXX"
                     className="w-full bg-white border border-slate-200 px-4 py-4 text-sm focus:border-green-500 focus:outline-none transition-colors"
                   />
@@ -187,6 +224,10 @@ export default function ContactForm({ content }: ContactFormProps) {
                 </label>
                 <input
                   type="text"
+                  name="address"
+                  required
+                  value={formData.address}
+                  onChange={handleChange}
                   placeholder="City, State, Country"
                   className="w-full bg-white border border-slate-200 px-4 py-4 text-sm focus:border-green-500 focus:outline-none transition-colors"
                 />
@@ -194,9 +235,56 @@ export default function ContactForm({ content }: ContactFormProps) {
 
               <div className="space-y-2">
                 <label className="text-[10px] font-bold tracking-widest text-slate-400 uppercase">
+                  How did you hear about us?
+                </label>
+                <div className={`grid gap-6 ${formData.source === "Other" ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1"}`}>
+                  <div className="relative">
+                    <select
+                      name="source"
+                      required
+                      value={formData.source}
+                      onChange={handleChange}
+                      className="w-full bg-white border border-slate-200 px-4 py-4 text-sm focus:border-green-500 focus:outline-none transition-colors appearance-none cursor-pointer pr-10"
+                    >
+                      <option value="" disabled>Select an option</option>
+                      <option value="LinkedIn">LinkedIn</option>
+                      <option value="Google Search">Google Search</option>
+                      <option value="Word of Mouth">Word of Mouth</option>
+                      <option value="Advertisement">Advertisement</option>
+                      <option value="Other">Other</option>
+                    </select>
+                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                      <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 3.5L5 7.5L9 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </div>
+                  </div>
+
+                  {formData.source === "Other" && (
+                    <div className="animate-in fade-in slide-in-from-left-2 duration-500">
+                      <input
+                        type="text"
+                        name="otherSource"
+                        required
+                        value={formData.otherSource}
+                        onChange={handleChange}
+                        placeholder="Please specify source"
+                        className="w-full bg-white border border-slate-200 px-4 py-4 text-sm focus:border-green-500 focus:outline-none transition-colors"
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[10px] font-bold tracking-widest text-slate-400 uppercase">
                   {messageLabel}
                 </label>
                 <textarea
+                  name="message"
+                  required
+                  value={formData.message}
+                  onChange={handleChange}
                   rows={4}
                   placeholder="Describe your requirement in detail..."
                   className="w-full bg-white border border-slate-200 px-4 py-4 text-sm focus:border-green-500 focus:outline-none transition-colors resize-none"

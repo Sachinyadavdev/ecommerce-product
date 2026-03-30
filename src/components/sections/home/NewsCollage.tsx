@@ -139,7 +139,7 @@ export default function NewsCollage({ images, clientLogos }: NewsCollageProps) {
             return (
               <ScrollStackItem
                 key={i}
-                itemClassName="!p-0 bg-slate-900 rounded-2xl md:rounded-3xl overflow-hidden !h-[75vh] w-full border-none"
+                itemClassName="!p-0 bg-slate-900 rounded-2xl md:rounded-3xl overflow-hidden !h-[50vh] md:!h-[75vh] w-full border-none"
               >
                 <div className="w-full h-full relative group/slide">
                   <Image

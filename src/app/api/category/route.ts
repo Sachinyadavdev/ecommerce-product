@@ -20,7 +20,7 @@ export async function POST(req: Request) {
     }
 
     const data = await req.json();
-    const { id, name, tag, slug, description, image, active_filters, display_order } = data;
+    const { id, name, tag, slug, description, image, bannerImage, active_filters, display_order } = data;
 
     if (!name || !slug) {
       return NextResponse.json({ error: "Name and Slug are required" }, { status: 400 });
@@ -28,7 +28,7 @@ export async function POST(req: Request) {
 
     const now = new Date();
     await dbQuery(
-      "INSERT INTO category (id, name, tag, slug, description, image, active_filters, display_order, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO category (id, name, tag, slug, description, image, bannerImage, active_filters, display_order, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [
         id || Math.random().toString(36).substr(2, 9),
         name,
@@ -36,6 +36,7 @@ export async function POST(req: Request) {
         slug,
         description || null,
         image || null,
+        bannerImage || null,
         active_filters ? JSON.stringify(active_filters) : null,
         display_order || 0,
         now,
@@ -58,7 +59,7 @@ export async function PUT(req: Request) {
     }
 
     const data = await req.json();
-    const { id, name, tag, slug, description, image, active_filters, display_order } = data;
+    const { id, name, tag, slug, description, image, bannerImage, active_filters, display_order } = data;
 
     if (!id || !name || !slug) {
       return NextResponse.json({ error: "ID, Name, and Slug are required" }, { status: 400 });
@@ -66,8 +67,8 @@ export async function PUT(req: Request) {
 
     const now = new Date();
     await dbQuery(
-      "UPDATE category SET name = ?, tag = ?, slug = ?, description = ?, image = ?, active_filters = ?, display_order = ?, updatedAt = ? WHERE id = ?",
-      [name, tag || null, slug, description || null, image || null, active_filters ? JSON.stringify(active_filters) : null, display_order || 0, now, id]
+      "UPDATE category SET name = ?, tag = ?, slug = ?, description = ?, image = ?, bannerImage = ?, active_filters = ?, display_order = ?, updatedAt = ? WHERE id = ?",
+      [name, tag || null, slug, description || null, image || null, bannerImage || null, active_filters ? JSON.stringify(active_filters) : null, display_order || 0, now, id]
     );
 
     return NextResponse.json({ success: true, message: "Category updated successfully" });

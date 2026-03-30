@@ -21,7 +21,7 @@ export default function StampingHero({ content }: StampingHeroProps) {
     title = "Precision Stamping Manufacturing",
     subtitle = "Excellence in Metal Engineering. Precision in Every Dimension.",
     backgroundImage = "https://fohffyjhcwci6coi.public.blob.vercel-storage.com/Precision-stamping-division-verticals.png",
-    backgroundVideo,
+    backgroundVideo = 'https://fohffyjhcwci6coi.public.blob.vercel-storage.com/Besmak%20Precision%20Stamping.mp4',
     ctaText = "Explore Capabilities",
     ctaLink = "/products",
   } = content || {};
@@ -65,7 +65,7 @@ export default function StampingHero({ content }: StampingHeroProps) {
   };
 
   return (
-    <section 
+    <section
       ref={containerRef}
       className="relative h-[85vh] md:h-[95vh] flex items-center overflow-hidden bg-slate-950 mt-16 md:mt-20"
     >
@@ -78,32 +78,32 @@ export default function StampingHero({ content }: StampingHeroProps) {
               loop
               muted
               playsInline
-              className="absolute w-full h-full object-cover scale-105 opacity-60"
+              className="absolute w-full h-full object-cover opacity-60"
             >
               <source src={backgroundVideo} type="video/mp4" />
             </video>
           </div>
         ) : (
-          <motion.div 
+          <motion.div
             style={{ y: y1 }}
             className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-110"
             initial={{ scale: 1.2, opacity: 0 }}
-            animate={{ scale: 1.1, opacity: 0.6 }}
-            transition={{ duration: 2, ease: "easeOut" }}
+            animate={{ scale: 1.1, opacity: 0.7 }}
+            transition={{ duration: 2, ease: "easeOut" as const }}
           >
-            <div 
+            <div
               className="absolute inset-0 w-full h-full bg-cover bg-center"
               style={{ backgroundImage: `url(${backgroundImage})` }}
             />
           </motion.div>
         )}
-        
+
         {/* Subtle vignette and color grade */}
-        <div className="absolute inset-0 bg-linear-to-b from-slate-950/40 via-transparent to-slate-950/80 z-10" />
-        <div className="absolute inset-0 bg-slate-950/30 z-10 backdrop-contrast-[1.1] backdrop-saturate-[1.1]" />
-        
+        <div className="absolute inset-0 bg-linear-to-b from-slate-900/10 via-transparent to-slate-900/30 z-10" />
+        <div className="absolute inset-0 bg-slate-900/10 z-10 backdrop-contrast-[1.05] backdrop-saturate-[1.05]" />
+
         {/* Industrial unique element: Rotating Mechanical Gear background */}
-        <motion.div 
+        <motion.div
           style={{ rotate }}
           className="absolute -top-32 -right-32 opacity-10 z-10 text-white pointer-events-none"
         >
@@ -111,8 +111,13 @@ export default function StampingHero({ content }: StampingHeroProps) {
         </motion.div>
 
         {/* Technical hex pattern overlay - kept from orginal stamping hero for uniqueness */}
-        <div className="absolute inset-0 opacity-15 z-10 pointer-events-none" 
-             style={{ backgroundImage: 'radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px)', backgroundSize: '40px 40px' }} 
+        <div
+          className="absolute inset-0 opacity-15 z-10 pointer-events-none"
+          style={{
+            backgroundImage:
+              "radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px)",
+            backgroundSize: "40px 40px",
+          }}
         />
       </div>
 
@@ -123,12 +128,15 @@ export default function StampingHero({ content }: StampingHeroProps) {
           animate="visible"
           className="max-w-5xl"
         >
-          <motion.div variants={itemVariants} className="flex items-center gap-6 mb-12">
-            <motion.div 
+          <motion.div
+            variants={itemVariants}
+            className="flex items-center gap-6 mb-12"
+          >
+            <motion.div
               initial={{ width: 0, opacity: 0 }}
               animate={{ width: 80, opacity: 1 }}
               transition={{ delay: 0.5, duration: 1, ease: "circOut" }}
-              className="h-[2px] bg-primary rounded-full shadow-[0_0_15px_rgba(var(--primary-rgb),0.5)]" 
+              className="h-[2px] bg-primary rounded-full shadow-[0_0_15px_rgba(var(--primary-rgb),0.5)]"
             />
             <span className="text-white font-black tracking-[0.5em] text-sm md:text-base uppercase bg-white/5 backdrop-blur-md px-5 py-1.5 rounded-full border border-white/10">
               Industrial Excellence
@@ -137,8 +145,8 @@ export default function StampingHero({ content }: StampingHeroProps) {
 
           <h1 className="text-6xl md:text-[10rem] font-black text-white mb-10 tracking-tighter leading-[0.85] uppercase drop-shadow-[0_15px_30px_rgba(0,0,0,0.4)]">
             {title.split(" ").map((word, i) => (
-              <motion.span 
-                key={i} 
+              <motion.span
+                key={i}
                 custom={i}
                 variants={wordVariants}
                 initial="hidden"
@@ -150,32 +158,36 @@ export default function StampingHero({ content }: StampingHeroProps) {
             ))}
           </h1>
 
-          <motion.p 
+          <motion.p
             variants={itemVariants}
             className="text-xl md:text-4xl text-blue-50 font-extralight leading-tight mb-16 max-w-2xl drop-shadow-xl opacity-90 border-l-4 border-primary/40 pl-6 py-2"
           >
             {subtitle}
           </motion.p>
 
-          <motion.div 
-            variants={itemVariants} 
+          <motion.div
+            variants={itemVariants}
             className="flex flex-wrap items-center gap-8"
             animate={{ y: [0, -5, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut" as const,
+            }}
           >
             <Link href={ctaLink}>
-              <button className="group relative flex items-center bg-white text-slate-950 pl-10 pr-14 py-5 rounded-full font-black uppercase tracking-widest transition-all duration-500 hover:pr-16 hover:bg-primary hover:text-white active:scale-95 shadow-[0_20px_40px_-10px_rgba(255,255,255,0.2)] hover:shadow-[0_20px_40px_-10px_rgba(var(--primary-rgb),0.5)] overflow-hidden">
+              <button className="group relative flex items-center bg-primary text-white pl-10 pr-14 py-5 rounded-[20px] font-black uppercase tracking-widest transition-all duration-500 hover:pr-16 active:scale-95 shadow-[0_20px_40px_-10px_rgba(var(--primary-rgb),0.5)] overflow-hidden">
                 <span className="relative z-10 text-xl">{ctaText}</span>
                 <span className="absolute right-6 transition-all duration-500 group-hover:right-5">
                   <ArrowRight className="w-7 h-7" strokeWidth={3} />
                 </span>
-                {/* Advanced Metallic shimmer effect */}
-                <div className="absolute inset-0 w-[200%] h-full bg-linear-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-[shimmer_2s_infinite]" />
-                {/* Pulsing Glow that matches button state */}
-                <div className="absolute inset-0 rounded-full border-2 border-slate-950/20 group-hover:border-white/30 scale-100 transition-all duration-700 group-hover:scale-150 group-hover:opacity-0" />
+                {/* Enhanced Shimmer */}
+                <div className="absolute inset-0 w-[200%] h-full bg-linear-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:animate-[shimmer_2s_infinite]" />
+                {/* Pulsing Glow */}
+                <div className="absolute inset-0 rounded-[20px] border-2 border-white/30 scale-100 transition-all duration-700 group-hover:scale-150 group-hover:opacity-0" />
               </button>
             </Link>
-            
+
             {/* Secondary technical indicator - Unique to stamping */}
             {/* <motion.div 
               variants={itemVariants}
@@ -199,8 +211,12 @@ export default function StampingHero({ content }: StampingHeroProps) {
 
       <style jsx global>{`
         @keyframes shimmer {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
+          0% {
+            transform: translateX(-100%);
+          }
+          100% {
+            transform: translateX(100%);
+          }
         }
       `}</style>
     </section>

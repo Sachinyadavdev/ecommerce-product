@@ -30,5 +30,5 @@ export const getAllSettings = unstable_cache(
     }
   },
   ['site-settings'],
-  { tags: ['settings'], revalidate: 3600 } // Cache for 1 hour or until manual revalidation
+  { tags: ['settings'], revalidate: 1 } // Revalidate every second in dev
 );

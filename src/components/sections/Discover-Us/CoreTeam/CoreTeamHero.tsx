@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 interface CoreTeamHeroProps {
   content?: {
@@ -14,18 +14,16 @@ export default function CoreTeamHero({ content }: CoreTeamHeroProps) {
     breadcrumbs = [
       { label: "Home", url: "/" },
       { label: "Discover Us" },
-      { label: "Core Team" }
+      { label: "Core Team" },
     ],
-    bgImage = "https://images.unsplash.com/photo-1522071823991-b99c22303091?q=80&w=2000&auto=format&fit=crop"
+    bgImage = "https://images.unsplash.com/photo-1522071823991-b99c22303091?q=80&w=2000&auto=format&fit=crop",
   } = content || {};
 
   return (
     <div
-      className="w-full h-[400px] flex items-end pb-[100px] relative bg-cover bg-center bg-no-repeat"
+      className="w-full h-[400px] flex items-center relative bg-cover bg-center bg-no-repeat mt-[85px]"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
-      <div className="absolute inset-0 z-0 bg-black/40"></div>
-
       <div className="container mx-auto px-4 md:px-6 max-w-7xl relative z-10">
         <div className="text-[16px] mb-2 flex items-center gap-2">
           {breadcrumbs.map((crumb, index) => (
@@ -39,7 +37,9 @@ export default function CoreTeamHero({ content }: CoreTeamHeroProps) {
                   {crumb.label}
                 </Link>
               ) : (
-                <span className="text-[#ffffff] font-medium">{crumb.label}</span>
+                <span className="text-[#ffffff] font-medium">
+                  {crumb.label}
+                </span>
               )}
             </span>
           ))}

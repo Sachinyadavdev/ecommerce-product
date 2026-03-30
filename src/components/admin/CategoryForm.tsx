@@ -29,6 +29,7 @@ export default function CategoryForm({ initialData, isEdit = false }: CategoryFo
     slug: initialData?.slug || "",
     description: initialData?.description || "",
     image: initialData?.image || "",
+    bannerImage: initialData?.bannerImage || "",
     display_order: initialData?.display_order || 0,
     active_filters: initialData?.active_filters 
       ? (typeof initialData.active_filters === 'string' ? JSON.parse(initialData.active_filters) : initialData.active_filters)
@@ -331,6 +332,44 @@ export default function CategoryForm({ initialData, isEdit = false }: CategoryFo
                   )}
                 </div>
               )}
+
+              {/* Banner Image */}
+              <div className="pt-6 border-t border-slate-50">
+                <label className="text-[10px] text-gray-400 font-black uppercase tracking-widest block mb-4">
+                  Hero Page Banner
+                </label>
+                
+                {formData.bannerImage ? (
+                  <div className="group relative rounded-xl overflow-hidden aspect-[16/6] bg-gray-50 border border-gray-100 shadow-inner mb-4">
+                    <Image src={formData.bannerImage} alt="Banner Preview" fill className="object-cover" />
+                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center gap-3">
+                      <button
+                        type="button"
+                        onClick={() => setFormData((p) => ({ ...p, bannerImage: "" }))}
+                        className="bg-red-500 text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-xl shadow-xl hover:bg-red-600 transition-all"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="aspect-[16/6] flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-slate-100 bg-slate-50 mb-4">
+                    <ImageIcon className="h-6 w-6 text-slate-200 mb-2" />
+                    <p className="text-[8px] font-black text-slate-300 uppercase tracking-widest">No Banner Selected</p>
+                  </div>
+                )}
+
+                <input
+                  type="url"
+                  value={formData.bannerImage}
+                  onChange={(e) => setFormData({ ...formData, bannerImage: e.target.value })}
+                  className="w-full border border-slate-200 bg-slate-50/50 rounded-xl px-4 py-3 text-[10px] text-slate-600 font-bold font-mono outline-none focus:ring-4 focus:ring-[#5e9baf]/5 focus:border-[#5e9baf]/30 transition-all"
+                  placeholder="Insert banner path manually..."
+                />
+                <p className="text-[9px] text-gray-400 mt-2 font-bold uppercase tracking-widest italic">
+                  Specific banner for the category's product list view.
+                </p>
+              </div>
 
               {/* URL fallback */}
               <div>

@@ -91,7 +91,7 @@ export default function AnimatedCategoryList({
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
+              transition={{ duration: 0.8, ease: "easeOut" as const }}
               className="group relative py-8 md:py-12 first:pt-0 last:pb-32"
             >
               {/* Vertical Connectivity Spine */}
@@ -106,7 +106,8 @@ export default function AnimatedCategoryList({
                   transition={{ duration: 1, delay: 0.2 }}
                   className="w-full md:w-[48%] lg:w-[50%] relative group/asset"
                 >
-                  <div className="relative h-64 md:h-80 lg:h-[400px] overflow-hidden rounded-xl shadow-2xl shadow-slate-200/50 bg-white border border-slate-100/50 transition-all duration-700 group-hover/asset:shadow-primary/20 group-hover/asset:-translate-y-2">
+                  <div className="relative h-64 md:h-80 lg:h-[400px] overflow-hidden rounded-[10px] shadow-2xl shadow-slate-200/50 bg-white border border-slate-100/50 transition-all duration-700 group-hover/asset:shadow-primary/20 group-hover/asset:-translate-y-2">
+
                     {category.image ? (
                       <Image
                         src={category.image}
@@ -116,12 +117,12 @@ export default function AnimatedCategoryList({
                         sizes="(max-width: 768px) 100vw, 50vw"
                       />
                     ) : (
-                      <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-50">
-                        <Package className="h-20 w-20 text-blue-100/50 mb-4" />
-                        <span className="text-xs font-black text-slate-300 uppercase tracking-[0.3em]">
-                          NO DATA LOADED
-                        </span>
-                      </div>
+                      <Image
+                        src="/assets/placeholder/no-product-image.png"
+                        alt="No image available"
+                        fill
+                        className="object-cover opacity-60 transition-transform duration-1000 ease-out group-hover/asset:scale-110"
+                      />
                     )}
 
                     {/* Industrial HUD Overlay */}

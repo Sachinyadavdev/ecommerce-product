@@ -131,7 +131,13 @@ export default function EventDetail({ event }: { event: Event }) {
               <div className="bg-white rounded-3xl p-8 md:p-10 border border-gray-100 shadow-sm">
                 <h2 className="text-2xl font-black text-gray-900 mb-6">About This Event</h2>
                 {event.description ? (
-                  <div className="prose prose-lg max-w-none text-gray-600 leading-relaxed whitespace-pre-line">
+                  <div className="max-w-none text-gray-600 leading-relaxed whitespace-pre-line
+                    [&_h2]:text-xl [&_h2]:font-bold [&_h2]:mb-2
+                    [&_h3]:text-lg [&_h3]:font-bold [&_h3]:mb-2
+                    [&_p]:mb-4
+                    [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-4
+                    [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mb-4
+                  ">
                     {event.description}
                   </div>
                 ) : (

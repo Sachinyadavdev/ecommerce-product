@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Users, User, Award, CheckCircle2, X, Briefcase, ChevronRight, ExternalLink } from "lucide-react";
+import { Users, User, Award, CheckCircle2, X, Briefcase, ChevronRight, ExternalLink, Linkedin, ArrowRight } from "lucide-react";
 import React, { useState } from "react";
 
 interface TeamMember {
@@ -34,17 +34,57 @@ const defaultCategories: TeamCategory[] = [
       {
         name: "Hema Hari",
         designation: "Managing Director",
-        image: "",
-        bio: "Visionary leader with decades of experience driving Besmak's strategic growth and setting industry benchmarks in automotive component manufacturing.",
-        linkedin: "",
+        image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop",
+        bio: "Visionary leader with decades of experience driving Besmak's strategic growth and setting industry benchmarks in automotive component manufacturing. Under her guidance, Besmak has expanded its global footprint while maintaining a core focus on precision engineering and sustainable manufacturing practices.",
+        linkedin: "https://linkedin.com",
       },
       {
         name: "Rajesh R",
         designation: "Director",
-        image: "",
-        bio: "Co-founder and Director guiding Besmak's operational and business expansion with deep expertise in precision engineering and customer relations.",
-        linkedin: "",
+        image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop",
+        bio: "Co-founder and Director guiding Besmak's operational and business expansion with deep expertise in precision engineering and customer relations. Rajesh's strategic insight into market trends and commitment to technological innovation has been pivotal in Besmak's journey toward excellence.",
+        linkedin: "https://linkedin.com",
       },
+    ],
+  },
+  {
+    title: "Senior Management",
+    icon: "users",
+    members: [
+      { name: "BRM Rao", designation: "Chief Operating Officer", bio: "Driving operational excellence across all manufacturing plants." },
+      { name: "Senthilnath P K", designation: "VP – Technical", bio: "Leading technical innovation and product development strategies." },
+      { name: "Kannan M", designation: "Quality DGM", bio: "Ensuring world-class quality standards and compliance." },
+      { name: "Vinod Kumar", designation: "HR & Admin HOD", bio: "Nurturing talent and building a high-performance culture." },
+    ],
+  },
+  {
+    title: "Functional Heads",
+    icon: "settings",
+    members: [
+      { name: "Singaravelu", designation: "Finance Head" },
+      { name: "Ramprasath", designation: "ED Divisional Head" },
+      { name: "Rama Kuladeep", designation: "CS Divisional Head" },
+      { name: "Sudeep", designation: "Stamping Divisional Head" },
+    ],
+  },
+  {
+    title: "Operations",
+    icon: "layers",
+    members: [
+      { name: "Durairaj", designation: "Accounts" },
+      { name: "Ravindran K", designation: "IT & Digitalization" },
+      { name: "Sivakumar R", designation: "Purchase / Stores HOD" },
+      { name: "Navaneetha Krishnan", designation: "Production / PPC / Maintenance HOD" },
+    ],
+  },
+  {
+    title: "Technical",
+    icon: "tool",
+    members: [
+      { name: "Aba Samuel", designation: "Technical Expert (Connector)" },
+      { name: "Rangarajan S", designation: "E & D Product Design HOD" },
+      { name: "Ranjith Kumar", designation: "PMG Sr. Manager" },
+      { name: "Suresh", designation: "Tool Room GM" },
     ],
   },
 ];
@@ -53,39 +93,60 @@ const defaultCategories: TeamCategory[] = [
 function getInitials(name: string) {
   return name
     .split(" ")
-    .map((n) => n[0])
+    .map((n) => n[0] || "")
     .join("")
     .toUpperCase()
     .slice(0, 2);
 }
 
-// Distinct soft accent colors for each category
 const categoryAccents = [
-  { bg: "from-red-50 to-orange-50", icon: "bg-red-100 text-red-600", border: "border-red-200", badge: "bg-red-50 text-red-600" },
-  { bg: "from-blue-50 to-indigo-50", icon: "bg-blue-100 text-blue-600", border: "border-blue-200", badge: "bg-blue-50 text-blue-600" },
-  { bg: "from-emerald-50 to-teal-50", icon: "bg-emerald-100 text-emerald-600", border: "border-emerald-200", badge: "bg-emerald-50 text-emerald-600" },
-  { bg: "from-amber-50 to-yellow-50", icon: "bg-amber-100 text-amber-600", border: "border-amber-200", badge: "bg-amber-50 text-amber-600" },
-  { bg: "from-purple-50 to-violet-50", icon: "bg-purple-100 text-purple-600", border: "border-purple-200", badge: "bg-purple-50 text-purple-600" },
+  { bg: "from-slate-50 to-white", icon: "bg-primary/10 text-primary", border: "border-slate-100", badge: "bg-primary/5 text-primary" },
+  { bg: "from-blue-50 to-white", icon: "bg-blue-100 text-blue-600", border: "border-blue-100", badge: "bg-blue-50 text-blue-600" },
+  { bg: "from-emerald-50 to-white", icon: "bg-emerald-100 text-emerald-600", border: "border-emerald-100", badge: "bg-emerald-50 text-emerald-600" },
+  { bg: "from-amber-50 to-white", icon: "bg-amber-100 text-amber-600", border: "border-amber-100", badge: "bg-amber-50 text-amber-600" },
 ];
 
 export default function CoreTeamMembers({ content }: CoreTeamMembersProps) {
-  // Merge flat CMS keys (e.g. member_1_1_image, member_1_2_linkedin) into the
-  // default categories so that values saved through the editor are reflected.
-  const categories: TeamCategory[] = defaultCategories.map(
-    (category, catIdx) => ({
-      ...category,
-      members: category.members.map((member, memIdx) => {
-        const prefix = `member_${catIdx + 1}_${memIdx + 1}`;
-        return {
-          ...member,
-          image:    (content as any)?.[`${prefix}_image`]    ?? member.image,
-          linkedin: (content as any)?.[`${prefix}_linkedin`] ?? member.linkedin,
-          bio:      (content as any)?.[`${prefix}_bio`]      ?? member.bio,
-        };
-      }),
-    })
-  );
+  // Merge flat CMS keys into categories.
+  const categories: TeamCategory[] = defaultCategories.map((category, catIdx) => {
+    const catNum = catIdx + 1;
+    const mergedMembers: TeamMember[] = [];
+
+    category.members.forEach((defaultMember, memIdx) => {
+      const prefix = `member_${catNum}_${memIdx + 1}`;
+      mergedMembers.push({
+        ...defaultMember,
+        name:        (content as any)?.[`${prefix}_name`]        ?? defaultMember.name,
+        designation: (content as any)?.[`${prefix}_designation`] ?? defaultMember.designation,
+        image:       (content as any)?.[`${prefix}_image`]       ?? defaultMember.image,
+        linkedin:    (content as any)?.[`${prefix}_linkedin`]    ?? defaultMember.linkedin,
+        bio:         (content as any)?.[`${prefix}_bio`]         ?? defaultMember.bio,
+      });
+    });
+
+    let extraIdx = category.members.length + 1;
+    while ((content as any)?.[`member_${catNum}_${extraIdx}_name`] || (content as any)?.[`member_${catNum}_${extraIdx}_image` ] || (content as any)?.[`member_${catNum}_${extraIdx}_designation` ]) {
+      const prefix = `member_${catNum}_${extraIdx}`;
+      mergedMembers.push({
+        name:        (content as any)?.[`${prefix}_name`]        ?? "New Member",
+        designation: (content as any)?.[`${prefix}_designation`] ?? "Position",
+        image:       (content as any)?.[`${prefix}_image`]       ?? "",
+        linkedin:    (content as any)?.[`${prefix}_linkedin`]    ?? "",
+        bio:         (content as any)?.[`${prefix}_bio`]         ?? "",
+      });
+      extraIdx++;
+    }
+
+    return { ...category, members: mergedMembers };
+  }).filter((category, catIdx) => {
+    const catNum = catIdx + 1;
+    return !(content as any)?.[`category_${catNum}_hide` ];
+  });
+
   const [selectedMember, setSelectedMember] = useState<(TeamMember & { categoryTitle: string; accent: typeof categoryAccents[0] }) | null>(null);
+
+  const leadershipCategory = categories.find(c => c.title === "Leadership");
+  const otherCategories = categories.filter(c => c.title !== "Leadership");
 
   const getIcon = (iconName: string, className?: string) => {
     switch (iconName) {
@@ -99,105 +160,162 @@ export default function CoreTeamMembers({ content }: CoreTeamMembersProps) {
   };
 
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
-      {/* Subtle background pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.025] pointer-events-none"
-        style={{
-          backgroundImage: "radial-gradient(var(--color-primary, #e60026) 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
-        }}
-      />
-      <div className="absolute top-0 left-0 w-full h-48 bg-linear-to-b from-slate-50 to-transparent pointer-events-none" />
+    <section className="pt-10 md:pt-16 pb-2 md:pb-4 bg-white relative overflow-hidden">
+      {/* Background elements */}
+      <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-transparent via-slate-200 to-transparent opacity-50" />
+      
+      <div className="container mx-auto px-4 max-w-7xl relative z-10 space-y-16 md:space-y-24">
+        
+        {/* Leadership Section - TCS Style High Impact */}
+        {leadershipCategory && (
+          <div>
+            <div className="flex items-center gap-4 mb-16 px-4 md:px-0">
+              <span className="h-px bg-slate-200 flex-1" />
+              <h2 className="text-sm font-bold tracking-[0.2em] text-slate-400 uppercase">Strategic Leadership</h2>
+              <span className="h-px bg-slate-200 flex-1" />
+            </div>
 
-      <div className="container mx-auto px-4 max-w-7xl relative z-10">
-        {/* Categories */}
-        <div className="space-y-20">
-          {categories.map((category, idx) => {
-            const accent = categoryAccents[idx % categoryAccents.length];
+            <div className="space-y-32">
+              {leadershipCategory.members.map((member, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.8, ease: "easeOut" as const }}
+                  className={`flex flex-col ${idx % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"} items-center gap-12 md:gap-20`}
+                >
+                  {/* Image Side */}
+                  <div className="w-full md:w-1/2 aspect-4/5 md:aspect-square relative group overflow-hidden rounded-2xl md:rounded-4xl">
+                    {member.image ? (
+                      <img
+                        src={member.image}
+                        alt={member.name}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-slate-100 flex items-center justify-center text-4xl font-light text-slate-300">
+                        {getInitials(member.name)}
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition-colors duration-300" />
+                  </div>
+
+                  {/* Content Side */}
+                  <div className="w-full md:w-1/2 space-y-6">
+                    <div className="space-y-2">
+                       <p className="text-xs md:text-sm font-bold tracking-[0.3em] text-slate-400 uppercase">
+                        {member.designation}
+                      </p>
+                      <h3 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                        {member.name}
+                      </h3>
+                    </div>
+                    
+                    <div className="w-16 h-1 bg-primary" />
+                    
+                    <p className="text-lg text-slate-600 leading-relaxed font-light max-w-xl">
+                      {member.bio}
+                    </p>
+
+                    <div className="pt-4 flex flex-wrap items-center gap-6">
+                      <button 
+                        onClick={() => setSelectedMember({ ...member, categoryTitle: "Leadership", accent: categoryAccents[0] })}
+                        className="group flex items-center gap-3 text-sm font-bold text-slate-900 hover:text-primary transition-colors duration-300"
+                      >
+                        READ MORE ABOUT {member.name.split(' ')[0].toUpperCase()}
+                        <div className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center group-hover:border-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                          <ArrowRight className="w-5 h-5" />
+                        </div>
+                      </button>
+
+                      {member.linkedin && (
+                        <a 
+                          href={member.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-3 rounded-full border border-slate-200 text-slate-400 hover:text-blue-600 hover:border-blue-100 hover:bg-blue-50 transition-all duration-300"
+                        >
+                          <Linkedin className="w-5 h-5" />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Other Categories - Refined Grid */}
+        <div className="space-y-16 md:space-y-24">
+          {otherCategories.map((category, idx) => {
+            const accent = categoryAccents[(idx + 1) % categoryAccents.length];
             return (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.7, type: "spring", bounce: 0.2 }}
+                transition={{ duration: 0.6 }}
               >
-                {/* Category Label */}
-                <div className="flex items-center gap-4 mb-8">
-                  <div className={`w-12 h-12 rounded-xl ${accent.icon} flex items-center justify-center shrink-0 shadow-sm`}>
-                    {getIcon(category.icon, "w-6 h-6")}
+                {/* Category Header */}
+                <div className="flex items-center gap-6 mb-12">
+                  <div className={`w-14 h-14 rounded-2xl ${accent.icon} flex items-center justify-center shadow-xs`}>
+                    {getIcon(category.icon, "w-7 h-7")}
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold text-slate-900">{category.title}</h3>
-                    <p className="text-sm text-slate-400 mt-0.5">{category.members.length} {category.members.length === 1 ? "member" : "members"}</p>
+                    <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight">{category.title}</h3>
+                    <p className="text-sm font-medium text-slate-400 mt-1 uppercase tracking-widest">{category.members.length} MEMBERS</p>
                   </div>
-                  <div className="flex-1 h-px bg-slate-100 ml-4 hidden sm:block" />
+                  <div className="flex-1 h-px bg-slate-100" />
                 </div>
 
-                {/* Member Cards Grid */}
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                {/* Team Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                   {category.members.map((member, mIdx) => (
-                    <motion.button
+                    <motion.div
                       key={mIdx}
-                      initial={{ opacity: 0, y: 30, scale: 0.97 }}
-                      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: 0.07 * mIdx }}
-                      whileHover={{ y: -6, transition: { duration: 0.25 } }}
+                      transition={{ duration: 0.4, delay: mIdx * 0.05 }}
+                      whileHover={{ y: -8 }}
+                      className="group bg-white rounded-3xl border border-slate-100 p-8 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] hover:border-transparent transition-all duration-500 cursor-pointer"
                       onClick={() => setSelectedMember({ ...member, categoryTitle: category.title, accent })}
-                      className="group relative text-left bg-white rounded-2xl border border-slate-100 shadow-[0_4px_24px_rgba(0,0,0,0.06)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.12)] hover:border-primary/20 transition-all duration-300 overflow-hidden cursor-pointer w-full"
                     >
-                      {/* Top accent strip */}
-                      <div className={`h-1 w-full bg-linear-to-r from-primary to-primary/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
-
-                      <div className="p-6">
-                        {/* Avatar row */}
-                        <div className="mb-5 flex items-start justify-between gap-2">
-                          <div className="relative shrink-0">
-                            {member.image ? (
-                              <img
-                                src={member.image}
-                                alt={member.name}
-                                className="w-16 h-16 rounded-2xl object-cover ring-2 ring-slate-100 shadow-md group-hover:ring-primary/30 transition-all duration-300"
-                              />
-                            ) : (
-                              <div className={`w-16 h-16 rounded-2xl ${accent.icon} flex items-center justify-center text-lg font-bold shadow-sm`}>
-                                {getInitials(member.name)}
-                              </div>
-                            )}
-                            <div className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-emerald-400 border-2 border-white" />
-                          </div>
-                          <div className="flex flex-col items-end gap-2">
-                            {member.linkedin && (
-                              <a
-                                href={member.linkedin}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={(e) => e.stopPropagation()}
-                                className={`p-1.5 rounded-lg ${accent.icon} opacity-70 hover:opacity-100 transition-all duration-200 hover:scale-110`}
-                                title="View LinkedIn Profile"
-                              >
-                                <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
-                                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                                </svg>
-                              </a>
-                            )}
-                            <div className={`p-1.5 rounded-lg ${accent.icon} opacity-0 group-hover:opacity-100 transition-all duration-300`}>
-                              <ChevronRight className="w-3.5 h-3.5" />
+                      <div className="space-y-6">
+                        {/* Avatar */}
+                        <div className="relative inline-block">
+                          {member.image ? (
+                            <img
+                              src={member.image}
+                              alt={member.name}
+                              className="w-20 h-20 rounded-4xl object-cover ring-4 ring-slate-50 transition-transform duration-500 group-hover:scale-110"
+                            />
+                          ) : (
+                            <div className={`w-20 h-20 rounded-4xl ${accent.icon} flex items-center justify-center text-xl font-bold shadow-xs transition-transform duration-500 group-hover:scale-110`}>
+                              {getInitials(member.name)}
                             </div>
-                          </div>
+                          )}
+                          <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-primary border-4 border-white" />
                         </div>
 
-                        {/* Info */}
-                        <h4 className="text-base font-bold text-slate-900 group-hover:text-primary transition-colors duration-300 leading-snug mb-1.5">
-                          {member.name}
-                        </h4>
-                        <p className="text-xs font-medium text-slate-400 leading-snug line-clamp-2">
-                          {member.designation}
-                        </p>
+                        {/* Text */}
+                        <div className="space-y-2">
+                          <h4 className="text-xl font-extrabold text-slate-900 group-hover:text-primary transition-colors duration-300 tracking-tight leading-tight">
+                            {member.name}
+                          </h4>
+                          <p className="text-sm font-bold text-slate-400 leading-snug uppercase tracking-wider">
+                            {member.designation}
+                          </p>
+                        </div>
+
+                        <div className="flex items-center gap-2 text-xs font-bold text-primary opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-[-10px] group-hover:translate-x-0">
+                          VIEW PROFILE <ArrowRight className="w-3 h-3" />
+                        </div>
                       </div>
-                    </motion.button>
+                    </motion.div>
                   ))}
                 </div>
               </motion.div>
@@ -206,96 +324,84 @@ export default function CoreTeamMembers({ content }: CoreTeamMembersProps) {
         </div>
       </div>
 
-      {/* Profile Detail Modal */}
+      {/* Profile Detail Modal - Premium Style */}
       <AnimatePresence>
         {selectedMember && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-9999 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+            className="fixed inset-0 z-9999 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md"
             onClick={() => setSelectedMember(null)}
           >
             <motion.div
-              initial={{ opacity: 0, scale: 0.85, y: 40 }}
+              initial={{ opacity: 0, scale: 0.9, y: 30 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.85, y: 40 }}
-              transition={{ type: "spring", stiffness: 300, damping: 28 }}
-              className="relative bg-white rounded-3xl shadow-2xl max-w-sm w-full overflow-hidden"
+              exit={{ opacity: 0, scale: 0.9, y: 30 }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="relative bg-white rounded-[2.5rem] shadow-2xl max-w-2xl w-full overflow-hidden flex flex-col md:flex-row"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Header Background */}
-              <div className={`relative h-36 bg-linear-to-br ${selectedMember.accent.bg} flex items-end pb-0`}>
-                {/* Decorative circles */}
-                <div className="absolute top-4 right-4 w-24 h-24 rounded-full bg-white/30 blur-xl" />
-                <div className="absolute -top-4 -left-4 w-32 h-32 rounded-full bg-white/20 blur-2xl" />
-                <div className="absolute top-3 left-5 w-10 h-10 rounded-full bg-white/40 blur-md" />
+              {/* Image Side */}
+              <div className="w-full md:w-2/5 aspect-square md:aspect-auto bg-slate-50 relative">
+                {selectedMember.image ? (
+                  <img
+                    src={selectedMember.image}
+                    alt={selectedMember.name}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className={`w-full h-full ${selectedMember.accent.icon} flex items-center justify-center text-4xl font-bold`}>
+                    {getInitials(selectedMember.name)}
+                  </div>
+                )}
+                <div className="absolute inset-0 bg-linear-to-t from-slate-900/20 to-transparent" />
               </div>
 
-              {/* Close Button */}
-              <button
-                onClick={() => setSelectedMember(null)}
-                className="absolute top-4 right-4 w-9 h-9 rounded-xl bg-white/80 backdrop-blur-sm flex items-center justify-center hover:bg-white transition-colors shadow-sm z-10"
-              >
-                <X className="w-4 h-4 text-slate-600" />
-              </button>
-
-              {/* Avatar — overlapping header */}
-              <div className="relative flex justify-center">
-                <div className="absolute -top-12 flex flex-col items-center">
-                  {selectedMember.image ? (
-                    <img
-                      src={selectedMember.image}
-                      alt={selectedMember.name}
-                      className="w-24 h-24 rounded-2xl object-cover ring-4 ring-white shadow-xl"
-                    />
-                  ) : (
-                    <div className={`w-24 h-24 rounded-2xl ${selectedMember.accent.icon} flex items-center justify-center text-2xl font-extrabold shadow-xl ring-4 ring-white`}>
-                      {getInitials(selectedMember.name)}
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="pt-16 pb-8 px-7 text-center">
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.15 }}
+              {/* Content Side */}
+              <div className="w-full md:w-3/5 p-8 md:p-12 relative flex flex-col justify-center">
+                <button
+                  onClick={() => setSelectedMember(null)}
+                  className="absolute top-6 right-6 p-2 rounded-full hover:bg-slate-100 transition-colors"
                 >
-                  <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold mb-4 ${selectedMember.accent.badge}`}>
-                    <Briefcase className="w-3 h-3" />
-                    {selectedMember.categoryTitle}
-                  </span>
-                  <h3 className="text-2xl font-extrabold text-slate-900 mb-1.5 tracking-tight">
-                    {selectedMember.name}
-                  </h3>
-                  <p className="text-sm font-semibold text-primary mb-5">
-                    {selectedMember.designation}
-                  </p>
-                  <div className="w-10 h-0.5 bg-slate-200 mx-auto mb-5 rounded-full" />
+                  <X className="w-5 h-5 text-slate-400" />
+                </button>
+
+                <div className="space-y-6">
+                  <div className="space-y-2">
+                    <span className="text-[10px] font-bold tracking-[0.2em] text-primary uppercase">
+                      {selectedMember.categoryTitle}
+                    </span>
+                    <h3 className="text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight">
+                      {selectedMember.name}
+                    </h3>
+                    <p className="text-base font-bold text-slate-400 uppercase tracking-wide">
+                      {selectedMember.designation}
+                    </p>
+                  </div>
+
+                  <div className="w-12 h-1 bg-slate-100 rounded-full" />
+
                   {selectedMember.bio && (
-                    <p className="text-sm text-slate-500 leading-relaxed mb-6">
+                    <p className="text-slate-500 leading-relaxed font-light text-lg">
                       {selectedMember.bio}
                     </p>
                   )}
-                  {selectedMember.linkedin && (
-                    <a
-                      href={selectedMember.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 hover:scale-105 hover:shadow-md ${selectedMember.accent.icon}`}
-                    >
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                      </svg>
-                      View LinkedIn Profile
-                      <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
-                  )}
-                </motion.div>
+
+                  <div className="pt-4 flex items-center gap-4">
+                    {selectedMember.linkedin && (
+                      <a
+                        href={selectedMember.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 px-6 py-3 rounded-xl bg-blue-600 text-white text-sm font-bold shadow-lg shadow-blue-200 hover:bg-blue-700 hover:shadow-xl transition-all duration-300"
+                      >
+                        <Linkedin className="w-4 h-4" />
+                        Connect on LinkedIn
+                      </a>
+                    )}
+                  </div>
+                </div>
               </div>
             </motion.div>
           </motion.div>

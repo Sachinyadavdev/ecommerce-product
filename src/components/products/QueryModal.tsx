@@ -5,6 +5,7 @@ import { X, Trash2, Send, Loader2, RefreshCw, ShieldCheck } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
+import { getSafeImageSrc } from "@/lib/image-utils";
 
 interface QueryModalProps {
   isOpen: boolean;
@@ -139,18 +140,12 @@ export default function QueryModal({ isOpen, onClose }: QueryModalProps) {
                     key={product.id}
                     className="group bg-white p-3 rounded-2xl border border-gray-100 flex items-center gap-4 transition-all hover:shadow-md hover:border-primary/20"
                   >
-                    <div className="w-16 h-16 bg-gray-50 rounded-xl overflow-hidden shrink-0">
-                      {product.image ? (
-                        <img
-                          src={product.image}
-                          alt={product.name}
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-gray-200">
-                          <Trash2 className="w-6 h-6" />
-                        </div>
-                      )}
+                    <div className="w-16 h-16 bg-gray-50 rounded-xl overflow-hidden shrink-0 relative">
+                      <img
+                        src={getSafeImageSrc(product.image)}
+                        alt={product.name}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                     <div className="grow min-w-0">
                       <p className="text-[9px] font-bold text-primary/40 uppercase tracking-widest truncate">

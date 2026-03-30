@@ -6,7 +6,10 @@ import { X } from "lucide-react";
 
 const DEFAULT_MILESTONES = [
   { year: "2026", text: "Plating Plant" },
-  { year: "2024", text: "CNH Tool Room Shifted to New Facility — 17,000 Sq. Ft." },
+  {
+    year: "2024",
+    text: "CNH Tool Room Shifted to New Facility — 17,000 Sq. Ft.",
+  },
   { year: "2023", text: "Plating Plant & DVP Centre Planned" },
   { year: "2022", text: "Design Centre Started" },
   { year: "2021", text: "Sanand Unit III Started" },
@@ -39,7 +42,11 @@ interface AboutMilestonesProps {
 }
 
 export default function AboutMilestones({ content }: AboutMilestonesProps) {
-  const [selectedMilestone, setSelectedMilestone] = useState<{ year: string; text: string } | null>(null);
+  const [selectedMilestone, setSelectedMilestone] = useState<{
+    year: string;
+    text: string;
+  } | null>(null);
+  const [showAll, setShowAll] = useState(false);
 
   const {
     topTitle = "Our Journey",
@@ -78,13 +85,21 @@ export default function AboutMilestones({ content }: AboutMilestonesProps) {
     }
   }
 
+  const halfLength = Math.ceil(displayMilestones.length / 2);
+  const visibleMilestones = showAll
+    ? displayMilestones
+    : displayMilestones.slice(0, halfLength);
+
   return (
-    <section
-      className="bg-white py-16 px-6 md:px-12 lg:px-20 overflow-hidden relative"
-    >
+    <section className="bg-white py-10 md:py-16 px-6 md:px-12 lg:px-20 overflow-hidden relative">
       {/* Background decoration - subtle grid */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{ backgroundImage: 'radial-gradient(#194c9a 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+      <div
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage: "radial-gradient(#194c9a 1px, transparent 1px)",
+          backgroundSize: "40px 40px",
+        }}
+      />
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="mb-32 text-center">
@@ -118,7 +133,6 @@ export default function AboutMilestones({ content }: AboutMilestonesProps) {
 
         {/* The Infographic Container */}
         <div className="relative py-10 px-4">
-
           {/* Static Background Arrow */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4 h-full hidden md:block">
             <svg
@@ -129,21 +143,33 @@ export default function AboutMilestones({ content }: AboutMilestonesProps) {
               xmlns="http://www.w3.org/2000/svg"
             >
               <defs>
-                <linearGradient id="arrowGradient" x1="0%" y1="100%" x2="0%" y2="0%">
+                <linearGradient
+                  id="arrowGradient"
+                  x1="0%"
+                  y1="100%"
+                  x2="0%"
+                  y2="0%"
+                >
                   <stop offset="0%" stopColor="#194c9a" />
                   <stop offset="100%" stopColor="#10b981" />
                 </linearGradient>
               </defs>
 
               <line
-                x1="8" y1="1600" x2="8" y2="20"
+                x1="8"
+                y1="1600"
+                x2="8"
+                y2="20"
                 stroke="rgba(25, 76, 154, 0.08)"
                 strokeWidth="8"
                 strokeLinecap="round"
               />
 
               <line
-                x1="8" y1="1600" x2="8" y2="20"
+                x1="8"
+                y1="1600"
+                x2="8"
+                y2="20"
                 stroke="url(#arrowGradient)"
                 strokeWidth="4"
                 strokeLinecap="round"
@@ -163,7 +189,7 @@ export default function AboutMilestones({ content }: AboutMilestonesProps) {
 
           {/* Milestone Cards */}
           <div className="space-y-12 md:space-y-16 relative">
-            {displayMilestones.map((item, index) => {
+            {visibleMilestones.map((item, index) => {
               const isEven = index % 2 === 0;
 
               return (
@@ -172,32 +198,44 @@ export default function AboutMilestones({ content }: AboutMilestonesProps) {
                     initial={{ opacity: 0, y: 30, scale: 0.95 }}
                     whileInView={{ opacity: 1, y: 0, scale: 1 }}
                     viewport={{ margin: "-100px", once: false }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
+                    transition={{ duration: 0.6, ease: "easeOut" as const }}
                     className={`flex ${isEven ? "md:justify-end md:pr-[50%]" : "md:justify-start md:pl-[50%]"}`}
                   >
                     <div
                       onClick={() => setSelectedMilestone(item)}
-                      className={`group relative p-8 rounded-[2rem] border border-slate-100 bg-white shadow-[0_15px_45px_-10px_rgba(0,0,0,0.06)] hover:shadow-[0_30px_60px_-15px_rgba(25,76,154,0.12)] transition-all duration-700 max-w-lg ${isEven ? 'text-right md:mr-12' : 'text-left md:ml-12'} cursor-pointer active:scale-95`}
+                      className={`group relative p-8 rounded-[2rem] border border-slate-100 bg-white shadow-[0_15px_45px_-10px_rgba(0,0,0,0.06)] hover:shadow-[0_30px_60px_-15px_rgba(25,76,154,0.12)] transition-all duration-700 max-w-lg ${isEven ? "text-right md:mr-12" : "text-left md:ml-12"} cursor-pointer active:scale-95`}
                     >
-
                       <div className="absolute -inset-[1px] bg-gradient-to-br from-[#194c9a]/20 to-emerald-500/20 rounded-[2rem] opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-10" />
 
-                      <div className={`absolute -top-6 ${isEven ? "-right-2" : "-left-2"} px-5 py-1.5 rounded-xl bg-[#194c9a] text-white font-black text-lg shadow-xl ring-6 ring-white transform group-hover:-translate-y-2 transition-transform duration-500`}>
+                      <div
+                        className={`absolute -top-6 ${isEven ? "-right-2" : "-left-2"} px-5 py-1.5 rounded-xl bg-[#194c9a] text-white font-black text-lg shadow-xl ring-6 ring-white transform group-hover:-translate-y-2 transition-transform duration-500`}
+                      >
                         {item.year}
                       </div>
 
                       <div className="relative pt-1">
                         <p className="text-slate-700 text-base md:text-lg leading-relaxed font-semibold group-hover:text-slate-900 transition-colors duration-500">
-                          {item.text.replace(/(\d+)\s+(Sq\.\s*Ft\.)/g, "$1\u00A0$2")}
+                          {item.text.replace(
+                            /(\d+)\s+(Sq\.\s*Ft\.)/g,
+                            "$1\u00A0$2",
+                          )}
                         </p>
                       </div>
 
-                      <div className={`absolute top-8 ${isEven ? 'left-8' : 'right-8'} text-6xl font-black text-slate-100/50 select-none -z-10`}>
-                        {(displayMilestones.length - index).toString().padStart(2, '0')}
+                      <div
+                        className={`absolute top-8 ${isEven ? "left-8" : "right-8"} text-6xl font-black text-slate-100/50 select-none -z-10`}
+                      >
+                        {(displayMilestones.length - index)
+                          .toString()
+                          .padStart(2, "0")}
                       </div>
 
-                      <div className={`hidden md:block absolute top-1/2 -translate-y-1/2 w-12 h-px bg-slate-200 group-hover:bg-[#194c9a]/30 transition-colors duration-500 ${isEven ? "-right-12" : "-left-12"}`}>
-                        <div className={`absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-slate-300 group-hover:scale-150 group-hover:bg-[#10b981] transition-all duration-500 shadow-[0_0_10px_rgba(0,0,0,0.05)] ${isEven ? "right-0" : "left-0"}`} />
+                      <div
+                        className={`hidden md:block absolute top-1/2 -translate-y-1/2 w-12 h-px bg-slate-200 group-hover:bg-[#194c9a]/30 transition-colors duration-500 ${isEven ? "-right-12" : "-left-12"}`}
+                      >
+                        <div
+                          className={`absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-slate-300 group-hover:scale-150 group-hover:bg-[#10b981] transition-all duration-500 shadow-[0_0_10px_rgba(0,0,0,0.05)] ${isEven ? "right-0" : "left-0"}`}
+                        />
                       </div>
                     </div>
                   </motion.div>
@@ -206,18 +244,47 @@ export default function AboutMilestones({ content }: AboutMilestonesProps) {
             })}
           </div>
 
+          {/* See More Button */}
+          {displayMilestones.length > halfLength && (
+            <div className="mt-16 flex justify-center relative z-10">
+              <button
+                onClick={() => setShowAll(!showAll)}
+                className="group relative inline-flex items-center gap-3 px-8 py-4 bg-white text-[#194c9a] font-bold rounded-full overflow-hidden shadow-[0_10px_30px_rgba(25,76,154,0.15)] hover:shadow-[0_20px_40px_rgba(25,76,154,0.25)] transition-all duration-300 border border-[#194c9a]/10"
+              >
+                <div className="absolute inset-0 bg-linear-to-r from-[#194c9a]/5 to-emerald-500/5 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
+                <span className="relative z-10">
+                  {showAll ? "View Less" : "See More"}
+                </span>
+                <span className="relative z-10 w-8 h-8 flex items-center justify-center rounded-full bg-[#194c9a]/10 group-hover:bg-[#194c9a]/20 transition-colors">
+                  <svg
+                    className={`w-4 h-4 transition-transform duration-300 ${showAll ? "rotate-180" : "rotate-0"}`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={3}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </div>
+          )}
+
           {/* Present Indicator Tooltip at the Top */}
           <div className="hidden md:flex absolute -top-16 left-1/2 -translate-x-1/2 flex-col items-center gap-2">
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}
-              className="px-6 py-2 bg-emerald-500 text-white text-xs font-black uppercase tracking-widest rounded-full shadow-[0_10px_30px_rgba(16,185,129,0.3)] animate-bounce"
+              className="px-6 py-2 bg-emerald-500 text-white text-xs font-black uppercase tracking-widest rounded-[10px] shadow-[0_10px_30px_rgba(16,185,129,0.3)] animate-bounce"
             >
               {badgeTitle}
             </motion.div>
             <div className="w-px h-12 bg-emerald-500 opacity-50" />
           </div>
-
         </div>
       </div>
 

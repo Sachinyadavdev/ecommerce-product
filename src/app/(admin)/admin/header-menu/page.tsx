@@ -397,24 +397,64 @@ export default function HeaderMenuPage() {
                             <Trash2 className="h-4 w-4" />
                           </button>
                         </div>
-                        <div className="pl-2 flex items-center gap-2">
-                          <label className="text-[10px] font-bold text-gray-400  shrink-0">
-                            Hover Image URL:
-                          </label>
-                          <input
-                            type="text"
-                            placeholder="Optional image for this sub-item"
-                            value={subItem.image || ""}
-                            onChange={(e) =>
-                              updateSubItem(
-                                index,
-                                subIndex,
-                                "image",
-                                e.target.value,
-                              )
-                            }
-                            className="flex-1 text-[11px] p-2 border border-gray-100 rounded bg-gray-50 focus:ring-1 focus:ring-primary text-gray-600"
-                          />
+                        <div className="pl-2 space-y-2">
+                          <div className="flex items-center gap-2">
+                            <label className="text-[10px] font-bold text-gray-400 shrink-0 min-w-[100px]">
+                              Hover Image URL:
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="Optional image for this sub-item"
+                              value={subItem.image || ""}
+                              onChange={(e) =>
+                                updateSubItem(
+                                  index,
+                                  subIndex,
+                                  "image",
+                                  e.target.value,
+                                )
+                              }
+                              className="flex-1 text-[11px] p-2 border border-gray-100 rounded bg-gray-50 focus:ring-1 focus:ring-primary text-gray-600"
+                            />
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <label className="text-[10px] font-bold text-gray-400 shrink-0 min-w-[100px]">
+                              Hover Image Title:
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="Title for the featured image"
+                              value={subItem.imageTitle || ""}
+                              onChange={(e) =>
+                                updateSubItem(
+                                  index,
+                                  subIndex,
+                                  "imageTitle",
+                                  e.target.value,
+                                )
+                              }
+                              className="flex-1 text-[11px] p-2 border border-gray-100 rounded bg-gray-50 focus:ring-1 focus:ring-primary text-gray-600"
+                            />
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <label className="text-[10px] font-bold text-gray-400 shrink-0 min-w-[100px]">
+                              Hover Image Desc:
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="Short description for the image"
+                              value={subItem.imageDescription || ""}
+                              onChange={(e) =>
+                                updateSubItem(
+                                  index,
+                                  subIndex,
+                                  "imageDescription",
+                                  e.target.value,
+                                )
+                              }
+                              className="flex-1 text-[11px] p-2 border border-gray-100 rounded bg-gray-50 focus:ring-1 focus:ring-primary text-gray-600"
+                            />
+                          </div>
                         </div>
                       </div>
                     ))}

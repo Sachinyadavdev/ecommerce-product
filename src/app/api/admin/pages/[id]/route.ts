@@ -33,13 +33,13 @@ export async function PATCH(
   }
 
   try {
-    const { title, slug, description, keywords, isActive } = await request.json();
+    const { title, slug, description, keywords, bannerImage, isActive } = await request.json();
     const { id } = params;
     const now = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
     await query(
-      "UPDATE pages SET title = ?, slug = ?, description = ?, keywords = ?, isActive = ?, updatedAt = ? WHERE id = ?",
-      [title, slug, description, keywords, isActive, now, id]
+      "UPDATE pages SET title = ?, slug = ?, description = ?, keywords = ?, bannerImage = ?, isActive = ?, updatedAt = ? WHERE id = ?",
+      [title, slug, description, keywords, bannerImage, isActive, now, id]
     );
 
     return NextResponse.json({ success: true });

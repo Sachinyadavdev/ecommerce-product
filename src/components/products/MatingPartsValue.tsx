@@ -15,14 +15,14 @@ export default function MatingPartsValue({ value }: MatingPartsValueProps) {
   const [coords, setCoords] = useState({ top: 0, left: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  
+
   useEffect(() => {
     setMounted(true);
   }, []);
 
   // Split by comma and trim
   const parts = value.split(',').map(p => p.trim()).filter(Boolean);
-  
+
   const updatePosition = () => {
     if (buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect();
@@ -59,7 +59,7 @@ export default function MatingPartsValue({ value }: MatingPartsValueProps) {
         // But we can check if the target has an ancestor that is our portal
         const target = event.target as HTMLElement;
         if (!target.closest('.mating-parts-portal')) {
-            setShowTooltip(false);
+          setShowTooltip(false);
         }
       }
     };
@@ -68,6 +68,10 @@ export default function MatingPartsValue({ value }: MatingPartsValueProps) {
     }
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showTooltip]);
+
+  if (parts.length === 0 || value.trim() === "." || value.trim() === "") {
+    return <span className="text-xs font-bold text-slate-600 leading-tight text-right">-</span>;
+  }
 
   if (parts.length <= 2) {
     return <span className="text-xs font-bold text-slate-600 leading-tight text-right">{value}</span>;
@@ -95,12 +99,12 @@ export default function MatingPartsValue({ value }: MatingPartsValueProps) {
             <div className="flex items-center justify-between mb-3 pb-2 border-b border-slate-50">
               <div className="flex items-center gap-2">
                 <div className="p-1 bg-primary/5 rounded-md">
-                   <Info className="w-3.5 h-3.5 text-primary" />
+                  <Info className="w-3.5 h-3.5 text-primary" />
                 </div>
                 <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Mating Parts ({parts.length})</span>
               </div>
-              <button 
-                onClick={() => setShowTooltip(false)} 
+              <button
+                onClick={() => setShowTooltip(false)}
                 className="p-1 text-slate-300 hover:text-slate-600 hover:bg-slate-50 rounded-md transition-all"
               >
                 <X className="w-3.5 h-3.5" />
@@ -127,15 +131,14 @@ export default function MatingPartsValue({ value }: MatingPartsValueProps) {
         {initialParts}
         <span className="text-slate-400 font-normal">...</span>
       </span>
-      
+
       <button
         ref={buttonRef}
         onClick={handleToggle}
-        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[9px] font-black uppercase tracking-[0.15em] transition-all duration-300 ${
-            showTooltip 
-            ? 'bg-primary text-white shadow-lg shadow-primary/20 scale-105' 
-            : 'text-primary bg-primary/5 hover:bg-primary/10 hover:shadow-md'
-        }`}
+        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[9px] font-black uppercase tracking-[0.15em] transition-all duration-300 ${showTooltip
+          ? 'bg-primary text-white shadow-lg shadow-primary/20 scale-105'
+          : 'text-primary bg-primary/5 hover:bg-primary/10 hover:shadow-md'
+          }`}
       >
         View Specs
         <ChevronDown className={`w-3 h-3 transition-transform duration-500 ${showTooltip ? 'rotate-180' : ''}`} />

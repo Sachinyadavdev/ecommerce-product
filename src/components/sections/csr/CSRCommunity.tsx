@@ -78,15 +78,15 @@ export default function CSRCommunity({ content }: CSRCommunityProps) {
   ];
 
   return (
-    <section ref={containerRef} className="py-12 md:py-20 relative overflow-hidden bg-slate-900 border-y border-slate-800 font-sans">
+    <section ref={containerRef} className="py-12 md:py-20 relative overflow-hidden bg-[#284b8c] border-y border-blue-400/20 font-sans">
       {/* Parallax Background */}
       <motion.div
         style={{ y, backgroundImage: `url(${image})` }}
-        className="absolute inset-x-0 -top-[20%] h-[140%] w-full bg-cover bg-center brightness-[0.25] contrast-125 grayscale-[0.5]"
+        className="absolute inset-x-0 -top-[20%] h-[140%] w-full bg-cover bg-center brightness-[0.85] contrast-110"
       />
 
       {/* Decorative gradient overlay */}
-      <div className="absolute inset-0 bg-linear-to-b from-slate-900/50 via-transparent to-slate-900/80 pointer-events-none" />
+      <div className="absolute inset-0 bg-linear-to-b from-[#284b8c]/30 via-transparent to-[#284b8c]/50 pointer-events-none" />
 
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
@@ -97,13 +97,13 @@ export default function CSRCommunity({ content }: CSRCommunityProps) {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-[3rem] p-10 md:p-14 shadow-2xl relative overflow-hidden"
+            className="bg-[#284b8c]/80 backdrop-blur-2xl border border-white/20 rounded-[3rem] p-10 md:p-14 shadow-2xl relative overflow-hidden"
           >
             {/* Background Light Effect */}
             <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-emerald-500/10 blur-[100px] pointer-events-none" />
             
             <div className="relative z-10">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#009966]/20 text-[#009966] border border-[#009966]/30 text-[10px] font-black uppercase tracking-[0.2em] mb-8">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-[10px] bg-[#009966]/20 text-[#009966] border border-[#009966]/30 text-[10px] font-black uppercase tracking-[0.2em] mb-8">
                 <Users size={14} />
                 Besmak Impact
               </div>
@@ -157,7 +157,7 @@ export default function CSRCommunity({ content }: CSRCommunityProps) {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="relative group/slider w-full aspect-[16/10] rounded-[3rem] overflow-hidden shadow-2xl border-4 border-white/10 bg-slate-800"
+              className="relative group/slider w-full aspect-[16/10] rounded-[3rem] overflow-hidden shadow-2xl border-4 border-white/10 bg-[#284b8c]/20"
             >
               <AnimatePresence mode="wait">
                 <motion.div
@@ -170,11 +170,11 @@ export default function CSRCommunity({ content }: CSRCommunityProps) {
                 >
                   <img
                     src={reliefImages[currentSlide].url}
-                    className="w-full h-full object-cover brightness-[0.7] contrast-125"
+                    className="w-full h-full object-cover brightness-100 contrast-100"
                     alt="Relief Story"
                   />
                   {/* Cinematic Overlays */}
-                  <div className="absolute inset-x-0 bottom-0 p-10 bg-linear-to-t from-black/80 via-black/20 to-transparent">
+                  <div className="absolute inset-x-0 bottom-0 p-10 bg-linear-to-t from-[#284b8c]/90 via-[#284b8c]/40 to-transparent">
                      <motion.div
                        initial={{ opacity: 0, y: 20 }}
                        animate={{ opacity: 1, y: 0 }}
@@ -231,7 +231,7 @@ export default function CSRCommunity({ content }: CSRCommunityProps) {
                     viewport={{ once: true }}
                     transition={{ delay: 0.2 + (i * 0.1) }}
                     whileHover={{ y: -5, borderColor: "rgba(0,153,102,0.5)" }}
-                    className="bg-white/5 backdrop-blur-md border border-white/10 p-10 rounded-[3rem] flex flex-col items-center justify-center text-center group cursor-default shadow-xl"
+                    className="bg-[#284b8c]/80 backdrop-blur-2xl border border-white/20 p-10 rounded-[3rem] flex flex-col items-center justify-center text-center group cursor-default shadow-xl"
                  >
                     <div className="w-12 h-12 bg-[#009966]/20 text-[#009966] rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                        {s.icon}

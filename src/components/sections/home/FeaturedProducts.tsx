@@ -32,7 +32,7 @@ export default function FeaturedProducts({ content }: FeaturedProductsProps) {
                   High-performance component specification summary.
                 </p>
                 <Link
-                  href={`/products/product-slug-${item}`}
+                  href="/products"
                   className="text-primary font-medium hover:underline"
                 >
                   View Details

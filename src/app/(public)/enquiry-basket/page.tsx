@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import Link from "next/link";
 import PageHeader from "@/components/ui/PageHeader";
+import { getSafeImageSrc } from "@/lib/image-utils";
 
 interface CaptchaData {
   question: string;
@@ -171,18 +172,12 @@ export default function EnquiryBasketPage() {
                             >
                                 <div className="absolute top-0 left-0 w-1.5 h-full bg-primary/5 group-hover:bg-primary transition-colors" />
                                 
-                                <div className="w-24 h-24 bg-slate-50 rounded-2xl overflow-hidden shrink-0 border border-slate-50">
-                                    {product.image ? (
-                                        <img
-                                            src={product.image}
-                                            alt={product.name}
-                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                        />
-                                    ) : (
-                                        <div className="w-full h-full flex items-center justify-center text-slate-200">
-                                            <Inbox className="w-10 h-10" />
-                                        </div>
-                                    )}
+                                <div className="w-24 h-24 bg-slate-50 rounded-2xl overflow-hidden shrink-0 border border-slate-50 relative">
+                                    <img
+                                        src={getSafeImageSrc(product.image)}
+                                        alt={product.name}
+                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                    />
                                 </div>
 
                                 <div className="grow min-w-0 space-y-1.5">

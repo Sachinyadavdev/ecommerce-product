@@ -51,7 +51,7 @@ export default async function AdminProductsPage({ searchParams }: PageProps) {
 
   // 2. Get paginated products
   const productsSql = `
-    SELECT p.*, c.name as categoryName 
+    SELECT p.*, c.name as categoryName, c.slug as categorySlug
     FROM product p 
     LEFT JOIN category c ON p.categoryId = c.id 
     WHERE ${whereClause.replace(/name/g, "p.name").replace(/id/g, "p.id")}
@@ -66,7 +66,7 @@ export default async function AdminProductsPage({ searchParams }: PageProps) {
 
   return (
     <Suspense fallback={<div className="p-8 text-center text-slate-400">Loading products...</div>}>
-      <ProductListClient 
+      <ProductListClient
         initialProducts={products}
         totalProducts={totalProducts}
         currentPage={currentPage}

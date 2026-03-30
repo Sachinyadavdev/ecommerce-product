@@ -39,7 +39,9 @@ export default async function DynamicPage({
 }: {
   params: { slug: string };
 }) {
+  console.log(`[DynamicPage] Fetching sections for slug: ${params.slug}`);
   const sections = await getPageSections(params.slug);
+  console.log(`[DynamicPage] Found ${sections?.length || 0} sections`);
 
   if (!sections) {
     notFound();

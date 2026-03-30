@@ -104,7 +104,7 @@ const FilterGroupDropdown = ({
             initial={{ opacity: 0, y: 15, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
+            transition={{ duration: 0.2, ease: "easeOut" as const }}
             className="absolute top-full left-0 mt-3 w-[320px] bg-white border border-slate-100/50 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.12)] z-[100] overflow-hidden p-4 backdrop-blur-xl"
           >
             {group.options.length > 8 ? (

@@ -181,17 +181,17 @@ export default function StampingSegments({ content }: StampingSegmentsProps) {
   };
 
   return (
-    <section className="py-24 md:py-32 bg-slate-50 site-content relative overflow-hidden">
+    <section className="py-10 md:py-16 bg-slate-50 site-content relative overflow-hidden">
       {/* Abstract Background Top */}
       <div className="absolute top-0 right-0 w-1/2 h-full bg-linear-to-b from-primary/5 to-transparent skew-x-12 z-0 opacity-40 pointer-events-none" />
       
       <div className="container mx-auto px-4 max-w-7xl relative z-10">
-        <div className="text-center mb-16 md:mb-20 max-w-3xl mx-auto">
+        <div className="text-center mb-12 md:mb-16 max-w-3xl mx-auto">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
+            transition={{ duration: 0.7, ease: "easeOut" as const }}
             className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight leading-tight"
           >
             {title}
@@ -200,7 +200,7 @@ export default function StampingSegments({ content }: StampingSegmentsProps) {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
+            transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" as const }}
             className="text-xl md:text-2xl text-slate-500 font-light leading-relaxed"
           >
             {description}
@@ -254,7 +254,7 @@ export default function StampingSegments({ content }: StampingSegmentsProps) {
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.8, ease: "easeOut" as const }}
           className="bg-white rounded-[3rem] p-10 md:p-16 lg:p-20 relative overflow-hidden shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] border border-slate-100"
         >
           {/* Subtle Decorative Elements */}

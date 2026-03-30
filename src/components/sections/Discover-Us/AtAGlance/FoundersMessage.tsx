@@ -51,7 +51,7 @@ export default function FoundersMessage({ content }: FoundersMessageProps) {
   } as const;
 
   return (
-    <section className="bg-slate-50 px-6 md:px-12 lg:px-20 overflow-hidden relative">
+    <section className="bg-slate-50 py-10 md:py-16 px-6 md:px-12 lg:px-20 overflow-hidden relative">
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto">

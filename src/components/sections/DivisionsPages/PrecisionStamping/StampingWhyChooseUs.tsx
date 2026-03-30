@@ -69,11 +69,11 @@ export default function StampingWhyChooseUs({ content }: StampingWhyChooseUsProp
 
   const itemVariants = {
     hidden: { opacity: 0, x: -20 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.5, ease: "easeOut" as any } }
+    visible: { opacity: 1, x: 0, transition: { duration: 0.5, ease: "easeOut" as const as any } }
   };
 
   return (
-    <section className="py-24 md:py-32 bg-slate-50 site-content relative overflow-hidden">
+    <section className="py-10 md:py-16 bg-slate-50 site-content relative overflow-hidden">
       {/* Premium Background Texture */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(var(--color-primary-rgb),0.05),transparent_50%)] pointer-events-none" />
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(slate-600 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
@@ -86,7 +86,7 @@ export default function StampingWhyChooseUs({ content }: StampingWhyChooseUsProp
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            transition={{ duration: 0.8, ease: "easeOut" as const }}
           >
             <div className="flex items-center gap-4 mb-6">
               <span className="h-px w-12 bg-primary" />
@@ -114,7 +114,7 @@ export default function StampingWhyChooseUs({ content }: StampingWhyChooseUsProp
                   whileHover={{ x: 8 }}
                   className="flex items-start gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 group"
                 >
-                  <div className="mt-0.5 flex-shrink-0 w-8 h-8 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white group-hover:scale-110 transition-all duration-300">
+                  <div className="mt-0.5 shrink-0 w-8 h-8 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white group-hover:scale-110 transition-all duration-300">
                     <CheckCircle2 size={18} strokeWidth={2} />
                   </div>
                   <p className="text-slate-700 font-medium text-lg pt-0.5 leading-snug group-hover:text-slate-900 transition-colors">
@@ -124,7 +124,7 @@ export default function StampingWhyChooseUs({ content }: StampingWhyChooseUsProp
               ))}
             </motion.div>
             
-            <Link href="/contact" className="inline-flex items-center gap-3 px-8 py-4 bg-primary hover:bg-primary-dark text-white font-bold rounded-full transition-all duration-300 hover:shadow-xl hover:shadow-primary/20 group">
+            <Link href="/contact" className="inline-flex items-center gap-3 px-8 py-4 bg-primary hover:bg-primary-dark text-white font-bold rounded-[20px] transition-all duration-300 hover:shadow-xl hover:shadow-primary/20 group">
               Partner with Besmak 
               <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
             </Link>

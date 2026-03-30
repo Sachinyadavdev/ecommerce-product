@@ -88,7 +88,7 @@ export default function ConnectionSystemsHero({ content }: ConnectionSystemsHero
             className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-110"
             initial={{ scale: 1.2, opacity: 0 }}
             animate={{ scale: 1.1, opacity: 0.7 }}
-            transition={{ duration: 2, ease: "easeOut" }}
+            transition={{ duration: 2, ease: "easeOut" as const }}
           >
             <div 
               className="absolute inset-0 w-full h-full bg-cover bg-center"
@@ -98,8 +98,8 @@ export default function ConnectionSystemsHero({ content }: ConnectionSystemsHero
         )}
         
         {/* Subtle vignette and color grade */}
-        <div className="absolute inset-0 bg-linear-to-b from-slate-950/40 via-transparent to-slate-950/80 z-10" />
-        <div className="absolute inset-0 bg-slate-950/30 z-10 backdrop-contrast-[1.1] backdrop-saturate-[1.1]" />
+        <div className="absolute inset-0 bg-linear-to-b from-slate-900/10 via-transparent to-slate-900/30 z-10" />
+        <div className="absolute inset-0 bg-slate-900/10 z-10 backdrop-contrast-[1.05] backdrop-saturate-[1.05]" />
         
         {/* Tech-inspired grid overlay */}
         <div className="absolute inset-0 opacity-15 z-10 pointer-events-none" 
@@ -152,10 +152,10 @@ export default function ConnectionSystemsHero({ content }: ConnectionSystemsHero
             variants={itemVariants} 
             className="flex flex-wrap gap-5"
             animate={{ y: [0, -5, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" as const }}
           >
             <Link href={ctaLink}>
-              <button className="group relative flex items-center bg-primary text-white pl-10 pr-14 py-5 rounded-full font-black transition-all duration-500 hover:pr-16 active:scale-95 shadow-[0_20px_40px_-10px_rgba(var(--primary-rgb),0.5)] overflow-hidden">
+              <button className="group relative flex items-center bg-primary text-white pl-10 pr-14 py-5 rounded-[20px] font-black transition-all duration-500 hover:pr-16 active:scale-95 shadow-[0_20px_40px_-10px_rgba(var(--primary-rgb),0.5)] overflow-hidden">
                 <span className="relative z-10 text-xl uppercase tracking-widest">{ctaText}</span>
                 <span className="absolute right-6 transition-all duration-500 group-hover:right-5">
                   <ArrowRight className="w-7 h-7" strokeWidth={3} />
@@ -163,7 +163,7 @@ export default function ConnectionSystemsHero({ content }: ConnectionSystemsHero
                 {/* Enhanced Shimmer */}
                 <div className="absolute inset-0 w-[200%] h-full bg-linear-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:animate-[shimmer_2s_infinite]" />
                 {/* Pulsing Glow */}
-                <div className="absolute inset-0 rounded-full border-2 border-white/30 scale-100 transition-all duration-700 group-hover:scale-150 group-hover:opacity-0" />
+                <div className="absolute inset-0 rounded-[20px] border-2 border-white/30 scale-100 transition-all duration-700 group-hover:scale-150 group-hover:opacity-0" />
               </button>
             </Link>
           </motion.div>

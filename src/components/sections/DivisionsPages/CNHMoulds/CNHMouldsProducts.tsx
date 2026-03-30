@@ -85,11 +85,11 @@ export default function CNHMouldsProducts({ content }: CNHMouldsProductsProps) {
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as any } }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const as any } }
   };
 
   return (
-    <section className="py-24 md:py-32 bg-slate-50 site-content relative overflow-hidden">
+    <section className="py-10 md:py-16 bg-slate-50 site-content relative overflow-hidden">
       {/* Background Decor */}
       <div className="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(circle_at_center,rgba(var(--color-primary-rgb),0.03),transparent_60%)] pointer-events-none" />
 

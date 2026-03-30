@@ -36,12 +36,12 @@ export default function TextImageSection({ content }: TextImageSectionProps) {
       {/* <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-70">
         <motion.div
           animate={{ x: [0, 20, 0], y: [0, -20, 0] }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" as const }}
           className="absolute -top-[10%] -right-[5%] w-[40%] h-[40%] rounded-full bg-primary/10 blur-[100px]"
         />
         <motion.div
           animate={{ x: [0, -20, 0], y: [0, 20, 0] }}
-          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" as const }}
           className="absolute -bottom-[10%] -left-[5%] w-[40%] h-[40%] rounded-full bg-blue-300/10 blur-[100px]"
         />
         <motion.div 
@@ -66,7 +66,7 @@ export default function TextImageSection({ content }: TextImageSectionProps) {
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-10%" }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
+                transition={{ duration: 0.6, ease: "easeOut" as const }}
                 className="mb-8"
               >
                 <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white shadow-[0_2px_10px_-4px_rgba(0,0,0,0.1)] border border-primary/10">
@@ -167,7 +167,7 @@ export default function TextImageSection({ content }: TextImageSectionProps) {
               {/* Continuous Scanning Laser over the line */}
               <motion.div 
                 animate={{ y: [0, 80, 0], opacity: [0, 1, 0] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" as const, delay: 1 }}
                 className="absolute top-0 -left-[4px] w-[4px] h-16 bg-white rounded-full mix-blend-overlay shadow-[0_0_12px_white]"
               />
 
@@ -180,7 +180,7 @@ export default function TextImageSection({ content }: TextImageSectionProps) {
                     visible: {
                       opacity: 1,
                       x: 0,
-                      transition: { duration: 0.6, ease: "easeOut" },
+                      transition: { duration: 0.6, ease: "easeOut" as const },
                     },
                   }}
                 >

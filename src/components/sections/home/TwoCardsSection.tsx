@@ -60,12 +60,12 @@ export default function TwoCardsSection({ content }: TwoCardsSectionProps) {
       {/* Breathing Color Orbs */}
       <motion.div
         animate={{ x: [0, -40, 0], y: [0, 50, 0], scale: [1, 1.05, 1] }}
-        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" as const }}
         className="absolute top-[-10%] right-[-10%] w-[900px] h-[900px] bg-blue-100/40 rounded-full blur-[130px] -z-10 mix-blend-multiply pointer-events-none"
       />
       <motion.div
         animate={{ x: [0, 50, 0], y: [0, -40, 0], scale: [1, 1.1, 1] }}
-        transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+        transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" as const }}
         className="absolute bottom-[-10%] left-[-10%] w-[700px] h-[700px] bg-emerald-100/30 rounded-full blur-[120px] -z-10 mix-blend-multiply pointer-events-none"
       />
 
@@ -100,7 +100,7 @@ export default function TwoCardsSection({ content }: TwoCardsSectionProps) {
             {/* Decorative Watermark Icon */}
             <HandHeart
               strokeWidth={0.75}
-              className="absolute -bottom-4 -right-2 w-48 h-48 text-[#284b8c] opacity-[0.04] group-hover:opacity-10 group-hover:scale-105 transition-all duration-1000 -rotate-12 pointer-events-none z-0"
+              className="absolute -bottom-4 -right-2 w-48 h-48 text-[#284b8c] opacity-[0.04] group-hover:opacity-10 group-hover:scale-105 transition-all duration-1000 rotate-5 pointer-events-none z-0"
             />
 
             <div className="relative z-10 flex flex-col h-full">

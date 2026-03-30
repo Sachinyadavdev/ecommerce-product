@@ -17,7 +17,9 @@ import {
   Image as ImageIcon,
   Filter,
   ShieldCheck,
-  Info
+  Info,
+  Film,
+  LayoutGrid
 } from "lucide-react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -39,6 +41,7 @@ export default function MediaPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const [showUnused, setShowUnused] = useState(false);
+  const [mediaType, setMediaType] = useState<"all" | "image" | "video">("all");
 
   // Pagination state
   const [page, setPage] = useState(1);
@@ -54,10 +57,10 @@ export default function MediaPage() {
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
-  const fetchMedia = useCallback(async (pageNum: number, q: string, unused: boolean) => {
+  const fetchMedia = useCallback(async (pageNum: number, q: string, unused: boolean, type: string) => {
     try {
       setLoading(true);
-      const res = await fetch(`/api/media?page=${pageNum}&limit=20&q=${encodeURIComponent(q)}&unused=${unused}`);
+      const res = await fetch(`/api/media?page=${pageNum}&limit=20&q=${encodeURIComponent(q)}&unused=${unused}&type=${type}`);
       if (!res.ok) throw new Error("Failed to fetch media");
       const data = await res.json();
       setMedia(data.media);
@@ -71,8 +74,13 @@ export default function MediaPage() {
   }, []);
 
   useEffect(() => {
-    fetchMedia(page, debouncedQuery, showUnused);
-  }, [fetchMedia, page, debouncedQuery, showUnused]);
+    fetchMedia(page, debouncedQuery, showUnused, mediaType);
+  }, [fetchMedia, page, debouncedQuery, showUnused, mediaType]);
+
+  const handleTypeChange = (type: "all" | "image" | "video") => {
+    setMediaType(type);
+    setPage(1);
+  };
 
   const handleToggleUnused = () => {
     setShowUnused(!showUnused);
@@ -97,7 +105,7 @@ export default function MediaPage() {
       if (!res.ok) throw new Error("Upload failed");
 
       if (page === 1 && !debouncedQuery) {
-        await fetchMedia(1, "", showUnused); // Refresh if on first page and no search
+        await fetchMedia(1, "", showUnused, mediaType); // Refresh if on first page and no search
       } else {
         setSearchQuery(""); // Clear search to see new upload
         setPage(1);
@@ -125,7 +133,7 @@ export default function MediaPage() {
       if (media.length === 1 && page > 1) {
         setPage(page - 1);
       } else {
-        await fetchMedia(page, debouncedQuery, showUnused);
+        await fetchMedia(page, debouncedQuery, showUnused, mediaType);
       }
     } catch (err) {
       setError((err as Error).message);
@@ -145,13 +153,13 @@ export default function MediaPage() {
   return (
     <div className="p-4 md:p-8 bg-[#f8fafc] min-h-screen">
       {/* Header Section */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-10">
-        <div className="flex items-center gap-4">
-          <div className="w-14 h-14 bg-[#5e9baf]/10 rounded-2xl flex items-center justify-center text-[#5e9baf] shrink-0">
-            <ImageIcon className="w-7 h-7" />
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-8">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-[#5e9baf]/10 rounded-xl flex items-center justify-center text-[#5e9baf] shrink-0">
+            <ImageIcon className="w-5 h-5" />
           </div>
           <div>
-            <h1 className="text-3xl font-black text-[#5e9baf] tracking-tight leading-tight">
+            <h1 className="text-xl font-black text-[#5e9baf] tracking-tight leading-tight">
               Media Library
             </h1>
             <div className="flex items-center gap-3 mt-1">
@@ -164,9 +172,9 @@ export default function MediaPage() {
                   <ShieldCheck className="w-3 h-3 text-green-600" />
                   <span className="text-[9px] font-black text-green-700 uppercase tracking-tighter">100% Safe Audit</span>
                   {/* Tooltip */}
-                  <div className="absolute top-full left-0 mt-2 p-3 bg-[#1a2345] text-white rounded-xl text-[10px] w-64 opacity-0 group-hover/security:opacity-100 transition-opacity pointer-events-none z-50 shadow-2xl border border-white/10 leading-relaxed font-bold">
-                    <p className="mb-2 text-[#5e9baf]">Deep Security Audit Active:</p>
-                    <ul className="space-y-1 text-white/70 list-disc pl-3">
+                  <div className="absolute top-full left-0 mt-1 p-2 bg-[#1a2345] text-white rounded-lg text-[9px] w-64 opacity-0 group-hover/security:opacity-100 transition-opacity pointer-events-none z-50 shadow-2xl border border-white/10 leading-relaxed font-bold">
+                    <p className="mb-1 text-[#5e9baf]">Deep Security Audit Active:</p>
+                    <ul className="space-y-0.5 text-white/70 list-disc pl-3">
                       <li>Scanned all Database tables & JSON fields</li>
                       <li>Scanned all Source Code (TSX, CSS, JSON)</li>
                       <li>Verified 35+ hardcoded component assets</li>
@@ -178,51 +186,74 @@ export default function MediaPage() {
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-          {/* Unused Filter Toggle */}
+        <div className="flex flex-col lg:flex-row lg:items-center gap-4 w-full lg:w-auto">
+          {/* Media Type Segmented Control */}
+          <div className="flex p-1 bg-white border border-slate-200 rounded-xl shadow-sm">
+            {[
+              { id: 'all', label: 'All', icon: LayoutGrid },
+              { id: 'image', label: 'Images', icon: ImageIcon },
+              { id: 'video', label: 'Videos', icon: Film },
+            ].map((type) => (
+              <button
+                key={type.id}
+                onClick={() => handleTypeChange(type.id as any)}
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-[13px] font-bold transition-all ${
+                  mediaType === type.id
+                    ? 'bg-[#284b8c] text-white shadow-md shadow-blue-900/10'
+                    : 'text-slate-500 hover:text-[#5e9baf] hover:bg-slate-50'
+                }`}
+              >
+                <type.icon className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">{type.label}</span>
+              </button>
+            ))}
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 flex-1">
+            {/* Unused Filter Toggle */}
           <button
             onClick={handleToggleUnused}
-            className={`flex items-center gap-2 px-6 py-3 rounded-2xl font-bold text-sm transition-all shadow-sm active:scale-95 border ${
+            className={`flex items-center gap-1.5 px-4 py-2 rounded-xl font-bold text-[13px] transition-all shadow-sm active:scale-95 border ${
               showUnused
                 ? 'bg-amber-500/10 border-amber-500/50 text-amber-600'
                 : 'bg-white border-slate-200 text-slate-500 hover:text-blue-600 hover:border-blue-200'
             }`}
           >
-            <Filter className={`h-4 w-4 ${showUnused ? 'fill-amber-500' : ''}`} />
+            <Filter className={`h-3.5 w-3.5 ${showUnused ? 'fill-amber-500' : ''}`} />
             <span>Unused Items</span>
           </button>
 
           {/* Search Bar */}
-          <div className="relative group flex-1 sm:w-80">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
+          <div className="relative group flex-1 sm:w-64">
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
             <input
               type="text"
-              placeholder="Search by filename..."
+              placeholder="Search assets..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-white border border-slate-200 rounded-2xl py-3 pl-11 pr-11 text-sm font-medium focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all outline-none text-slate-700 placeholder:text-slate-400 shadow-sm"
+              className="w-full bg-white border border-slate-200 rounded-xl py-2 pl-10 pr-10 text-[13px] font-medium focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all outline-none text-slate-700 placeholder:text-slate-400 shadow-sm"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="absolute right-4 top-1/2 -translate-y-1/2 p-1 hover:bg-slate-100 rounded-lg text-slate-400 transition-colors"
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-slate-100 rounded-lg text-slate-400 transition-colors"
               >
-                <X className="h-4 w-4" />
+                <X className="h-3.5 w-3.5" />
               </button>
             )}
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             <button
-              onClick={() => fetchMedia(page, debouncedQuery, showUnused)}
-              className="p-3 bg-white border border-slate-200 text-slate-500 hover:text-blue-600 hover:border-blue-200 rounded-2xl transition-all shadow-sm active:scale-95"
+              onClick={() => fetchMedia(page, debouncedQuery, showUnused, mediaType)}
+              className="p-2.5 bg-white border border-slate-200 text-slate-500 hover:text-blue-600 hover:border-blue-200 rounded-xl transition-all shadow-sm active:scale-95"
               title="Refresh Gallery"
             >
-              <RefreshCw className={`h-5 w-5 ${loading ? "animate-spin" : ""}`} />
+              <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
             </button>
-            <label className="flex items-center justify-center gap-3 bg-[#284b8c] text-white px-6 py-3 rounded-2xl font-bold text-sm cursor-pointer hover:bg-[#3f863e] transition-all shadow-xl shadow-blue-900/10 active:scale-95 group">
-              <Upload className="h-5 w-5 group-hover:-translate-y-0.5 transition-transform" />
-              <span>{uploading ? "Uploading..." : "Upload New"}</span>
+            <label className="flex items-center justify-center gap-2 bg-[#284b8c] text-white px-4 py-2 rounded-xl font-bold text-[13px] cursor-pointer hover:bg-[#3f863e] transition-all shadow-xl shadow-blue-900/10 active:scale-95 group">
+              <Upload className="h-4 w-4 group-hover:-translate-y-0.5 transition-transform" />
+              <span>{uploading ? "..." : "Upload"}</span>
               <input
                 type="file"
                 className="hidden"
@@ -233,6 +264,7 @@ export default function MediaPage() {
           </div>
         </div>
       </div>
+    </div>
 
       <AnimatePresence mode="wait">
         {error && (
@@ -313,7 +345,11 @@ export default function MediaPage() {
                       />
                     ) : (
                       <div className="flex flex-col items-center justify-center h-full text-slate-300 transition-all group-hover:blur-sm">
-                        <FileIcon className="h-12 w-12 mb-2" />
+                        {item.contentType.startsWith("video/") ? (
+                          <Film className="h-12 w-12 mb-2" />
+                        ) : (
+                          <FileIcon className="h-12 w-12 mb-2" />
+                        )}
                         <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
                           {item.contentType.split("/")[1] || "FILE"}
                         </span>
@@ -416,7 +452,7 @@ export default function MediaPage() {
                       key={index}
                       onClick={() => typeof p === 'number' && setPage(p)}
                       disabled={p === '...'}
-                      className={`h-12 min-w-[3rem] px-4 flex items-center justify-center rounded-2xl border transition-all font-bold text-sm ${
+                      className={`h-12 min-w-12 px-4 flex items-center justify-center rounded-2xl border transition-all font-bold text-sm ${
                         page === p
                           ? "bg-[#284b8c] border-[#284b8c] text-white shadow-xl shadow-blue-900/10"
                           : p === '...' 

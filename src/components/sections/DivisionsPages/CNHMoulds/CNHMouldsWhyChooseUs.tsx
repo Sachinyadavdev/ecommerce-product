@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CheckCircle2, Handshake, Lightbulb, TrendingUp } from "lucide-react";
+import Link from "next/link";
+import { CheckCircle2, Handshake, Lightbulb, TrendingUp, ArrowRight } from "lucide-react";
 
 interface USP {
   title: string;
@@ -31,9 +32,9 @@ export default function CNHMouldsWhyChooseUs({ content }: CNHMouldsWhyChooseUsPr
   } = content || {};
 
   return (
-    <section className="py-24 bg-white site-content">
+    <section className="py-10 md:py-16 bg-white site-content">
       <div className="container mx-auto px-4 max-w-7xl">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 md:mb-16">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -79,9 +80,15 @@ export default function CNHMouldsWhyChooseUs({ content }: CNHMouldsWhyChooseUsPr
         >
           <Handshake size={48} className="mx-auto mb-8 opacity-40" />
           <h3 className="text-3xl font-bold mb-6 italic tracking-tight">Ready to start your next project?</h3>
-          <p className="text-xl font-light text-white/90 max-w-2xl mx-auto">
+          <p className="text-xl font-light text-white/90 max-w-2xl mx-auto mb-10">
             Contact us today to explore how we can support your manufacturing needs with precision mold solutions.
           </p>
+          <Link 
+            href="/contact"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary font-bold rounded-2xl hover:bg-slate-50 transition-all duration-300 shadow-xl shadow-black/10 hover:-translate-y-1 active:translate-y-0"
+          >
+            GET IN TOUCH <ArrowRight size={20} />
+          </Link>
         </motion.div>
       </div>
     </section>

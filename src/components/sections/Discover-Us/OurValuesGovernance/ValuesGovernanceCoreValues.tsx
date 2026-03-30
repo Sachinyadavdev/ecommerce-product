@@ -99,7 +99,7 @@ export default function ValuesGovernanceCoreValues({ content }: ValuesGovernance
   }));
 
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
+    <section className="py-10 md:py-16 bg-white relative overflow-hidden">
       {/* Subtle grid background */}
       <div
         className="absolute inset-0 opacity-[0.03] pointer-events-none"
@@ -119,7 +119,7 @@ export default function ValuesGovernanceCoreValues({ content }: ValuesGovernance
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest mb-5"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-[10px] bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest mb-5"
           >
             <span className="relative flex h-1.5 w-1.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
@@ -168,7 +168,7 @@ export default function ValuesGovernanceCoreValues({ content }: ValuesGovernance
                 className={`group relative bg-white rounded-3xl p-8 border ${accent.border} shadow-[0_4px_24px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_60px_rgba(0,0,0,0.12)] transition-all duration-500 overflow-hidden hover:-translate-y-2`}
               >
                 {/* Big number watermark */}
-                <span className={`absolute -top-4 -right-2 text-[80px] font-black select-none pointer-events-none leading-none ${accent.number} transition-all duration-700 group-hover:scale-125 group-hover:rotate-6 group-hover:-translate-y-2`}>
+                <span className={`absolute -top-3 right-2 text-[64px] font-black select-none pointer-events-none leading-none ${accent.number} transition-all duration-700 group-hover:scale-125 group-hover:rotate-6 group-hover:-translate-y-2`}>
                   {value.number}
                 </span>
 

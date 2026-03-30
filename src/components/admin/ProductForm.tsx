@@ -26,6 +26,7 @@ export default function ProductForm({
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
   const [isMediaPickerOpen, setIsMediaPickerOpen] = useState(false);
+  const [isBannerPickerOpen, setIsBannerPickerOpen] = useState(false);
   const [formData, setFormData] = useState({
     id: initialData?.id || "",
     name: initialData?.name || "",
@@ -38,6 +39,7 @@ export default function ProductForm({
         ? JSON.parse(initialData.images)
         : initialData.images
       : [],
+    bannerImage: initialData?.bannerImage || "",
     specifications: initialData?.specifications
       ? typeof initialData.specifications === "string"
         ? JSON.parse(initialData.specifications)
@@ -193,6 +195,60 @@ export default function ProductForm({
           </div>
         </div>
 
+        {/* Section: Page Banner */}
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-lg font-black text-slate-800 flex items-center gap-2">
+              <div className="w-1.5 h-6 bg-indigo-500 rounded-full" />
+              Page Banner
+            </h2>
+            <button
+              type="button"
+              onClick={() => {
+                 // We'll use a simple prompt or another modal for a single image if needed,
+                 // but for now let's reuse MediaPickerModal or just a simple input.
+                 // Actually, let's add a separate state for banner picker.
+                 setIsBannerPickerOpen(true);
+              }}
+              className="text-[10px] font-black uppercase tracking-widest bg-indigo-600 text-white px-5 py-2.5 rounded-xl hover:bg-indigo-700 transition-all shadow-lg flex items-center gap-2"
+            >
+              <ImageIcon className="h-3.5 w-3.5" />
+              Select Banner
+            </button>
+          </div>
+
+          {formData.bannerImage ? (
+            <div className="relative w-full aspect-video md:aspect-[21/9] lg:aspect-[32/9] rounded-2xl overflow-hidden border border-slate-100 shadow-sm bg-slate-50">
+              <Image
+                src={formData.bannerImage}
+                alt="Banner"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
+                <button
+                  type="button"
+                  onClick={() => setFormData({ ...formData, bannerImage: "" })}
+                  className="p-2 bg-rose-500 text-white rounded-xl shadow-lg border-2 border-white/20"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div 
+              onClick={() => setIsBannerPickerOpen(true)}
+              className="w-full aspect-video md:aspect-[21/9] lg:aspect-[32/9] border-2 border-dashed border-slate-100 rounded-2xl flex flex-col items-center justify-center text-slate-300 cursor-pointer hover:bg-slate-50 transition-all"
+            >
+              <ImageIcon className="h-8 w-8 mb-2 opacity-20" />
+              <p className="text-[10px] font-black uppercase tracking-widest">No Banner Selected</p>
+            </div>
+          )}
+          <p className="text-[9px] text-gray-400 mt-3 font-bold uppercase tracking-widest leading-relaxed">
+            This image will be used as the hero banner for this specific product page.
+          </p>
+        </div>
+
         {/* Section 2: Visual Media & Documentation */}
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
           <div className="flex justify-between items-center mb-6">
@@ -312,7 +368,7 @@ export default function ProductForm({
                         specifications: { ...formData.specifications, [key]: e.target.value },
                       });
                     }}
-                    className="flex-[2] border-slate-200 bg-white rounded-lg p-2 border text-[12px] text-slate-900 font-bold outline-none focus:border-[#5e9baf]/30"
+                    className="flex-auto border-slate-200 bg-white rounded-lg p-2 border text-[12px] text-slate-900 font-bold outline-none focus:border-[#5e9baf]/30"
                     placeholder="Value"
                   />
                   <button
@@ -373,6 +429,13 @@ export default function ProductForm({
         onClose={() => setIsMediaPickerOpen(false)}
         selectedUrls={formData.images}
         onSelect={(urls) => setFormData({ ...formData, images: urls })}
+      />
+
+      <MediaPickerModal
+        isOpen={isBannerPickerOpen}
+        onClose={() => setIsBannerPickerOpen(false)}
+        selectedUrls={formData.bannerImage ? [formData.bannerImage] : []}
+        onSelect={(urls) => setFormData({ ...formData, bannerImage: urls[0] || "" })}
       />
     </div>
   );

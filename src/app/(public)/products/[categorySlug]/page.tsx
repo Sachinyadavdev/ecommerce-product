@@ -100,7 +100,7 @@ export default async function CategoryProductsPage({
     if (key !== 'q' && key !== 'page' && key !== 'limit' && searchParams[key]) {
       const val = searchParams[key];
       const values = Array.isArray(val) ? val : [val];
-      
+
       if (values.length > 0) {
         const placeholders = values.map(() => "?").join(", ");
         sql += ` AND p.specifications->>'$."${key}"' IN (${placeholders})`;
@@ -109,7 +109,7 @@ export default async function CategoryProductsPage({
     }
   });
 
-  sql += " ORDER BY p.createdAt DESC";
+  sql += " ORDER BY CASE WHEN p.specifications->>'$.Series' = '090' OR p.specifications->>'$.series' = '090' THEN 0 WHEN p.specifications->>'$.Series' IS NULL AND p.specifications->>'$.series' IS NULL THEN 2 ELSE 1 END ASC, COALESCE(p.specifications->>'$.Series', p.specifications->>'$.series') ASC, p.name ASC";
 
   // 6. Get Total Count for Pagination
   const countSql = sql.replace("SELECT p.*, c.name as categoryName, c.slug as categorySlug", "SELECT COUNT(*) as total");
@@ -121,6 +121,8 @@ export default async function CategoryProductsPage({
   const paginatedParams = [...sqlParams, limit, offset];
 
   const rawProducts = await query<any[]>(paginatedSql, paginatedParams);
+  // console.log("SQL:", paginatedSql);
+  // console.log("Params:", paginatedParams);
 
   // 6. Map to expected structure for ProductGrid
   const products = rawProducts.map(p => ({
@@ -135,13 +137,14 @@ export default async function CategoryProductsPage({
     <div className="bg-[#fcfdfe] min-h-screen pb-12">
       <PageHeader
         title=""
+        backgroundImg={category.bannerImage}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Products", href: "/products" },
           { label: category.name }
         ]}
       />
-      
+
       <JsonLd data={{
         "@context": "https://schema.org",
         "@type": "ItemList",
@@ -151,7 +154,7 @@ export default async function CategoryProductsPage({
           "@type": "ListItem",
           "position": offset + index + 1,
           "name": p.name,
-          "url": `${process.env.NEXT_PUBLIC_BASE_URL || 'https://besmakindia.com'}/products/${p.slug}`,
+          "url": `${process.env.NEXT_PUBLIC_BASE_URL || 'https://besmakindia.com'}/products/${p.categorySlug}/${p.slug}`,
           "image": p.images && JSON.parse(p.images)[0]
         }))
       }} />

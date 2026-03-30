@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { Search, Package, ArrowRight, Loader2 } from "lucide-react";
-import { isValidImageSrc } from "@/lib/image-utils";
+import { isValidImageSrc, getSafeImageSrc, getProductLink } from "@/lib/image-utils";
 
 interface SearchProduct {
   id: string;
@@ -48,23 +48,17 @@ export default function SearchDropdown({ products, loading, isOpen, onClose }: S
               {products.map((product) => (
                 <Link
                   key={product.id}
-                  href={`/products/${product.categorySlug}/${product.slug}`}
+                  href={getProductLink(product)}
                   onClick={onClose}
                   className="group flex items-center gap-4 px-4 py-3 hover:bg-primary/[0.02] transition-colors"
                 >
                   <div className="relative h-12 w-12 rounded-xl overflow-hidden bg-gray-100 border border-gray-100 shrink-0">
-                    {product.image && isValidImageSrc(product.image) ? (
-                      <Image
-                        src={product.image}
-                        alt={product.name}
-                        fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                    ) : (
-                      <div className="h-full w-full flex items-center justify-center">
-                        <Package className="h-5 w-5 text-gray-300" />
-                      </div>
-                    )}
+                    <Image
+                      src={getSafeImageSrc(product.image)}
+                      alt={product.name}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
                   </div>
 
                   <div className="flex-1 min-w-0">

@@ -29,9 +29,9 @@ export async function GET(req: NextRequest) {
         CAST(p.specifications AS CHAR) LIKE ?
       )`;
     }).join(" AND ");
-    
+
     whereClause += ` AND (${keywordConditions})`;
-    
+
     keywords.forEach(keyword => {
       const match = `%${keyword}%`;
       queryParams.push(match, match, match, match);
@@ -44,10 +44,10 @@ export async function GET(req: NextRequest) {
       FROM product p 
       JOIN category c ON p.categoryId = c.id
       WHERE ${whereClause}
-      ORDER BY p.name ASC
+      ORDER BY CASE WHEN p.specifications->>'$.Series' = '090' OR p.specifications->>'$.series' = '090' THEN 0 WHEN p.specifications->>'$.Series' IS NULL AND p.specifications->>'$.series' IS NULL THEN 2 ELSE 1 END ASC, COALESCE(p.specifications->>'$.Series', p.specifications->>'$.series') ASC, p.name ASC
       LIMIT 10
     `;
-    
+
     const products = await dbQuery<any[]>(productsSql, queryParams);
 
     return NextResponse.json(products.map(p => ({

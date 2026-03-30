@@ -98,7 +98,7 @@ export default function VideoSection({ content }: VideoSectionProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 1, ease: "easeInOut" }}
+          transition={{ duration: 1, ease: "easeInOut" as const }}
           className="col-start-1 row-start-1 relative w-full h-auto md:h-full"
         >
           {overlay && (
@@ -130,10 +130,10 @@ export default function VideoSection({ content }: VideoSectionProps) {
               initial={{ opacity: 0, scale: 0.95, y: 30 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 1.05, y: -30 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
+              transition={{ duration: 0.8, ease: "easeOut" as const }}
               className=""
             >
-              <h2 className="text-[32px] leading-[1.2] text-center block w-full px-4 md:px-6 lg:px-8 md:text-[6.5rem] md:leading-[0.95] md:drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)] lg:text-[4rem] font-semibold md:font-extrabold text-white md:text-white/80 tracking-tight md:tracking-tighter max-w-[1400px] mx-auto normal-case md:uppercase whitespace-nowrap">
+              <h2 className="text-[14px] leading-[1.3] text-center block w-full px-4 md:px-6 lg:px-8 md:text-[6.5rem] md:leading-[0.95] md:drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)] lg:text-[4rem] font-semibold md:font-extrabold text-white md:text-white/80 tracking-tight md:tracking-tighter max-w-[1400px] mx-auto normal-case md:uppercase">
                 {parse(
                   currentVideo.title
                     .replace(/\\n/g, "<br />")
@@ -201,7 +201,7 @@ export default function VideoSection({ content }: VideoSectionProps) {
           </span>
           <button
             onClick={() => setIsPlaying(!isPlaying)}
-            className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/20 transition-all hover:scale-105"
+            className="hidden md:flex w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md items-center justify-center text-white border border-white/20 transition-all hover:scale-105"
             aria-label={isPlaying ? "Pause Video" : "Play Video"}
           >
             {isPlaying ? (

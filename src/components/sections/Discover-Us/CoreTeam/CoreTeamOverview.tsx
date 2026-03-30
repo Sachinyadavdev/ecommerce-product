@@ -28,7 +28,7 @@ export default function CoreTeamOverview({ content }: CoreTeamOverviewProps) {
   } = content || {};
 
   return (
-    <section className="relative py-16 md:py-24 bg-white overflow-hidden">
+    <section className="relative py-10 md:py-16 bg-white overflow-hidden">
       {/* Dynamic Background Elements */}
       <div className="absolute top-0 right-0 w-full h-[80vh] bg-linear-to-b from-primary/5 via-primary/5 to-transparent -z-10" />
       <div className="absolute -top-[10%] -right-[10%] w-[50%] h-[50%] rounded-full bg-primary/10 blur-[120px] -z-10 opacity-70" />
@@ -45,13 +45,13 @@ export default function CoreTeamOverview({ content }: CoreTeamOverviewProps) {
       />
 
       <div className="container mx-auto px-4 max-w-7xl relative z-10">
-        <div className="max-w-5xl mb-20 flex flex-col items-start text-left">
+        <div className="max-w-5xl mb-12 flex flex-col items-start text-left">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 shadow-sm mb-6"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-[10px] bg-white border border-slate-200 shadow-sm mb-6"
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-60"></span>
@@ -87,14 +87,14 @@ export default function CoreTeamOverview({ content }: CoreTeamOverviewProps) {
               type: "spring",
               stiffness: 100,
             }}
-            className="text-base md:text-lg text-slate-600 mb-12 leading-relaxed whitespace-pre-line max-w-4xl"
+            className="text-base md:text-lg text-slate-600 leading-relaxed whitespace-pre-line max-w-4xl"
           >
             {description}
           </motion.div>
         </div>
 
         {/* Info Blocks */}
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-10 mt-8 w-full relative z-20">
+        <div className="grid md:grid-cols-2 gap-8 lg:gap-10 w-full relative z-20">
           <motion.div
             initial={{ opacity: 0, x: -50, scale: 0.95 }}
             whileInView={{ opacity: 1, x: 0, scale: 1 }}

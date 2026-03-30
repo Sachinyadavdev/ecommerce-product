@@ -30,10 +30,10 @@ const DEFAULT_MENU = [
   {
     title: "Discover Us",
     child: [
-      { name: "At a Glance", href: "/about-us/at-a-glance", icon: Eye, description: "A comprehensive look at our vision and impact.", image: "https://fohffyjhcwci6coi.public.blob.vercel-storage.com/At%20a%20Glance.png" },
-      { name: "Core Team", href: "/about-us/core-team", icon: Users, description: "Meet the experts behind Besmak India.", image: "https://fohffyjhcwci6coi.public.blob.vercel-storage.com/CoreTeam.png" },
-      { name: "Our Values & Governance", href: "/about-us/values-governance", icon: BookOpen, description: "Decades of manufacturing excellence.", image: "https://fohffyjhcwci6coi.public.blob.vercel-storage.com/Our%20Values%20%26%20Governance.png" },
-      { name: "Partnerships", href: "/about-us/partnerships", icon: Globe, description: "Serving clients across international borders.", image: "https://fohffyjhcwci6coi.public.blob.vercel-storage.com/Partnerships.png" },
+      { name: "At a Glance", href: "/about-us/at-a-glance", icon: Eye, description: "A comprehensive look at our vision and impact.", image: "https://fohffyjhcwci6coi.public.blob.vercel-storage.com/At%20a%20Glance.png", imageTitle: "", imageDescription: "" },
+      { name: "Core Team", href: "/about-us/core-team", icon: Users, description: "Meet the experts behind Besmak India.", image: "https://fohffyjhcwci6coi.public.blob.vercel-storage.com/CoreTeam.png", imageTitle: "", imageDescription: "" },
+      { name: "Our Values & Governance", href: "/about-us/values-governance", icon: BookOpen, description: "Decades of manufacturing excellence.", image: "https://fohffyjhcwci6coi.public.blob.vercel-storage.com/Our%20Values%20%26%20Governance.png", imageTitle: "", imageDescription: "" },
+      { name: "Partnerships", href: "/about-us/partnerships", icon: Globe, description: "Serving clients across international borders.", image: "https://fohffyjhcwci6coi.public.blob.vercel-storage.com/Partnerships.png", imageTitle: "", imageDescription: "" },
     ],
     image: "https://fohffyjhcwci6coi.public.blob.vercel-storage.com/At%20a%20Glance.png",
     tagline: "Building a legacy of precision and trust.",
@@ -41,10 +41,10 @@ const DEFAULT_MENU = [
   {
     title: "Divisions",
     child: [
-      { name: "Connection Systems", href: "/verticals/connection-systems", icon: Cable, description: "Advanced industrial connectivity solutions.", image: "https://fohffyjhcwci6coi.public.blob.vercel-storage.com/Connection%20system.png" },
-      { name: "Engineering Products", href: "/verticals/engineering-products", icon: Building2, description: "Precision engineering and industrial products.", image: "https://fohffyjhcwci6coi.public.blob.vercel-storage.com/Engineering%20Products.png" },
-      { name: "Precision Stamping", href: "/verticals/precision-stamping", icon: Component, description: "High-tolerance metal stamping solutions.", image: "https://fohffyjhcwci6coi.public.blob.vercel-storage.com/Precision%20Stamping.png" },
-      { name: "CNH Moulds", href: "/verticals/cnh-moulds", icon: Hammer, description: "Smart mold design and manufacturing.", image: "https://fohffyjhcwci6coi.public.blob.vercel-storage.com/CNH%20MOULDS.png" },
+      { name: "Connection Systems", href: "/verticals/connection-systems", icon: Cable, description: "Advanced industrial connectivity solutions.", image: "https://fohffyjhcwci6coi.public.blob.vercel-storage.com/Connection%20system.png", imageTitle: "", imageDescription: "" },
+      { name: "Engineering Products", href: "/verticals/engineering-products", icon: Building2, description: "Precision engineering and industrial products.", image: "https://fohffyjhcwci6coi.public.blob.vercel-storage.com/Engineering%20Products.png", imageTitle: "", imageDescription: "" },
+      { name: "Precision Stamping", href: "/verticals/precision-stamping", icon: Component, description: "High-tolerance metal stamping solutions.", image: "https://fohffyjhcwci6coi.public.blob.vercel-storage.com/Precision%20Stamping.png", imageTitle: "", imageDescription: "" },
+      { name: "CNH Moulds", href: "/verticals/cnh-moulds", icon: Hammer, description: "Smart mold design and manufacturing.", image: "https://fohffyjhcwci6coi.public.blob.vercel-storage.com/CNH%20MOULDS.png", imageTitle: "", imageDescription: "" },
     ],
     image: "https://fohffyjhcwci6coi.public.blob.vercel-storage.com/Connection%20system.png",
     tagline: "Integrated engineering at every level.",
@@ -53,8 +53,8 @@ const DEFAULT_MENU = [
   {
     title: "Infrastructure",
     child: [
-      { name: "Tool Room", href: "/infrastructure/tool-room", icon: Hammer, description: "Where design meets physical precision.", image: "https://images.unsplash.com/photo-1541888946425-d81bb19480c5?q=80&w=800&auto=format&fit=crop" },
-      { name: "Automation & Tech", href: "/infrastructure/automation-technology", icon: Cpu, description: "Smart systems for smart manufacturing.", image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800&auto=format&fit=crop" },
+      { name: "Tool Room", href: "/infrastructure/tool-room", icon: Hammer, description: "Where design meets physical precision.", image: "https://images.unsplash.com/photo-1541888946425-d81bb19480c5?q=80&w=800&auto=format&fit=crop", imageTitle: "", imageDescription: "" },
+      { name: "Automation & Tech", href: "/infrastructure/automation-technology", icon: Cpu, description: "Smart systems for smart manufacturing.", image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800&auto=format&fit=crop", imageTitle: "", imageDescription: "" },
     ],
     image: "https://images.unsplash.com/photo-1504917595217-d4dc5fee1227?q=80&w=800&auto=format&fit=crop",
     tagline: "Cutting-edge technology at our core.",
@@ -67,6 +67,8 @@ const DEFAULT_MENU = [
 const Header = ({ settings }: HeaderProps) => {
   const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
   const [hoverImage, setHoverImage] = useState<string | null>(null);
+  const [hoverTitle, setHoverTitle] = useState<string | null>(null);
+  const [hoverDescription, setHoverDescription] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
@@ -86,6 +88,17 @@ const Header = ({ settings }: HeaderProps) => {
     : 24;
 
   const logoSize = settings?.logo_size ? parseInt(settings.logo_size) / 100 : 1;
+
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -113,9 +126,11 @@ const Header = ({ settings }: HeaderProps) => {
     } else {
       setExpandedMenu(title);
       const activeMenu = menu.find((item: any) => item.title === title);
-      // Initialize hover image with the first sub-item's image or the main menu image
-      const initialImage = activeMenu?.child?.[0]?.image || activeMenu?.image || null;
-      setHoverImage(initialImage);
+      // Initialize hover state with the first sub-item's data or the main menu data
+      const firstSubItem = activeMenu?.child?.[0];
+      setHoverImage(firstSubItem?.image || activeMenu?.image || null);
+      setHoverTitle(firstSubItem?.imageTitle || null);
+      setHoverDescription(firstSubItem?.imageDescription || null);
     }
   };
 
@@ -142,15 +157,15 @@ const Header = ({ settings }: HeaderProps) => {
       }`}
       style={{ fontFamily: 'var(--font-body)' }}
     >
-      <div ref={navRef} className="w-full px-6">
+      <div ref={navRef} className="w-full px-4 lg:px-6 xl:px-10">
         {/* Main Header Row */}
-        <div className="flex items-center justify-between py-4 lg:py-0" style={{ height: isHeaderLocked ? '70px' : '85px', transition: 'all 0.4s ease' }}>
+        <div className="flex items-center justify-between py-4 lg:py-0" style={{ height: scrolled ? '70px' : '85px', transition: 'all 0.4s ease' }}>
           {/* Logo Section */}
           <Link href="/" className="shrink-0 flex items-center group">
             <div
               className="relative transition-all duration-500"
               style={{
-                height: `50px`,
+                height: scrolled ? '38px' : '48px',
                 transform: `scale(${logoSize})`,
                 transformOrigin: "left center",
               }}
@@ -167,8 +182,8 @@ const Header = ({ settings }: HeaderProps) => {
           </Link>
 
           {/* Navigation Section - Grouped Right */}
-          <nav className="hidden lg:flex items-center ml-auto mr-4 xl:mr-6">
-            <ul className="flex items-center gap-1 xl:gap-2">
+          <nav className="hidden lg:flex items-center ml-auto lg:mr-2 xl:mr-6">
+            <ul className="flex items-center lg:gap-0 xl:gap-2">
               {menu.map((item: any) => (
                 <li key={item.title} className="relative group/nav">
                   {item.child ? (
@@ -176,10 +191,12 @@ const Header = ({ settings }: HeaderProps) => {
                       onMouseEnter={() => {
                         setExpandedMenu(item.title);
                         const activeMenu = menu.find((m: any) => m.title === item.title);
-                        const initialImage = activeMenu?.child?.[0]?.image || activeMenu?.image || null;
-                        setHoverImage(initialImage);
+                        const firstSubItem = activeMenu?.child?.[0];
+                        setHoverImage(firstSubItem?.image || activeMenu?.image || null);
+                        setHoverTitle(firstSubItem?.imageTitle || null);
+                        setHoverDescription(firstSubItem?.imageDescription || null);
                       }}
-                      className={`px-3 xl:px-4 py-4 flex items-center gap-1.5 text-[14px] font-bold uppercase tracking-wider transition-all relative ${
+                      className={`px-2 xl:px-4 py-4 flex items-center gap-1 xl:gap-1.5 text-[11px] xl:text-[14px] font-bold uppercase tracking-wider transition-all relative ${
                         expandedMenu === item.title || pathname.startsWith(item.href || "")
                           ? "text-primary"
                           : "text-primary/80 hover:text-primary"
@@ -202,7 +219,7 @@ const Header = ({ settings }: HeaderProps) => {
                         setExpandedMenu(null);
                         setHoverImage(null);
                       }}
-                      className={`px-3 xl:px-4 py-4 inline-block text-[14px] font-bold uppercase tracking-wider transition-all relative ${
+                      className={`px-2 xl:px-4 py-4 inline-block text-[11px] xl:text-[14px] font-bold uppercase tracking-wider transition-all relative ${
                         pathname === item.href
                           ? "text-primary"
                           : "text-primary/80 hover:text-primary"
@@ -223,7 +240,7 @@ const Header = ({ settings }: HeaderProps) => {
           <div className="flex items-center gap-4">
             <Link
               href="/e-catalog"
-              className="hidden lg:flex items-center gap-2 px-5 py-2.5 bg-primary text-white rounded-[10px] font-bold text-[13px] uppercase tracking-widest transition-all hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/20 active:scale-95 group"
+              className="hidden lg:flex items-center gap-1 xl:gap-2 px-3 xl:px-5 py-2 xl:py-2.5 bg-primary text-white rounded-[10px] font-bold text-[11px] xl:text-[13px] uppercase tracking-widest transition-all hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/20 active:scale-95 group"
             >
               <span className="relative z-10">e-Catalog</span>
               <div className="w-1.5 h-1.5 bg-white rounded-full transition-transform group-hover:scale-150" />
@@ -252,6 +269,8 @@ const Header = ({ settings }: HeaderProps) => {
               onMouseLeave={() => {
                 setExpandedMenu(null);
                 setHoverImage(null);
+                setHoverTitle(null);
+                setHoverDescription(null);
               }}
               className="hidden lg:block absolute left-1/2 -translate-x-1/2 top-full w-full max-w-4xl px-4 z-10"
             >
@@ -266,7 +285,7 @@ const Header = ({ settings }: HeaderProps) => {
                         className="text-[10px] font-black uppercase tracking-[0.3em] text-primary flex items-center gap-3"
                       >
                         {expandedMenu}
-                        <div className="h-px flex-1 bg-gradient-to-r from-primary/10 to-transparent" />
+                        <div className="h-px flex-1 bg-linear-to-r from-primary/10 to-transparent" />
                       </motion.h3>
                     </div>
                     
@@ -289,10 +308,14 @@ const Header = ({ settings }: HeaderProps) => {
                                 href={subItem.href}
                                 onMouseEnter={() => {
                                   if (subItem.image) setHoverImage(subItem.image);
+                                  setHoverTitle(subItem.imageTitle || null);
+                                  setHoverDescription(subItem.imageDescription || null);
                                 }}
                                 onClick={() => {
                                   setExpandedMenu(null);
                                   setHoverImage(null);
+                                  setHoverTitle(null);
+                                  setHoverDescription(null);
                                 }}
                                 className={`group flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-400 ${
                                   pathname === subItem.href
@@ -349,7 +372,7 @@ const Header = ({ settings }: HeaderProps) => {
                                 initial={{ opacity: 0, scale: 1.05 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.95 }}
-                                transition={{ duration: 0.4, ease: "easeOut" }}
+                                transition={{ duration: 0.4, ease: "easeOut" as const }}
                                 className="absolute inset-0"
                               >
                                 <Image
@@ -365,17 +388,17 @@ const Header = ({ settings }: HeaderProps) => {
                             <div className="absolute top-4 right-4">
                               <div className="px-2.5 py-1 bg-primary/90 backdrop-blur-sm rounded-lg text-[8px] font-black text-white uppercase tracking-widest">Featured</div>
                             </div>
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
+                            <div className="absolute inset-0 bg-linear-to-t from-black/10 to-transparent" />
                           </div>
                           
                           {/* Content Body */}
                            <div className="p-6 flex flex-col items-center text-center gap-4">
                             <div className="space-y-2">
-                              <h4 className="text-xl font-black text-primary tracking-tight">
-                                {activeMenu.title} Solutions
+                               <h4 className="text-xl font-black text-primary tracking-tight">
+                                {hoverTitle || `${activeMenu.title} Solutions`}
                               </h4>
                               <p className="text-slate-500 font-medium leading-relaxed max-w-[240px] mx-auto text-[11px]">
-                                {activeMenu.tagline || "Providing innovative engineering solutions."}
+                                {hoverDescription || activeMenu.tagline || "Providing innovative engineering solutions."}
                               </p>
                             </div>
                             
@@ -400,29 +423,28 @@ const Header = ({ settings }: HeaderProps) => {
 
       {/* Modern Mobile Navigation Sidebar */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-[60] bg-[#f8fafc] lg:hidden overflow-y-auto animate-in slide-in-from-right duration-500">
-          <div className="flex flex-col h-full min-h-screen">
-            <div className="sticky top-0 z-10 bg-[#f8fafc]/80 backdrop-blur-md px-6 py-4 flex items-center justify-between border-b border-gray-100">
-              <Link href="/" onClick={() => setMobileOpen(false)}>
-                <div className="relative h-12">
-                  <Image
-                    src={logoUrl}
-                    alt="Besmak Logo"
-                    width={180}
-                    height={60}
-                    className="object-contain h-full w-auto"
-                  />
-                </div>
-              </Link>
-              <button
-                onClick={() => setMobileOpen(false)}
-                className="p-3 text-gray-900 bg-gray-50 rounded-2xl hover:bg-gray-100 transition-colors"
-              >
-                <X className="w-6 h-6" />
-              </button>
-            </div>
+        <div className="fixed inset-0 z-60 bg-[#f8fafc] lg:hidden animate-in slide-in-from-right duration-500 flex flex-col h-dvh overflow-hidden">
+          <div className="flex-none bg-[#f8fafc]/80 backdrop-blur-md px-6 py-4 flex items-center justify-between border-b border-gray-100 z-10">
+            <Link href="/" onClick={() => setMobileOpen(false)}>
+              <div className="relative h-12">
+                <Image
+                  src={logoUrl}
+                  alt="Besmak Logo"
+                  width={180}
+                  height={60}
+                  className="object-contain h-full w-auto"
+                />
+              </div>
+            </Link>
+            <button
+              onClick={() => setMobileOpen(false)}
+              className="p-3 text-gray-900 bg-gray-50 rounded-2xl hover:bg-gray-100 transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
 
-            <div className="flex-1 px-8 py-10">
+          <div className="flex-1 overflow-y-auto px-8 py-10 overscroll-contain" data-lenis-prevent>
               <nav className="space-y-10">
                 {menu.map((item: any) => (
                   <div key={item.title} className="space-y-6">
@@ -473,18 +495,17 @@ const Header = ({ settings }: HeaderProps) => {
               </nav>
             </div>
 
-            <div className="p-8 border-t border-gray-100 space-y-4 bg-gray-50/50">
+            <div className="flex-none p-8 border-t border-gray-100 space-y-4 bg-gray-50/50">
               <Link
                 href="/e-catalog"
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center justify-center gap-3 w-full py-5 bg-primary text-white rounded-[10px] font-black text-[15px] uppercase tracking-[0.1em] shadow-2xl shadow-primary/30 active:scale-95 transition-all"
+                className="flex items-center justify-center gap-3 w-full py-5 bg-primary text-white rounded-[10px] font-black text-[15px] uppercase tracking-widest shadow-2xl shadow-primary/30 active:scale-95 transition-all"
               >
                 e-Catalog
                 <ChevronDown className="-rotate-90 w-5 h-5 opacity-50" />
               </Link>
               <p className="text-center text-[10px] uppercase font-black tracking-widest text-gray-400">© 2024 Besmak Components Pvt. Ltd.</p>
             </div>
-          </div>
         </div>
       )}
     </header>

@@ -8,7 +8,9 @@ interface ValuesGovernanceHeroProps {
   };
 }
 
-export default function ValuesGovernanceHero({ content }: ValuesGovernanceHeroProps) {
+export default function ValuesGovernanceHero({
+  content,
+}: ValuesGovernanceHeroProps) {
   const {
     title = "Our Values & Governance",
     breadcrumbs = [
@@ -21,11 +23,9 @@ export default function ValuesGovernanceHero({ content }: ValuesGovernanceHeroPr
 
   return (
     <div
-      className="w-full h-[400px] flex items-end pb-[100px] relative bg-cover bg-center bg-no-repeat"
+      className="w-full h-[400px] flex items-center relative bg-cover bg-center bg-no-repeat mt-[85px]"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
-      <div className="absolute inset-0 z-0 bg-black/40" />
-
       <div className="container mx-auto px-4 md:px-6 max-w-7xl relative z-10">
         <div className="text-[16px] mb-2 flex items-center gap-2">
           {breadcrumbs.map((crumb, index) => (
@@ -39,7 +39,9 @@ export default function ValuesGovernanceHero({ content }: ValuesGovernanceHeroPr
                   {crumb.label}
                 </Link>
               ) : (
-                <span className="text-[#ffffff] font-medium">{crumb.label}</span>
+                <span className="text-[#ffffff] font-medium">
+                  {crumb.label}
+                </span>
               )}
             </span>
           ))}

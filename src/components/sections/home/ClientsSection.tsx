@@ -80,10 +80,7 @@ export const DEFAULT_LOGOS: ClientLogo[] = [
 /* ── Component ─────────────────────────────────────────────────── */
 
 export default function ClientsSection({ content }: ClientsSectionProps) {
-  const {
-    title = "Our Clients",
-    logos: logosJson,
-  } = content || {};
+  const { title = "Our Clients", logos: logosJson } = content || {};
 
   /* Parse logos from JSON string (CMS stores arrays as JSON) */
   let logos: ClientLogo[] = DEFAULT_LOGOS;
@@ -114,7 +111,7 @@ export default function ClientsSection({ content }: ClientsSectionProps) {
              WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)'
            }} 
       /> */}
-      
+
       {/* Ambient Lighting to make the background feel dimensional */}
       <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-blue-100/50 rounded-full blur-[100px] -z-10 -translate-x-1/2 -translate-y-1/2 mix-blend-multiply pointer-events-none" />
       <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-emerald-100/30 rounded-full blur-[100px] -z-10 translate-x-1/2 -translate-y-1/2 mix-blend-multiply pointer-events-none" />
@@ -133,23 +130,27 @@ export default function ClientsSection({ content }: ClientsSectionProps) {
               Trusted By Global Leaders
             </span>
           </motion.div>
-          
+
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-[#284b8c] tracking-tight leading-[1.1] mb-5 drop-shadow-sm">
             {title}
           </h2>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-base md:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto"
           >
-            Collaborating with the world's most innovative automotive and engineering brands to drive the core of modern mobility.
+            Collaborating with the world's most innovative automotive and
+            engineering brands to drive the core of modern mobility.
           </motion.p>
         </div>
 
         {/* ── Seamless Marquee Ticker ── */}
-        <div className="cs-ticker relative w-full overflow-hidden mask-edges pt-6 pb-2 md:pt-10 md:pb-2 mt-4 md:mt-8" aria-hidden="true">
+        <div
+          className="cs-ticker relative w-full overflow-hidden mask-edges pt-6 pb-2 md:pt-10 md:pb-2 mt-4 md:mt-8"
+          aria-hidden="true"
+        >
           <div className="cs-track flex items-center pr-8 w-max">
             {track.map((logo, i) => {
               const innerContent = (
@@ -208,7 +209,7 @@ export default function ClientsSection({ content }: ClientsSectionProps) {
 
         /* Seamless Scrolling Animation */
         .cs-track {
-          animation: cs-scroll 60s linear infinite;
+          animation: cs-scroll 100s linear infinite;
         }
 
         /* Pause on hover for interaction */
@@ -225,7 +226,7 @@ export default function ClientsSection({ content }: ClientsSectionProps) {
             transform: translateX(-50%);
           }
         }
-        
+
         @media (max-width: 768px) {
           .cs-track {
             animation-duration: 40s;

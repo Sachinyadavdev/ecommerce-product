@@ -111,7 +111,7 @@ const BlurText = ({
               filter: "blur(0px)",
               opacity: 1,
               y: 0,
-              transition: { duration: 0.6, ease: "easeOut" },
+              transition: { duration: 0.6, ease: "easeOut" as const },
             },
           }}
           className="mr-[0.25em] inline-block"

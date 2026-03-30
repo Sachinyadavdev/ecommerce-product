@@ -103,7 +103,7 @@ export default function StampingProcess({ content }: StampingProcessProps) {
   };
 
   return (
-    <section className="py-24 md:py-32 bg-slate-50 site-content relative overflow-hidden">
+    <section className="py-10 md:py-16 bg-slate-50 site-content relative overflow-hidden">
       {/* Subtle Background Pattern */}
       <div className="absolute inset-0 opacity-[0.015] pointer-events-none" 
            style={{ backgroundImage: `radial-gradient(var(--color-primary) 2px, transparent 2px)`, backgroundSize: '32px 32px' }} />
@@ -117,7 +117,7 @@ export default function StampingProcess({ content }: StampingProcessProps) {
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
+              transition={{ duration: 0.8, ease: "easeOut" as const }}
               className="sticky top-32 lg:pb-12"
             >
               <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
@@ -129,7 +129,7 @@ export default function StampingProcess({ content }: StampingProcessProps) {
               
               <motion.div 
                 whileHover={{ scale: 1.02, y: -4 }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
+                transition={{ duration: 0.4, ease: "easeOut" as const }}
                 className="p-8 md:p-10 rounded-3xl bg-linear-to-br from-blue-950 to-blue-500 text-white shadow-2xl shadow-blue-900/30 relative overflow-hidden group"
               >
                 {/* Decorative background element */}

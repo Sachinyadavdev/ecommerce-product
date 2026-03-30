@@ -156,147 +156,7 @@ function EventCard({ event, index, status }: { event: Event; index: number; stat
   );
 }
 
-const MOCK_EVENTS: Event[] = [
-  {
-    id: "1",
-    slug: "industrial-expo-2026",
-    title: "Industrial Expo 2026",
-    subtitle: "Showcase of Precision Connectors",
-    description: "Join us at the largest industrial exhibition in Mumbai where we showcase our latest precision electrical connectors and manufacturing capabilities.",
-    location: "Jio World Convention Centre, Mumbai",
-    startDate: "2026-06-15",
-    endDate: "2026-06-18",
-    thumbnail: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800",
-    tags: "Exhibition, Manufacturing, Mumbai",
-    status: "upcoming"
-  },
-  {
-    id: "2",
-    slug: "global-tech-summit",
-    title: "Global Tech Summit 2026",
-    subtitle: "Precision Meets Innovation",
-    description: "A premier gathering of technology leaders. Besmak India will be presenting our innovations in high-frequency connectivity solutions.",
-    location: "BIEC, Bangalore",
-    startDate: "2026-07-20",
-    endDate: "2026-07-22",
-    thumbnail: "https://images.unsplash.com/photo-1540575861501-7cf05a4b125a?auto=format&fit=crop&q=80&w=800",
-    tags: "Summit, Tech, Bangalore",
-    status: "upcoming"
-  },
-  {
-    id: "3",
-    slug: "electrical-connectivity-fair",
-    title: "Electrical Connectivity Fair",
-    subtitle: "Bridging the Future",
-    description: "We are currently participating in the Chennai Electrical Fair. Visit our booth to see live demonstrations of our connector assembly processes.",
-    location: "Chennai Trade Centre",
-    startDate: "2026-03-18",
-    endDate: "2026-03-22",
-    thumbnail: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&q=80&w=800",
-    tags: "Trade Show, Electrical, Chennai",
-    status: "ongoing"
-  },
-  {
-    id: "4",
-    slug: "manufacturing-innovation-week",
-    title: "Manufacturing Innovation Week",
-    subtitle: "Leading the Charge",
-    description: "Exploring the future of Industry 4.0. Besmak India is a silver sponsor of this prestigious event.",
-    location: "Pragati Maidan, New Delhi",
-    startDate: "2026-08-05",
-    endDate: "2026-08-09",
-    thumbnail: "https://images.unsplash.com/photo-1565514020179-026b92b84bb6?auto=format&fit=crop&q=80&w=800",
-    tags: "Innovation, Manufacturing, Delhi",
-    status: "upcoming"
-  },
-  {
-    id: "5",
-    slug: "smart-grid-forum",
-    title: "Smart Grid Forum 2026",
-    subtitle: "Powering Tomorrow",
-    description: "Discussing the role of precision components in the evolution of smart grids across India.",
-    location: "HICC, Hyderabad",
-    startDate: "2026-09-12",
-    endDate: "2026-09-14",
-    thumbnail: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&q=80&w=800",
-    tags: "Smart Grid, Forum, Hyderabad",
-    status: "upcoming"
-  },
-  {
-    id: "6",
-    slug: "precision-engineering-show",
-    title: "Precision Engineering Show",
-    subtitle: "Legacy of Excellence",
-    description: "A look back at our participation in the Pune engineering show where we won the best innovation award.",
-    location: "Auto Cluster Exhibition Center, Pune",
-    startDate: "2025-11-10",
-    endDate: "2025-11-12",
-    thumbnail: "https://images.unsplash.com/photo-1504917595217-d4dc5f649771?auto=format&fit=crop&q=80&w=800",
-    tags: "Engineering, Show, Pune",
-    status: "completed"
-  },
-  {
-    id: "7",
-    slug: "auto-components-expo",
-    title: "Auto Components Expo",
-    subtitle: "Driving Industry Standards",
-    description: "Showcasing our range of automotive electrical connectors in Noida.",
-    location: "India Expo Mart, Noida",
-    startDate: "2025-12-05",
-    endDate: "2025-12-08",
-    thumbnail: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=800",
-    tags: "Automotive, Expo, Noida",
-    status: "completed"
-  },
-  {
-    id: "8",
-    slug: "industrial-automation-expo",
-    title: "Industrial Automation Expo",
-    subtitle: "Automating Growth",
-    description: "Meet our automation experts and learn about our state-of-the-art manufacturing facilities.",
-    location: "CODISSIA Trade Fair Complex, Coimbatore",
-    startDate: "2026-10-02",
-    endDate: "2026-10-05",
-    thumbnail: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800",
-    tags: "Automation, Expo, Coimbatore",
-    status: "upcoming"
-  },
-  {
-    id: "9",
-    slug: "power-energy-summit",
-    title: "Power & Energy Summit",
-    subtitle: "Sustainable Connections",
-    description: "Exploring sustainable manufacturing practices and energy-efficient connectivity solutions.",
-    location: "Mahatma Mandir, Ahmedabad",
-    startDate: "2026-11-15",
-    endDate: "2026-11-17",
-    thumbnail: "https://images.unsplash.com/photo-1454165833741-976552c5a7d1?auto=format&fit=crop&q=80&w=800",
-    tags: "Energy, Summit, Ahmedabad",
-    status: "upcoming"
-  },
-  {
-    id: "10",
-    slug: "digital-manufacturing-conclave",
-    title: "Digital Manufacturing Conclave",
-    subtitle: "The Future is Digital",
-    description: "Ongoing discussion on digital transformation in the electrical components industry.",
-    location: "Biswa Bangla Convention Centre, Kolkata",
-    startDate: "2026-03-15",
-    endDate: "2026-03-20",
-    thumbnail: "https://images.unsplash.com/photo-1558494949-ef010958d684?auto=format&fit=crop&q=80&w=800",
-    tags: "Digital, Manufacturing, Kolkata",
-    status: "ongoing"
-  }
-];
 
-const MOCK_MEDIA = [
-  { id: "m1", type: "image" as const, url: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800", title: "Industrial Expo Poster" },
-  { id: "m2", type: "image" as const, url: "https://images.unsplash.com/photo-1540575861501-7cf05a4b125a?auto=format&fit=crop&q=80&w=800", title: "Tech Summit Banner" },
-  { id: "m3", type: "video" as const, url: "https://images.unsplash.com/photo-1565514020179-026b92b84bb6?auto=format&fit=crop&q=80&w=800", title: "Corporate Highlights", thumbnail: "https://images.unsplash.com/photo-1565514020179-026b92b84bb6?auto=format&fit=crop&q=80&w=800" },
-  { id: "m4", type: "image" as const, url: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&q=80&w=800", title: "Smart Grid Event" },
-  { id: "m5", type: "video" as const, url: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800", title: "Manufacturing Tour", thumbnail: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800" },
-  { id: "m6", type: "image" as const, url: "https://images.unsplash.com/photo-1504917595217-d4dc5f649771?auto=format&fit=crop&q=80&w=800", title: "Engineering Expo" },
-];
 
 export default function EventsList({ 
   upcoming: initialUpcoming = [], 
@@ -304,10 +164,10 @@ export default function EventsList({
   past: initialPast = [],
   content
 }: EventsListProps) {
-  const [upcoming, setUpcoming] = React.useState<Event[]>(initialUpcoming.length > 0 ? initialUpcoming : MOCK_EVENTS.filter(e => e.status === "upcoming"));
-  const [ongoing, setOngoing] = React.useState<Event[]>(initialOngoing.length > 0 ? initialOngoing : MOCK_EVENTS.filter(e => e.status === "ongoing"));
-  const [past, setPast] = React.useState<Event[]>(initialPast.length > 0 ? initialPast : MOCK_EVENTS.filter(e => e.status === "completed"));
-  const [loading, setLoading] = React.useState(false);
+  const [upcoming, setUpcoming] = React.useState<Event[]>(initialUpcoming);
+  const [ongoing, setOngoing] = React.useState<Event[]>(initialOngoing);
+  const [past, setPast] = React.useState<Event[]>(initialPast);
+  const [loading, setLoading] = React.useState(initialUpcoming.length === 0 && initialOngoing.length === 0 && initialPast.length === 0);
 
   const {
     title = "Events & Exhibitions",
@@ -315,10 +175,44 @@ export default function EventsList({
   } = content || {};
 
   React.useEffect(() => {
-    if (initialUpcoming.length === 0 && initialOngoing.length === 0 && initialPast.length === 0) {
-      // Simulate fetch or use mock data
-      // For now, we are using MOCK_EVENTS directly in initial state
+    // If we have initial data, use it and stop loading
+    if (initialUpcoming.length > 0 || initialOngoing.length > 0 || initialPast.length > 0) {
+      setUpcoming(initialUpcoming);
+      setOngoing(initialOngoing);
+      setPast(initialPast);
+      setLoading(false);
+      return;
     }
+
+    // Otherwise fetch from API
+    const fetchEvents = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch("/api/events");
+        const data = await response.json();
+        
+        if (Array.isArray(data)) {
+          const now = new Date();
+          const up = data.filter(e => new Date(e.startDate) > now);
+          const on = data.filter(e => {
+            const start = new Date(e.startDate);
+            const end = e.endDate ? new Date(e.endDate) : null;
+            return start <= now && (!end || end >= now);
+          });
+          const pa = data.filter(e => e.endDate && new Date(e.endDate) < now);
+          
+          setUpcoming(up);
+          setOngoing(on);
+          setPast(pa);
+        }
+      } catch (error) {
+        console.error("Failed to fetch events:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEvents();
   }, [initialUpcoming, initialOngoing, initialPast]);
 
   const hasUpcoming = upcoming.length > 0;
@@ -338,15 +232,8 @@ export default function EventsList({
 
   return (
     <div className="bg-[#f8fafc] overflow-hidden">
-      {/* Horizontal Media Section */}
-      <div className="bg-white">
-        <HorizontalMediaScroll 
-          items={MOCK_MEDIA} 
-          title="Event Posters & Highlights" 
-        />
-      </div>
-
-      <section className="py-24 relative">
+      {hasUpcoming || hasOngoing || hasPast ? (
+        <section className="py-24 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-8">
           {/* Header Section */}
           <motion.div
@@ -469,6 +356,7 @@ export default function EventsList({
           )}
         </div>
       </section>
+      ) : null}
 
       {/* Social Media Feed Footer */}
       <div className="bg-white">

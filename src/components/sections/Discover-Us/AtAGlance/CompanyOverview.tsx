@@ -123,7 +123,7 @@ export default function CompanyOverview({ content }: CompanyOverviewProps) {
   };
 
   return (
-    <section className="bg-slate-50 py-24 overflow-hidden relative">
+    <section className="bg-slate-50 py-10 md:py-16 overflow-hidden relative">
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-50/50 rounded-full blur-[100px] -z-10 -translate-y-1/2 translate-x-1/2" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-emerald-50/50 rounded-full blur-[80px] -z-10 translate-y-1/2 -translate-x-1/2" />
 

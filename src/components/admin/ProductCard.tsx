@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Edit, ExternalLink, Trash2, Package, Tag } from "lucide-react";
 import DeleteProductButton from "./DeleteProductButton";
-import { getSafeImageSrc } from "@/lib/image-utils";
+import { getSafeImageSrc, getProductLink } from "@/lib/image-utils";
 
 interface ProductCardProps {
   product: {
@@ -12,6 +12,7 @@ interface ProductCardProps {
     name: string;
     slug: string;
     categoryName: string;
+    categorySlug: string;
     categorySpecification?: string;
     images: string | string[];
   };
@@ -38,7 +39,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         {/* Overlay Actions */}
         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2 backdrop-blur-[2px]">
           <Link
-            href={`/products/${product.slug}`}
+            href={getProductLink(product)}
             target="_blank"
             className="p-2.5 bg-white/10 hover:bg-white/20 text-white rounded-xl backdrop-blur-md transition-all hover:scale-110"
             title="View Live"

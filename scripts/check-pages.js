@@ -9,11 +9,8 @@ async function check() {
   });
 
   try {
-    const [rows] = await pool.execute(
-      "SELECT slug, title, description FROM pages",
-    );
-    console.log("Existing Pages in DB:");
-    console.table(rows);
+    const [pages] = await pool.execute("SELECT * FROM pages");
+    console.log("Pages:", JSON.stringify(pages, null, 2));
   } catch (error) {
     console.error("Check failed:", error);
   } finally {

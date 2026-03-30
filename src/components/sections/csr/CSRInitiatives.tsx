@@ -24,7 +24,7 @@ interface CSRInitiativesProps {
 export default function CSRInitiatives({ content }: CSRInitiativesProps) {
   const {
     heading = "OUR KEY INITIATIVES",
-    image = "https://fohffyjhcwci6coi.public.blob.vercel-storage.com/CSR-Initiatives-Landscape-key.png",
+    image = "https://fohffyjhcwci6coi.public.blob.vercel-storage.com/Key-community.png",
   } = content || {};
 
   const displayItems: CSRInitiative[] = [
@@ -65,7 +65,7 @@ export default function CSRInitiatives({ content }: CSRInitiativesProps) {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: "easeOut" as any }
+      transition: { duration: 0.8, ease: "easeOut" as const as any }
     }
   };
 
@@ -80,7 +80,7 @@ export default function CSRInitiatives({ content }: CSRInitiativesProps) {
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-[#009966]/5 text-[#009966] rounded-full text-xs font-black tracking-[0.2em] mb-6 border border-[#009966]/10"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-[#009966]/5 text-[#009966] rounded-[10px] text-xs font-black tracking-[0.2em] mb-6 border border-[#009966]/10"
           >
             <CheckCircle2 size={14} />
             {heading}
@@ -101,20 +101,30 @@ export default function CSRInitiatives({ content }: CSRInitiativesProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1 }}
-          className="relative w-full aspect-[21/9] min-h-[300px] md:min-h-[500px] rounded-[3rem] overflow-hidden shadow-2xl mb-16 group"
+          className="relative w-full aspect-video min-h-[400px] md:h-auto rounded-[3rem] overflow-hidden shadow-2xl mb-16 group"
         >
           <img 
             src={image} 
             alt="CSR Main Visualization" 
-            className="w-full h-full object-cover grayscale transition-all duration-[3s] group-hover:grayscale-0 group-hover:scale-105" 
+            className="w-full h-full object-cover transition-all duration-[3s] group-hover:scale-105" 
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent flex flex-col justify-end p-8 md:p-16">
-            <h3 className="text-white text-3xl md:text-4xl font-bold mb-4 tracking-tight drop-shadow-md">
-              Committed to Sustainable Development
-            </h3>
-            <p className="text-white/80 text-lg max-w-xl hidden md:block leading-relaxed">
-              Our initiatives are integrated into our core business strategy, ensuring that every step we take towards growth is a step towards a better world.
-            </p>
+          
+          {/* Green-Blue Overlay Gradient (Right Aligned, with gap from edge) */}
+          <div className="absolute inset-0 bg-linear-to-l from-[#009966]/80 via-[#284b8c]/20 to-transparent flex flex-col justify-center items-end pr-8 md:pr-16 py-8">
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="max-w-xl bg-white/5 backdrop-blur-lg p-6 md:p-10 rounded-[2.5rem] border-l-8 border-[#009966] border-y border-r border-white/10 shadow-2xl text-left"
+            >
+              <h3 className="text-white text-2xl md:text-3xl font-black mb-4 tracking-tighter leading-tight drop-shadow-2xl md:whitespace-nowrap">
+                Committed to <span className="text-white/90">Sustainable Development</span>
+              </h3>
+              <p className="text-white/80 text-base md:text-lg font-light leading-relaxed drop-shadow-lg mb-0">
+                Our initiatives are integrated into our core business strategy, ensuring that every step we take towards growth is a step towards a better world.
+              </p>
+            </motion.div>
           </div>
         </motion.div>
 
@@ -172,7 +182,7 @@ function InitiativeCard({ item, variants }: { item: CSRInitiative; variants: any
         {item.images ? (
           <div className="pt-8 space-y-4">
             {/* Interactive Gallery */}
-            <div className="relative w-full aspect-square md:w-[600px] md:h-[600px] max-w-full rounded-3xl overflow-hidden shadow-lg bg-slate-200">
+            <div className="relative w-full aspect-square md:w-[600px] md:h-[500px] max-w-full rounded-3xl overflow-hidden shadow-lg bg-slate-200">
               {item.images.map((img, i) => (
                 <motion.img
                   key={i}

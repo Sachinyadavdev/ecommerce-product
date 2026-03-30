@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ImageIcon } from "lucide-react";
 import { motion } from "framer-motion";
-import { isValidImageSrc } from "@/lib/image-utils";
+import { isValidImageSrc, getProductLink } from "@/lib/image-utils";
 
 interface Product {
   id: string;
@@ -104,13 +104,13 @@ export default function ProductGrid({ products }: ProductGridProps) {
             whileHover={{
               y: -12,
               scale: 1.02,
-              transition: { duration: 0.3, ease: "easeOut" }
+              transition: { duration: 0.3, ease: "easeOut" as const }
             }}
             className="group block h-full"
           >
             <Link
-              href={`/products/${product.category.slug}/${product.slug}`}
-              className="flex flex-col bg-white border border-slate-100 rounded-xl overflow-hidden shadow-[0_10px_40px_rgb(0,0,0,0.03)] hover:shadow-[0_25px_60px_rgba(var(--primary-rgb),0.12)] hover:border-primary/30 transition-all duration-500 h-full relative font-body"
+              href={getProductLink(product)}
+              className="flex flex-col bg-white border border-slate-100 rounded-[10px] overflow-hidden shadow-[0_10px_40px_rgb(0,0,0,0.03)] hover:shadow-[0_25px_60px_rgba(var(--primary-rgb),0.12)] hover:border-primary/30 transition-all duration-500 h-full relative font-body"
             >
               <div className="h-64 bg-slate-50/50 flex items-center justify-center relative overflow-hidden">
                 {featuredImage ? (
@@ -122,12 +122,12 @@ export default function ProductGrid({ products }: ProductGridProps) {
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   />
                 ) : (
-                  <div className="flex flex-col items-center gap-2 text-gray-400">
-                    <ImageIcon className="h-10 w-10 opacity-20" />
-                    <span className="text-xs  tracking-wider font-medium opacity-50">
-                      No image available
-                    </span>
-                  </div>
+                  <Image
+                    src="/assets/placeholder/no-product-image.png"
+                    alt="No image available"
+                    fill
+                    className="object-cover opacity-60 group-hover:scale-105 transition-transform duration-1000 ease-out"
+                  />
                 )}
                 {/* Subtle Overlay */}
                 <div className="absolute inset-0 bg-transparent group-hover:bg-primary/5 transition-colors duration-500" />

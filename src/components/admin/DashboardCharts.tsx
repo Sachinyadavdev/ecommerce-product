@@ -29,7 +29,7 @@ export const CircularProgress = ({ value, label, color }: { value: number; label
                     strokeDasharray={circumference}
                     initial={{ strokeDashoffset: circumference }}
                     animate={{ strokeDashoffset }}
-                    transition={{ duration: 1.5, ease: "easeOut" }}
+                    transition={{ duration: 1.5, ease: "easeOut" as const }}
                     className={color}
                 />
             </svg>
@@ -54,7 +54,7 @@ export const TrendBar = ({ label, value, total, color }: { label: string; value:
                 <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${percentage}%` }}
-                    transition={{ duration: 1, ease: "easeOut" }}
+                    transition={{ duration: 1, ease: "easeOut" as const }}
                     className={`h-full ${color} rounded-full`}
                 />
             </div>

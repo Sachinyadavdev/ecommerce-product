@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Heart, Target, Recycle, ArrowRight, ShieldCheck, HandHeart } from "lucide-react";
+import { Heart, Target, Recycle, ArrowRight, ShieldCheck, HandHeart, Compass, BookOpen } from "lucide-react";
 
 interface CSRGridProps {
   content?: {
@@ -23,7 +23,7 @@ export default function CSRGrid({ content }: CSRGridProps) {
     body = "At Besmak Components Pvt. Ltd., we believe that responsible growth goes beyond business success. Our Corporate Social Responsibility (CSR) initiatives reflect our commitment to creating a positive impact on society and the environment through sustainable and meaningful actions.",
     philosophyTitle = "Our CSR Philosophy",
     philosophyBody = "Our approach to CSR is rooted in the belief that businesses have a responsibility to contribute to the well-being of the communities they serve. We focus on initiatives that promote environmental sustainability, healthcare support, and community development, ensuring long-term value for society.",
-    image = "https://fohffyjhcwci6coi.public.blob.vercel-storage.com/CSR-images.jpg",
+    image = "https://fohffyjhcwci6coi.public.blob.vercel-storage.com/CSR-Besmak-Image.png",
   } = content || {};
 
   const containerVariants = {
@@ -133,16 +133,18 @@ export default function CSRGrid({ content }: CSRGridProps) {
 
             <motion.div 
               variants={itemVariants}
-              className="relative p-10 bg-white rounded-[2.5rem] shadow-sm border border-slate-100 group overflow-hidden"
+              whileHover={{ y: -8, boxShadow: "0 20px 40px -15px rgba(0,0,0,0.05)", borderColor: "rgba(30,42,107,0.1)" }}
+              transition={{ duration: 0.4, ease: "easeOut" as const }}
+              className="relative p-10 bg-white rounded-[2.5rem] shadow-sm border border-slate-100 group overflow-hidden cursor-default"
             >
               <div className="absolute top-0 right-0 p-8 text-slate-50 group-hover:text-blue-50 transition-colors pointer-events-none">
-                <Recycle size={120} strokeWidth={0.5} />
+                <BookOpen size={120} strokeWidth={0.5} />
               </div>
               
               <div className="relative z-10 flex flex-col gap-6">
                 <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 bg-white shadow-md border border-slate-100 rounded-2xl flex items-center justify-center text-[#1e2a6b]">
-                    <Target className="w-7 h-7" />
+                  <div className="w-14 h-14 bg-white shadow-md border border-slate-100 rounded-2xl flex items-center justify-center text-[#1e2a6b] group-hover:scale-110 group-hover:rotate-12 transition-transform duration-500">
+                    <Compass className="w-7 h-7" />
                   </div>
                   <h3 className="text-2xl font-bold text-slate-800 tracking-tight">
                     {philosophyTitle}

@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { ImageIcon, ChevronRight, ChevronLeft } from "lucide-react";
+import { ChevronRight, ChevronLeft } from "lucide-react";
 import { motion } from "framer-motion";
 import { useRef } from "react";
-import { isValidImageSrc } from "@/lib/image-utils";
+import { isValidImageSrc, getProductLink } from "@/lib/image-utils";
 
 interface Product {
   id: string;
@@ -93,7 +93,7 @@ export default function RelatedProducts({ products }: RelatedProductsProps) {
               className="flex-shrink-0 w-[280px] sm:w-[320px] snap-start"
             >
               <Link
-                href={`/products/${product.category.slug}/${product.slug}`}
+                href={getProductLink(product)}
                 className="flex flex-col bg-indigo-50/20 border border-indigo-100/60 rounded-xl overflow-hidden shadow-[0_10px_40px_rgb(0,0,0,0.03)] hover:shadow-[0_25px_60px_rgba(var(--primary-rgb),0.12)] hover:border-indigo-400 transition-all duration-500 h-full relative group"
               >
                 <div className="h-48 sm:h-56 bg-indigo-50/40 flex items-center justify-center relative overflow-hidden">
@@ -106,12 +106,12 @@ export default function RelatedProducts({ products }: RelatedProductsProps) {
                       sizes="(max-width: 640px) 280px, 320px"
                     />
                   ) : (
-                    <div className="flex flex-col items-center gap-2 text-gray-400">
-                      <ImageIcon className="h-8 w-8 opacity-20" />
-                      <span className="text-[10px] tracking-wider font-medium opacity-50">
-                        No image available
-                      </span>
-                    </div>
+                    <Image
+                      src="/assets/placeholder/no-product-image.png"
+                      alt="No image available"
+                      fill
+                      className="object-cover opacity-60 group-hover:scale-105 transition-transform duration-1000 ease-out"
+                    />
                   )}
                   <div className="absolute inset-0 bg-indigo-500/0 group-hover:bg-indigo-500/5 transition-colors duration-500" />
                 </div>

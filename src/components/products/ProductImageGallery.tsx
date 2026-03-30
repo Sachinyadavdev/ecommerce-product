@@ -126,9 +126,13 @@ export default function ProductImageGallery({
               )}
             </motion.div>
           ) : (
-            <div key="no-image" className="flex flex-col items-center justify-center text-slate-200">
-              <ImageIcon className="h-20 w-20 mb-4 opacity-10" />
-              <span className="text-[10px] font-black uppercase tracking-widest opacity-50">Industrial Asset Missing</span>
+            <div key="no-image" className="absolute inset-0 p-8">
+              <Image
+                src="/assets/placeholder/no-product-image.png"
+                alt="No image available"
+                fill
+                className="object-contain opacity-60"
+              />
             </div>
           )}
         </AnimatePresence>

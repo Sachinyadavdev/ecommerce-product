@@ -59,7 +59,7 @@ export default function ConnectionSystemsOverview({ content }: ConnectionSystems
   };
 
   return (
-    <section className="py-24 md:py-32 bg-slate-50 relative overflow-hidden site-content">
+    <section className="py-10 md:py-16 bg-slate-50 relative overflow-hidden site-content">
       {/* Background Decorative Elements */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
         <div className="absolute -top-24 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
@@ -79,7 +79,7 @@ export default function ConnectionSystemsOverview({ content }: ConnectionSystems
         >
           {/* Text Content */}
           <motion.div className="order-2 lg:order-1">
-            <motion.div variants={itemVariants} className="inline-block px-4 py-1.5 bg-primary/10 rounded-full mb-6">
+            <motion.div variants={itemVariants} className="inline-block px-4 py-1.5 bg-primary/10 rounded-[10px] mb-6">
               <span className="text-primary font-bold tracking-wider text-xs uppercase">Vision & Excellence</span>
             </motion.div>
             
@@ -148,7 +148,7 @@ export default function ConnectionSystemsOverview({ content }: ConnectionSystems
                 variants={imageVariants}
                 whileHover={{ scale: 1.05, y: -10, rotate: -1 }}
                 transition={{ duration: 0.4 }}
-                className="absolute bottom-0 left-0 w-[60%] h-[60%] rounded-3xl overflow-hidden shadow-2xl z-20 border-8 border-white group cursor-pointer"
+                className="absolute bottom-0 left-0 w-[45%] h-[45%] rounded-3xl overflow-hidden shadow-2xl z-20 border-8 border-white group cursor-pointer"
               >
                 <img 
                   src={image2} 

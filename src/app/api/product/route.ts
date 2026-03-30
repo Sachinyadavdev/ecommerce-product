@@ -33,7 +33,7 @@ export async function POST(req: Request) {
     }
 
     const data = await req.json();
-    const { id, name, slug, description, categoryId, categorySpecification, images, specifications } = data;
+    const { id, name, slug, description, categoryId, categorySpecification, images, bannerImage, specifications } = data;
 
     if (!name || !slug) {
       return NextResponse.json({ error: "Name and Slug are required" }, { status: 400 });
@@ -41,7 +41,7 @@ export async function POST(req: Request) {
 
     const now = new Date();
     await dbQuery(
-      "INSERT INTO product (id, name, slug, description, categoryId, categorySpecification, images, specifications, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO product (id, name, slug, description, categoryId, categorySpecification, images, bannerImage, specifications, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [
         id || Math.random().toString(36).substr(2, 9),
         name,
@@ -50,6 +50,7 @@ export async function POST(req: Request) {
         categoryId || null,
         categorySpecification || null,
         images ? JSON.stringify(images) : "[]",
+        bannerImage || null,
         specifications ? JSON.stringify(specifications) : "{}",
         now,
         now
@@ -72,7 +73,7 @@ export async function PUT(req: Request) {
     }
 
     const data = await req.json();
-    const { id, name, slug, description, categoryId, categorySpecification, images, specifications } = data;
+    const { id, name, slug, description, categoryId, categorySpecification, images, bannerImage, specifications } = data;
 
     if (!id || !name || !slug) {
       return NextResponse.json({ error: "ID, Name, and Slug are required" }, { status: 400 });
@@ -80,7 +81,7 @@ export async function PUT(req: Request) {
 
     const now = new Date();
     await dbQuery(
-      "UPDATE product SET name = ?, slug = ?, description = ?, categoryId = ?, categorySpecification = ?, images = ?, specifications = ?, updatedAt = ? WHERE id = ?",
+      "UPDATE product SET name = ?, slug = ?, description = ?, categoryId = ?, categorySpecification = ?, images = ?, bannerImage = ?, specifications = ?, updatedAt = ? WHERE id = ?",
       [
         name,
         slug,
@@ -88,6 +89,7 @@ export async function PUT(req: Request) {
         categoryId || null,
         categorySpecification || null,
         images ? JSON.stringify(images) : "[]",
+        bannerImage || null,
         specifications ? JSON.stringify(specifications) : "{}",
         now,
         id
