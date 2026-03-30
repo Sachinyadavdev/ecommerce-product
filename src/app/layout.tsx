@@ -46,6 +46,7 @@ import ThemeRegistry from "@/components/layout/ThemeRegistry";
 import { getAllSettings } from "@/lib/settings";
 import BackToTop from "@/components/ui/BackToTop";
 import IndustrialLoader from "@/components/ui/IndustrialLoader";
+import DisclaimerPopup from "@/components/ui/DisclaimerPopup";
 import JsonLd from "@/components/seo/JsonLd";
 import { Suspense } from "react";
 async function ThemeProviderWrapper({ children }: { children: React.ReactNode }) {
@@ -109,6 +110,7 @@ export default function RootLayout({
             <Suspense fallback={<IndustrialLoader forceShow={true} />}>
               {children}
             </Suspense>
+            <DisclaimerPopup />
             <BackToTop />
             <Toaster richColors position="top-right" />
           </ThemeProviderWrapper>
